@@ -1,0 +1,11 @@
+node_modules
+codegen.log
+Brewfile.lock.json
+dist
+/deno
+/*.tgz
+
+.vscode
+
+.DS_Store
+.env
