@@ -15,8 +15,8 @@ getting the wrong raw `Response` type from `.asResponse()`, for example.
 
 The user can work around these issues by manually importing one of:
 
-- `import 'spacedf-sdk/shims/node'`
-- `import 'spacedf-sdk/shims/web'`
+-   `import 'spacedf-sdk/shims/node'`
+-   `import 'spacedf-sdk/shims/web'`
 
 All of the code here in `_shims` handles selecting the automatic default shims or manual overrides.
 
@@ -28,9 +28,9 @@ Manually importing `spacedf-sdk/shims/node` or `spacedf-sdk/shims/web`, calls `s
 
 All client code imports shims from `spacedf-sdk/_shims/index`, which:
 
-- checks if shims have been set manually
-- if not, calls `setShims` with the shims from `spacedf-sdk/_shims/auto/runtime`
-- re-exports the installed shims from `spacedf-sdk/_shims/registry`.
+-   checks if shims have been set manually
+-   if not, calls `setShims` with the shims from `spacedf-sdk/_shims/auto/runtime`
+-   re-exports the installed shims from `spacedf-sdk/_shims/registry`.
 
 `spacedf-sdk/_shims/auto/runtime` exports web runtime shims.
 If the `node` export condition is set, the export map replaces it with `spacedf-sdk/_shims/auto/runtime-node`.

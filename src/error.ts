@@ -1,144 +1,134 @@
 import { castToError, Headers } from './core';
 
-export class SpacedfSDKError extends Error {}
+export class SpaceDFError extends Error {}
 
-export class APIError extends SpacedfSDKError {
-  readonly status: number | undefined;
-  readonly headers: Headers | undefined;
-  readonly error: Object | undefined;
+export class APIError extends SpaceDFError {
+    readonly status: number | undefined;
+    readonly headers: Headers | undefined;
+    readonly error: object | undefined;
 
-  constructor(
-    status: number | undefined,
-    error: Object | undefined,
-    message: string | undefined,
-    headers: Headers | undefined,
-  ) {
-    super(`${APIError.makeMessage(status, error, message)}`);
-    this.status = status;
-    this.headers = headers;
-    this.error = error;
-  }
-
-  private static makeMessage(status: number | undefined, error: any, message: string | undefined) {
-    const msg =
-      error?.message ?
-        typeof error.message === 'string' ?
-          error.message
-        : JSON.stringify(error.message)
-      : error ? JSON.stringify(error)
-      : message;
-
-    if (status && msg) {
-      return `${status} ${msg}`;
-    }
-    if (status) {
-      return `${status} status code (no body)`;
-    }
-    if (msg) {
-      return msg;
-    }
-    return '(no status code or body)';
-  }
-
-  static generate(
-    status: number | undefined,
-    errorResponse: Object | undefined,
-    message: string | undefined,
-    headers: Headers | undefined,
-  ) {
-    if (!status) {
-      return new APIConnectionError({ message, cause: castToError(errorResponse) });
+    constructor(status: number | undefined, error: object | undefined, message: string | undefined, headers: Headers | undefined) {
+        super(`${APIError.makeMessage(status, error, message)}`);
+        this.status = status;
+        this.headers = headers;
+        this.error = error;
     }
 
-    const error = errorResponse as Record<string, any>;
+    private static makeMessage(status: number | undefined, error: any, message: string | undefined) {
+        const msg = error?.message
+            ? typeof error.message === 'string'
+                ? error.message
+                : JSON.stringify(error.message)
+            : error
+              ? JSON.stringify(error)
+              : message;
 
-    if (status === 400) {
-      return new BadRequestError(status, error, message, headers);
+        if (status && msg) {
+            return `${status} ${msg}`;
+        }
+        if (status) {
+            return `${status} status code (no body)`;
+        }
+        if (msg) {
+            return msg;
+        }
+        return '(no status code or body)';
     }
 
-    if (status === 401) {
-      return new AuthenticationError(status, error, message, headers);
-    }
+    static generate(status: number | undefined, errorResponse: object | undefined, message: string | undefined, headers: Headers | undefined) {
+        if (!status) {
+            return new APIConnectionError({ message, cause: castToError(errorResponse) });
+        }
 
-    if (status === 403) {
-      return new PermissionDeniedError(status, error, message, headers);
-    }
+        const error = errorResponse as Record<string, any>;
 
-    if (status === 404) {
-      return new NotFoundError(status, error, message, headers);
-    }
+        if (status === 400) {
+            return new BadRequestError(status, error, message, headers);
+        }
 
-    if (status === 409) {
-      return new ConflictError(status, error, message, headers);
-    }
+        if (status === 401) {
+            return new AuthenticationError(status, error, message, headers);
+        }
 
-    if (status === 422) {
-      return new UnprocessableEntityError(status, error, message, headers);
-    }
+        if (status === 403) {
+            return new PermissionDeniedError(status, error, message, headers);
+        }
 
-    if (status === 429) {
-      return new RateLimitError(status, error, message, headers);
-    }
+        if (status === 404) {
+            return new NotFoundError(status, error, message, headers);
+        }
 
-    if (status >= 500) {
-      return new InternalServerError(status, error, message, headers);
-    }
+        if (status === 409) {
+            return new ConflictError(status, error, message, headers);
+        }
 
-    return new APIError(status, error, message, headers);
-  }
+        if (status === 422) {
+            return new UnprocessableEntityError(status, error, message, headers);
+        }
+
+        if (status === 429) {
+            return new RateLimitError(status, error, message, headers);
+        }
+
+        if (status >= 500) {
+            return new InternalServerError(status, error, message, headers);
+        }
+
+        return new APIError(status, error, message, headers);
+    }
 }
 
 export class APIUserAbortError extends APIError {
-  override readonly status: undefined = undefined;
+    override readonly status: undefined = undefined;
 
-  constructor({ message }: { message?: string } = {}) {
-    super(undefined, undefined, message || 'Request was aborted.', undefined);
-  }
+    constructor({ message }: { message?: string } = {}) {
+        super(undefined, undefined, message || 'Request was aborted.', undefined);
+    }
 }
 
 export class APIConnectionError extends APIError {
-  override readonly status: undefined = undefined;
+    override readonly status: undefined = undefined;
 
-  constructor({ message, cause }: { message?: string | undefined; cause?: Error | undefined }) {
-    super(undefined, undefined, message || 'Connection error.', undefined);
-    // in some environments the 'cause' property is already declared
-    // @ts-ignore
-    if (cause) this.cause = cause;
-  }
+    constructor({ message, cause }: { message?: string | undefined; cause?: Error | undefined }) {
+        super(undefined, undefined, message || 'Connection error.', undefined);
+        // in some environments the 'cause' property is already declared
+        // @ts-ignore
+        if (cause) this.cause = cause;
+    }
 }
 
 export class APIConnectionTimeoutError extends APIConnectionError {
-  constructor({ message }: { message?: string } = {}) {
-    super({ message: message ?? 'Request timed out.' });
-  }
+    constructor({ message }: { message?: string } = {}) {
+        super({ message: message ?? 'Request timed out.' });
+    }
 }
 
 export class BadRequestError extends APIError {
-  override readonly status: 400 = 400;
+    override readonly status = 400 as const;
 }
 
 export class AuthenticationError extends APIError {
-  override readonly status: 401 = 401;
+    override readonly status = 401 as const;
 }
 
 export class PermissionDeniedError extends APIError {
-  override readonly status: 403 = 403;
+    override readonly status = 403 as const;
 }
 
 export class NotFoundError extends APIError {
-  override readonly status: 404 = 404;
+    override readonly status = 404 as const;
 }
 
 export class ConflictError extends APIError {
-  override readonly status: 409 = 409;
+    override readonly status = 409 as const;
 }
 
 export class UnprocessableEntityError extends APIError {
-  override readonly status: 422 = 422;
+    override readonly status = 422 as const;
 }
 
 export class RateLimitError extends APIError {
-  override readonly status: 429 = 429;
+    override readonly status = 429 as const;
 }
 
 export class InternalServerError extends APIError {}

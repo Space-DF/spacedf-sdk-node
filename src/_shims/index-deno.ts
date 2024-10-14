@@ -42,12 +42,12 @@ export { type _HeadersInit as HeadersInit };
 type EndingType = 'native' | 'transparent';
 
 export interface BlobPropertyBag {
-  endings?: EndingType;
-  type?: string;
+    endings?: EndingType;
+    type?: string;
 }
 
 export interface FilePropertyBag extends BlobPropertyBag {
-  lastModified?: number;
+    lastModified?: number;
 }
 
 export type FileFromPathOptions = Omit<FilePropertyBag, 'lastModified'>;
@@ -64,43 +64,40 @@ const _Blob = Blob;
 type _Blob = Blob;
 export { _Blob as Blob };
 
-export async function getMultipartRequestOptions<T = Record<string, unknown>>(
-  form: FormData,
-  opts: RequestOptions<T>,
-): Promise<RequestOptions<T>> {
-  return {
-    ...opts,
-    body: new MultipartBody(form) as any,
-  };
+export async function getMultipartRequestOptions<T = Record<string, unknown>>(form: FormData, opts: RequestOptions<T>): Promise<RequestOptions<T>> {
+    return {
+        ...opts,
+        body: new MultipartBody(form) as any,
+    };
 }
 
 export function getDefaultAgent(url: string) {
-  return undefined;
+    return undefined;
 }
 export function fileFromPath() {
-  throw new Error('The `fileFromPath` function is only supported in Node.');
+    throw new Error('The `fileFromPath` function is only supported in Node.');
 }
 
 export const isFsReadStream = (value: any) => false;
 
 export declare class Readable {
-  readable: boolean;
-  readonly readableEnded: boolean;
-  readonly readableFlowing: boolean | null;
-  readonly readableHighWaterMark: number;
-  readonly readableLength: number;
-  readonly readableObjectMode: boolean;
-  destroyed: boolean;
-  read(size?: number): any;
-  pause(): this;
-  resume(): this;
-  isPaused(): boolean;
-  destroy(error?: Error): this;
-  [Symbol.asyncIterator](): AsyncIterableIterator<any>;
+    readable: boolean;
+    readonly readableEnded: boolean;
+    readonly readableFlowing: boolean | null;
+    readonly readableHighWaterMark: number;
+    readonly readableLength: number;
+    readonly readableObjectMode: boolean;
+    destroyed: boolean;
+    read(size?: number): any;
+    pause(): this;
+    resume(): this;
+    isPaused(): boolean;
+    destroy(error?: Error): this;
+    [Symbol.asyncIterator](): AsyncIterableIterator<any>;
 }
 
 export declare class FsReadStream extends Readable {
-  path: {}; // node type is string | Buffer
+    path: object; // node type is string | Buffer
 }
 
 const _ReadableStream = ReadableStream;

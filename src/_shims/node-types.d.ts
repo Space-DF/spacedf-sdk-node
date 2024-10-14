@@ -24,12 +24,12 @@ export type HeadersInit = nf.HeadersInit;
 
 type EndingType = 'native' | 'transparent';
 export interface BlobPropertyBag {
-  endings?: EndingType;
-  type?: string;
+    endings?: EndingType;
+    type?: string;
 }
 
 export interface FilePropertyBag extends BlobPropertyBag {
-  lastModified?: number;
+    lastModified?: number;
 }
 
 export type FileFromPathOptions = Omit<FilePropertyBag, 'lastModified'>;
