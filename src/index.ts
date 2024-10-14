@@ -5,10 +5,6 @@ import * as API from './resources/index';
 
 export interface ClientOptions {
     /**
-     * Defaults to process.env['SPACEDF_API_KEY'].
-     */
-    apiKey?: string | undefined;
-    /**
      * Defaults to process.env['SPACEDF_ORG_ID'].
      */
     organization?: string | null | undefined;
@@ -67,13 +63,17 @@ export interface ClientOptions {
      * param to `undefined` in request options.
      */
     defaultQuery?: Core.DefaultQuery;
+
+    /**
+     * By default, only use one instance per organization. If you want to use multiple organizations, use them on the server side.
+     */
+    allowMultipleOrganizations?: boolean;
 }
 
 /**
  * API Client for interfacing with the SpaceDF SDK API.
  */
 export class SpacedfSDK extends Core.APIClient {
-    apiKey: string;
     organization: string | null;
 
     private _options: ClientOptions;
@@ -90,24 +90,23 @@ export class SpacedfSDK extends Core.APIClient {
      * @param {number} [opts.maxRetries=2] - The maximum number of times the client will retry a request.
      * @param {Core.Headers} opts.defaultHeaders - Default headers to include with every request to the API.
      * @param {Core.DefaultQuery} opts.defaultQuery - Default query parameters to include with every request to the API.
+     * @param {boolean} [opts.allowMultipleOrganizations=false] - Only set this option to `true` if you handle it on the server side.
      */
     constructor({
         baseURL = Core.readEnv('SPACEDF_SDK_BASE_URL'),
-        apiKey = Core.readEnv('SPACEDF_API_KEY'),
         organization = Core.readEnv('SPACEDF_ORG_ID') ?? null,
+        allowMultipleOrganizations = false,
         ...opts
     }: ClientOptions = {}) {
-        if (apiKey === undefined) {
-            throw new Errors.SpaceDFError('Missing or empty token');
+        if (!allowMultipleOrganizations) {
+            if (baseURL && organization) throw new Errors.SpaceDFError('Only 1 out of 2');
+
+            if (organization) {
+                baseURL = `https://${organization}.api.v0.spacedf.net/`;
+            }
         }
 
-        if (baseURL && organization) throw new Errors.SpaceDFError('Only 1 out of 2');
-
-        if (organization) {
-            baseURL = `https://${organization}.api.v0.spacedf.net/`;
-        }
         const options: ClientOptions = {
-            apiKey,
             organization,
             ...opts,
             baseURL: baseURL || `https://api.v0.spacedf.net/`,
@@ -118,11 +117,11 @@ export class SpacedfSDK extends Core.APIClient {
             timeout: options.timeout ?? 60 * 1000 /* 1 minute */,
             httpAgent: options.httpAgent,
             maxRetries: options.maxRetries,
+            allowMultipleOrganizations,
             fetch: options.fetch,
         });
 
         this._options = options;
-        this.apiKey = apiKey;
         this.organization = organization;
     }
 
@@ -146,10 +145,6 @@ export class SpacedfSDK extends Core.APIClient {
             ...super.defaultHeaders(opts),
             ...this._options.defaultHeaders,
         };
-    }
-
-    protected override authHeaders(opts: Core.FinalRequestOptions): Core.Headers {
-        return { Authorization: `Bearer ${this.apiKey}` };
     }
 
     static SpacedfSDK = this;

@@ -126,6 +126,7 @@ export abstract class APIClient {
     maxRetries: number;
     timeout: number;
     httpAgent: Agent | undefined;
+    allowMultipleOrganizations: boolean;
 
     private fetch: Fetch;
     protected idempotencyHeader?: string;
@@ -136,23 +137,28 @@ export abstract class APIClient {
         timeout = 60 * 1000, // 1 minute
         httpAgent,
         fetch: overriddenFetch,
+        allowMultipleOrganizations = false,
     }: {
         baseURL: string;
         maxRetries?: number | undefined;
         timeout: number | undefined;
         httpAgent: Agent | undefined;
         fetch: Fetch | undefined;
+        allowMultipleOrganizations: boolean | undefined;
     }) {
         this.baseURL = baseURL;
         this.maxRetries = validatePositiveInteger('maxRetries', maxRetries);
         this.timeout = validatePositiveInteger('timeout', timeout);
         this.httpAgent = httpAgent;
+        this.allowMultipleOrganizations = allowMultipleOrganizations;
 
         this.fetch = overriddenFetch ?? fetch;
     }
 
     protected authHeaders(opts: FinalRequestOptions): Headers {
-        return {};
+        return {
+            Authorization: `Bearer ${opts.accessToken}`,
+        };
     }
 
     /**
@@ -247,7 +253,7 @@ export abstract class APIClient {
     }
 
     buildRequest<Req>(options: FinalRequestOptions<Req>, { retryCount = 0 }: { retryCount?: number } = {}): { req: RequestInit; url: string; timeout: number } {
-        const { method, path, query, headers: headers = {} } = options;
+        const { method, path, query, organization, headers: headers = {} } = options;
 
         const body =
             ArrayBuffer.isView(options.body) || (options.__binaryRequest && typeof options.body === 'string')
@@ -257,7 +263,7 @@ export abstract class APIClient {
                   : null;
         const contentLength = this.calculateContentLength(body);
 
-        const url = this.buildURL(path!, query);
+        const url = this.buildURL(path!, query, organization);
         if ('timeout' in options) validatePositiveInteger('timeout', options.timeout);
         const timeout = options.timeout ?? this.timeout;
         const httpAgent = options.httpAgent ?? this.httpAgent ?? getDefaultAgent(url);
@@ -412,8 +418,9 @@ export abstract class APIClient {
         return new PagePromise<PageClass, Item>(this, request, Page);
     }
 
-    buildURL<Req>(path: string, query: Req | null | undefined): string {
-        const url = isAbsoluteURL(path) ? new URL(path) : new URL(this.baseURL + (this.baseURL.endsWith('/') && path.startsWith('/') ? path.slice(1) : path));
+    buildURL<Req>(path: string, query: Req | null | undefined, organization: string | undefined): string {
+        const baseURL = this.allowMultipleOrganizations ? toBaseURL(this.baseURL, organization) : this.baseURL;
+        const url = isAbsoluteURL(path) ? new URL(path) : new URL(baseURL + (baseURL.endsWith('/') && path.startsWith('/') ? path.slice(1) : path));
 
         const defaultQuery = this.defaultQuery();
         if (!isEmptyObj(defaultQuery)) {
@@ -676,6 +683,8 @@ export type RequestOptions<Req = unknown | Record<string, unknown> | Readable | 
     httpAgent?: Agent;
     signal?: AbortSignal | undefined | null;
     idempotencyKey?: string;
+    organization?: string;
+    accessToken?: string;
 
     __binaryRequest?: boolean | undefined;
     __binaryResponse?: boolean | undefined;
@@ -697,6 +706,8 @@ const requestOptionsKeys: KeysEnum<RequestOptions> = {
     httpAgent: true,
     signal: true,
     idempotencyKey: true,
+    organization: true,
+    accessToken: true,
 
     __binaryRequest: true,
     __binaryResponse: true,
@@ -873,6 +884,8 @@ const startsWithSchemeRegexp = new RegExp('^(?:[a-z]+:)?//', 'i');
 const isAbsoluteURL = (url: string): boolean => {
     return startsWithSchemeRegexp.test(url);
 };
+
+const toBaseURL = (url: string, organization: string | undefined) => (organization ? url.replace('//', `//${organization}.`) : url);
 
 export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
