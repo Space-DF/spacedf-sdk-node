@@ -62,10 +62,7 @@ export const ReadableStream: SelectType<typeof manual.ReadableStream, typeof aut
 
 export type FileFromPathOptions = SelectType<manual.FileFromPathOptions, auto.FileFromPathOptions>;
 // @ts-ignore-start
-export function getMultipartRequestOptions<T = Record<string, unknown>>(
-  form: FormData,
-  opts: RequestOptions<T>,
-): Promise<RequestOptions<T>>;
+export function getMultipartRequestOptions<T = Record<string, unknown>>(form: FormData, opts: RequestOptions<T>): Promise<RequestOptions<T>>;
 
 export function getDefaultAgent(url: string): any;
 
