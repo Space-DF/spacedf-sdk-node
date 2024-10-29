@@ -75,7 +75,7 @@ export interface ClientOptions {
 /**
  * API Client for interfacing with the SpaceDF SDK API.
  */
-export class SpacedfSDK extends Core.APIClient {
+export class SpaceDFSDK extends Core.APIClient {
     organization: string | null;
 
     private _options: ClientOptions;
@@ -147,7 +147,7 @@ export class SpacedfSDK extends Core.APIClient {
         };
     }
 
-    static SpacedfSDK = this;
+    static SpaceDFSDK = this;
     static DEFAULT_TIMEOUT = 60 * 1000; // 1 minute
 
     static SpaceDFError = Errors.SpaceDFError;
@@ -181,4 +181,4 @@ export const {
     UnprocessableEntityError,
 } = Errors;
 
-export default SpacedfSDK;
+export default SpaceDFSDK;

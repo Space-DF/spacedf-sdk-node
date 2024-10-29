@@ -1,14 +1,14 @@
-import type { SpacedfSDK } from './index';
+import type { SpaceDFSDK } from './index';
 
 export class APIResource {
-    protected _client: SpacedfSDK;
+    protected _client: SpaceDFSDK;
 
     protected authPath: string;
     protected dashboardPath: string;
     protected devicePath: string;
     protected consolePath: string;
 
-    constructor(client: SpacedfSDK) {
+    constructor(client: SpaceDFSDK) {
         this._client = client;
 
         this.authPath = 'auth/api';

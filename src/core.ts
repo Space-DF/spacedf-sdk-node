@@ -1009,7 +1009,7 @@ function applyHeadersMut(targetHeaders: Headers, newHeaders: Headers): void {
 
 export function debug(action: string, ...args: any[]) {
     if (typeof process !== 'undefined' && process?.env?.['DEBUG'] === 'true') {
-        console.log(`SpacedfSDK:DEBUG:${action}`, ...args);
+        console.log(`SpaceDFSDK:DEBUG:${action}`, ...args);
     }
 }
 
