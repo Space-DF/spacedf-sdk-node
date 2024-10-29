@@ -1,6 +1,6 @@
 import SpacedfSDK from 'spacedf-sdk';
 
-const client = new SpacedfSDK({ organization: 'abc', apiKey: 's' });
+const client = new SpacedfSDK({ organization: 'abc' });
 
 async function main() {
     const login = await client.auth.login({

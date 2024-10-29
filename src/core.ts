@@ -1,3 +1,4 @@
+import { uuid4 } from './libs/utils';
 import { VERSION } from './version';
 import { SpaceDFError, APIError, APIConnectionError, APIConnectionTimeoutError, APIUserAbortError } from './error';
 import { type Readable, getDefaultAgent, type Agent, fetch, type RequestInfo, type RequestInit, type Response, type HeadersInit } from './_shims/index';
@@ -1012,17 +1013,6 @@ export function debug(action: string, ...args: any[]) {
     }
 }
 
-/**
- * https://stackoverflow.com/a/2117523
- */
-const uuid4 = () => {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
-        const r = (Math.random() * 16) | 0;
-        const v = c === 'x' ? r : (r & 0x3) | 0x8;
-        return v.toString(16);
-    });
-};
-
 export const isRunningInBrowser = () => {
     return (
         // @ts-ignore
@@ -1069,23 +1059,3 @@ export const getRequiredHeader = (headers: HeadersLike, header: string): string 
 
     throw new Error(`Could not find ${header} header`);
 };
-
-/**
- * Encodes a string to Base64 format.
- */
-export const toBase64 = (str: string | null | undefined): string => {
-    if (!str) return '';
-    if (typeof Buffer !== 'undefined') {
-        return Buffer.from(str).toString('base64');
-    }
-
-    if (typeof btoa !== 'undefined') {
-        return btoa(str);
-    }
-
-    throw new SpaceDFError('Cannot generate b64 string; Expected `Buffer` or `btoa` to be defined');
-};
-
-export function isObj(obj: unknown): obj is Record<string, unknown> {
-    return obj != null && typeof obj === 'object' && !Array.isArray(obj);
-}
