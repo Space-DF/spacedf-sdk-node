@@ -66,6 +66,8 @@ export interface ClientOptions {
 
     /**
      * By default, only use one instance per organization. If you want to use multiple organizations, use them on the server side.
+     *
+     * @default false
      */
     allowMultipleOrganizations?: boolean;
 }
@@ -81,7 +83,6 @@ export class SpacedfSDK extends Core.APIClient {
     /**
      * API Client for interfacing with the Spacedf SDK API.
      *
-     * @param {string | undefined} [opts.apiKey=process.env['SPACEDF_API_KEY'] ?? undefined]
      * @param {string | null | undefined} [opts.organization=process.env['SPACEDF_ORG_ID'] ?? null]
      * @param {string} [opts.baseURL=process.env['SPACEDF_SDK_BASE_URL'] ?? https://api.v0.spacedf.net/] - Override the default base URL for the API.
      * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
@@ -99,7 +100,8 @@ export class SpacedfSDK extends Core.APIClient {
         ...opts
     }: ClientOptions = {}) {
         if (!allowMultipleOrganizations) {
-            if (baseURL && organization) throw new Errors.SpaceDFError('Only 1 out of 2');
+            if (baseURL && organization)
+                throw new Errors.SpaceDFError('`baseURL` will be overridden by `organization`. You should only configure a single property.');
 
             if (organization) {
                 baseURL = `https://${organization}.api.v0.spacedf.net/`;
@@ -126,15 +128,13 @@ export class SpacedfSDK extends Core.APIClient {
     }
 
     auth: API.Auth = new API.Auth(this);
-    organizationPolicies: API.OrganizationPolicies = new API.OrganizationPolicies(this);
-    organizationRoleUsers: API.OrganizationRoleUsers = new API.OrganizationRoleUsers(this);
-    organizationRoles: API.OrganizationRoles = new API.OrganizationRoles(this);
     spacePolicies: API.SpacePolicies = new API.SpacePolicies(this);
     spaceRoleUsers: API.SpaceRoleUsers = new API.SpaceRoleUsers(this);
     spaceRoles: API.SpaceRoles = new API.SpaceRoles(this);
     spaces: API.Spaces = new API.Spaces(this);
     dashboards: API.Dashboards = new API.Dashboards(this);
     deviceStates: API.DeviceStates = new API.DeviceStates(this);
+    oauth2: API.OAuth2 = new API.OAuth2(this);
 
     protected override defaultQuery(): Core.DefaultQuery | undefined {
         return this._options.defaultQuery;

@@ -6,6 +6,7 @@ export class APIResource {
     protected authPath: string;
     protected dashboardPath: string;
     protected devicePath: string;
+    protected consolePath: string;
 
     constructor(client: SpacedfSDK) {
         this._client = client;
@@ -13,5 +14,6 @@ export class APIResource {
         this.authPath = 'auth/api';
         this.dashboardPath = 'dashboard/api';
         this.devicePath = 'device/api';
+        this.consolePath = 'console/api';
     }
 }
