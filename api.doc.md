@@ -71,8 +71,8 @@ oauth2Google(body: AuthOauth2GoogleParams, options?: Core.RequestOptions): Core.
 **Parameters:**
 
 -   `body` _(AuthOauth2GoogleParams)_: Object containing OAuth2 parameters.
-    -   `authorization*code` _(string)_: The authorization code obtained from Google.
-    -   `code verifier` _(string)_: The code verifier for PKCE.
+    -   `authorization_code` _(string)_: The authorization code obtained from Google.
+    -   `code_verifier` _(string)_: The code verifier for PKCE.
 
 **Returns:** `Promise<OAuthLogin>`
 
@@ -131,8 +131,8 @@ register(body: AuthRegisterParams, options?: Core.RequestOptions): Core.APIPromi
 -   `body` _(AuthRegisterParams)_: Object containing user registration details.
     -   `email` _(string)_: User's email address.
     -   `password` _(string)_: User's chosen password.
-    -   `first*name` _(string)_: User's first name (optional).
-    -   `last*name` _(string)_: User's last name (optional).
+    -   `first_name` _(string)_: User's first name (optional).
+    -   `last_name` _(string)_: User's last name (optional).
 
 **Returns:** `Promise<Registration>`
 
@@ -492,8 +492,8 @@ create(body: SpaceCreateParams, options?: Core.RequestOptions): Core.APIPromise<
 -   `body` _(SpaceCreateParams)_: Parameters for creating a new space.
     -   `logo`: _(string)_: URL of the space logo.
     -   `name`: _(string)_: The name of the space.
-    -   `slug*name`: _(string)_: Slug name for the space.
-    -   `is*active` _(boolean)_: (Optional) Whether the space is active.
+    -   `slug_name`: _(string)_: Slug name for the space.
+    -   `is_active` _(boolean)_: (Optional) Whether the space is active.
 -   `options` _(Core.RequestOptions)_: Additional request options.
 
 **Returns:** `Promise<Space>`
@@ -527,9 +527,9 @@ update(params: SpaceUpdateParams, options?: Core.RequestOptions): Core.APIPromis
 -   `params` _(SpaceUpdateParams)_: Parameters for updating the space.
     -   `logo`: _(string)_: URL of the new space logo.
     -   `name`: _(string)_: The new name of the space.
-    -   `slug*name`: _(string)_: The new slug name for the space.
+    -   `slug_name`: _(string)_: The new slug name for the space.
     -   `X-Space`: _(string)_: Header param for space slug name.
-    -   `is*active` _(boolean)_: (Optional) Whether the space is active.
+    -   `is_active` _(boolean)_: (Optional) Whether the space is active.
 -   `options` _(Core.RequestOptions)_: Additional request options.
 
 **Returns:** `Promise<Space>`
@@ -627,7 +627,7 @@ async authorize(body: OAuth2AuthorizeParams, options?: Core.RequestOptions): Pro
 
 -   `body` _(OAuth2AuthorizeParams)_: Parameters required for authorization.
     -   `client_id`: _(string)_: The client ID of the application.
-    -   `redirect*uri`: _(string)_: The URI to redirect to after authorization.
+    -   `redirect_uri`: _(string)_: The URI to redirect to after authorization.
     -   `scopes`: _(Array<'organization'>)_: Scopes for the authorization request.
 -   `options` _(Core.RequestOptions)_: (Optional) Additional request options.
 
@@ -660,12 +660,12 @@ token(body: OAuth2Token, options?: Core.RequestOptions): Core.APIPromise<OAuth2T
 **Parameters:**
 
 -   `body` _(OAuth2Token)_: Parameters required to obtain an access token.
-    -   `client*id`: _(string)_: The client ID of the application.
-    -   `client*secret`: _(string)_: The client secret of the application.
+    -   `client_id`: _(string)_: The client ID of the application.
+    -   `client_secret`: _(string)_: The client secret of the application.
     -   `code`: _(string)_: The authorization code received from the authorization server.
-    -   `code*verifier`: _(string)_: The code verifier used in the authorization request.
+    -   `code_verifier`: _(string)_: The code verifier used in the authorization request.
     -   `scopes`: _(Array<'organization'>)_: (Optional) Scopes for the token request.
-    -   `id*token`: _(string)_: (Optional) ID token if available.
+    -   `id_token`: _(string)_: (Optional) ID token if available.
 
 **Returns:** `Promise<OAuth2Token>`
 

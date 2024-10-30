@@ -34,17 +34,17 @@ npm install spacedf-sdk
 
 Customize the SDK with a configuration file. Below are common options:
 
-| Option                       | Description                | Default Value |
-| ---------------------------- | -------------------------- | ------------- |
-| `organization`               | Your organization          | None          |
-| `baseURL`                    | baseURL                    | None          |
-| `timeout`                    | timeout                    | None          |
-| `httpAgent`                  | httpAgent                  | None          |
-| `fetch`                      | fetch                      | None          |
-| `maxRetries`                 | maxRetries                 | 2             |
-| `defaultHeaders`             | defaultHeaders             | None          |
-| `defaultQuery`               | defaultQuery               | None          |
-| `allowMultipleOrganizations` | allowMultipleOrganizations | false         |
+| Option                       | Description                                                        | Default Value |
+| ---------------------------- | ------------------------------------------------------------------ | ------------- |
+| `organization`               | Your organization                                                  | None          |
+| `baseURL`                    | baseURL                                                            | None          |
+| `timeout`                    | The maximum amount of time                                         | 1 minute      |
+| `httpAgent`                  | An HTTP agent used to manage HTTP(S) connections                   | None          |
+| `fetch`                      | Specify a custom `fetch` function implementation                   | Node fetch    |
+| `maxRetries`                 | maxRetries                                                         | 2             |
+| `defaultHeaders`             | Default headers to include with every request to the API           | Default       |
+| `defaultQuery`               | Default query parameters to include with every request to the API. | None          |
+| `allowMultipleOrganizations` | Flag use multi organization                                        | false         |
 
 Example:
 
@@ -76,7 +76,13 @@ const registerResponse = await client.auth.register({
 });
 ```
 
-## Multi Organization
+Authentication
+
+```typescript
+const spacePoliciesResponse = await client.spacePolicies.retrieve(1, { accessToken: 'your-access-token' });
+```
+
+### Multi Organization
 
 Use multiple organizations for server side
 
