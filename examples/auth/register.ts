@@ -1,15 +1,15 @@
-import SpacedfSDK from 'spacedf-sdk';
+import SpaceDFSDK from 'spacedf-sdk';
 
-const client = new SpacedfSDK();
+const client = new SpaceDFSDK();
 
 async function main() {
-  const login = await client.auth.register({
-    email: 'minh.nguyen@digitalfortress.dev',
-    password: '123123',
-    first_name: 'Minh test',
-  });
+    const register = await client.auth.register({
+        email: 'abc@digitalfortress.dev',
+        password: '123123',
+        first_name: 'abc',
+    });
 
-  console.log('Register response', login);
+    console.log('Register response', register);
 }
 
 main();
