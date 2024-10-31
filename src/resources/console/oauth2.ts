@@ -14,7 +14,11 @@ export class OAuth2 extends APIResource {
             code_challenge_method: 'S256',
         };
 
-        return this._client.post(`${this.consolePath}/auth/login`, { body: oAuth2AuthorizeBody, ...options });
+        return (
+            this._client.post(`${this.consolePath}/auth/login`, { body: oAuth2AuthorizeBody, ...options }) as Core.APIPromise<{
+                data: OAuth2Authorize;
+            }>
+        )._thenUnwrap((obj) => ({ ...obj.data, verifier }));
     }
 
     token(body: OAuth2Token, options?: Core.RequestOptions): Core.APIPromise<OAuth2Token> {

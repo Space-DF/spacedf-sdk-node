@@ -2,7 +2,7 @@ import { APIResource } from '../../resource';
 import * as Core from '../../core';
 
 export class Auth extends APIResource {
-    login(body: AuthLoginParams, options?: Core.RequestOptions): Core.APIPromise<CustomTokenObtainPair> {
+    login(body: AuthLoginParams, options?: Core.RequestOptions): Core.APIPromise<TokenPair> {
         return this._client.post(`${this.authPath}/auth/login`, { body, ...options });
     }
 
@@ -19,10 +19,10 @@ export class Auth extends APIResource {
     }
 }
 
-export interface CustomTokenObtainPair {
-    email: string;
+export interface TokenPair {
+    refresh: string;
 
-    password: string;
+    access: string;
 }
 
 export interface CustomTokenRefresh {
