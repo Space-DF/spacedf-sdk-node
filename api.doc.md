@@ -34,7 +34,7 @@ Authenticate a user with email and password.
 **Signature:**
 
 ```typescript
-login(body: AuthLoginParams, options?: Core.RequestOptions): Core.APIPromise<CustomTokenObtainPair>
+login(body: AuthLoginParams, options?: Core.RequestOptions): Core.APIPromise<TokenPair>
 ```
 
 **Parameters:**
@@ -44,7 +44,7 @@ login(body: AuthLoginParams, options?: Core.RequestOptions): Core.APIPromise<Cus
     -   `password` _(string)_: User's password.
 -   `options` _(Core.RequestOptions)_: Additional request options.
 
-**Returns:** `Promise<CustomTokenObtainPair>`
+**Returns:** `Promise<TokenPair>`
 
 **Example:**
 
