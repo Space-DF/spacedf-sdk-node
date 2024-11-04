@@ -1,0 +1,1 @@
+{"version":3,"file":"bun-runtime.js","sourceRoot":"","sources":["../src/_shims/bun-runtime.ts"],"names":[],"mappings":";;;AAIA,kDAA4D;AAC5D,qCAAqD;AAErD,SAAgB,UAAU;IACtB,MAAM,OAAO,GAAG,IAAA,wBAAa,GAAE,CAAC;IAChC,SAAS,cAAc,CAAC,KAAU;QAC9B,OAAO,KAAK,YAAY,oBAAY,CAAC;IACzC,CAAC;IACD,OAAO,EAAE,GAAG,OAAO,EAAE,cAAc,EAAE,CAAC;AAC1C,CAAC;AAND,gCAMC"}
