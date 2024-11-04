@@ -1,15 +1,15 @@
 # This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: Build
+name: Lint
 
 on:
-    push:
+    pull_request:
         branches: ['main']
-
+        
 jobs:
-    build:
-        name: build
+    lint:
+        name: lint
         runs-on: ubuntu-latest
 
         steps:
@@ -24,14 +24,5 @@ jobs:
             - name: Check lint
               run: npm run lint
 
-            - name: Run build
+            - name: Check build
               run: npm run build
-
-            - name: Push dist folder
-              if: success()
-              run: |
-                  git config --global user.name 'github-actions[bot]'
-                  git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-                  git add -f dist
-                  git commit -m "build: dist"
-                  git push origin main
