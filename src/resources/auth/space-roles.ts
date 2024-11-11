@@ -22,6 +22,15 @@ export class SpaceRoles extends APIResource {
 
     update(id: number, params: SpaceRoleUpdateParams, options?: Core.RequestOptions): Core.APIPromise<SpaceRole> {
         const { 'X-Space': xSpace, ...body } = params;
+        return this._client.put(`${this.authPath}/space-roles/${id}`, {
+            body,
+            ...options,
+            headers: { 'X-Space': xSpace, ...options?.headers },
+        });
+    }
+
+    partialUpdate(id: number, params: SpaceRoleUpdateParams, options?: Core.RequestOptions): Core.APIPromise<SpaceRole> {
+        const { 'X-Space': xSpace, ...body } = params;
         return this._client.patch(`${this.authPath}/space-roles/${id}`, {
             body,
             ...options,

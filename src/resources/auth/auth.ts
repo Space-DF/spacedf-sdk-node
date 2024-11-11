@@ -2,11 +2,11 @@ import { APIResource } from '../../resource';
 import * as Core from '../../core';
 
 export class Auth extends APIResource {
-    login(body: AuthLoginParams, options?: Core.RequestOptions): Core.APIPromise<TokenPair> {
+    login(body: AuthLoginParams, options?: Core.RequestOptions): Core.APIPromise<AuthTokenPair> {
         return this._client.post(`${this.authPath}/auth/login`, { body, ...options });
     }
 
-    oauth2Google(body: AuthOauth2GoogleParams, options?: Core.RequestOptions): Core.APIPromise<OAuthLogin> {
+    oauth2Google(body: OAuthLogin, options?: Core.RequestOptions): Core.APIPromise<OAuthLogin> {
         return this._client.post(`${this.authPath}/auth/oauth2/google`, { body, ...options });
     }
 
@@ -19,10 +19,12 @@ export class Auth extends APIResource {
     }
 }
 
-export interface TokenPair {
+export interface AuthTokenPair {
     refresh: string;
 
     access: string;
+
+    default_space: string;
 }
 
 export interface CustomTokenRefresh {
@@ -38,27 +40,21 @@ export interface OAuthLogin {
 }
 
 export interface Registration {
-    email: string;
-
-    password: string;
-
     id?: number;
 
-    first_name?: string;
+    first_name: string;
 
-    last_name?: string;
+    last_name: string;
+
+    email: string;
+
+    default_space?: string;
 }
 
 export interface AuthLoginParams {
     email: string;
 
     password: string;
-}
-
-export interface AuthOauth2GoogleParams {
-    authorization_code: string;
-
-    code_verifier: string;
 }
 
 export interface AuthRefreshTokenParams {
@@ -70,7 +66,7 @@ export interface AuthRegisterParams {
 
     password: string;
 
-    first_name?: string;
+    first_name: string;
 
-    last_name?: string;
+    last_name: string;
 }
