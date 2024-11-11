@@ -127,7 +127,8 @@ export abstract class APIClient {
     maxRetries: number;
     timeout: number;
     httpAgent: Agent | undefined;
-    allowMultipleOrganizations: boolean;
+    allowMultiOrgs: boolean;
+    APIKey: string | undefined;
 
     private fetch: Fetch;
     protected idempotencyHeader?: string;
@@ -138,28 +139,29 @@ export abstract class APIClient {
         timeout = 60 * 1000, // 1 minute
         httpAgent,
         fetch: overriddenFetch,
-        allowMultipleOrganizations = false,
+        APIKey,
+        allowMultiOrgs = false,
     }: {
         baseURL: string;
         maxRetries?: number | undefined;
         timeout: number | undefined;
         httpAgent: Agent | undefined;
         fetch: Fetch | undefined;
-        allowMultipleOrganizations: boolean | undefined;
+        APIKey: string | undefined;
+        allowMultiOrgs: boolean;
     }) {
         this.baseURL = baseURL;
         this.maxRetries = validatePositiveInteger('maxRetries', maxRetries);
         this.timeout = validatePositiveInteger('timeout', timeout);
         this.httpAgent = httpAgent;
-        this.allowMultipleOrganizations = allowMultipleOrganizations;
+        this.APIKey = APIKey;
+        this.allowMultiOrgs = allowMultiOrgs;
 
         this.fetch = overriddenFetch ?? fetch;
     }
 
     protected authHeaders(opts: FinalRequestOptions): Headers {
-        return {
-            Authorization: `Bearer ${opts.accessToken}`,
-        };
+        return {};
     }
 
     /**
@@ -420,7 +422,7 @@ export abstract class APIClient {
     }
 
     buildURL<Req>(path: string, query: Req | null | undefined, organization: string | undefined): string {
-        const baseURL = this.allowMultipleOrganizations ? toBaseURL(this.baseURL, organization) : this.baseURL;
+        const baseURL = this.allowMultiOrgs ? toBaseURL(this.baseURL, organization) : this.baseURL;
         const url = isAbsoluteURL(path) ? new URL(path) : new URL(baseURL + (baseURL.endsWith('/') && path.startsWith('/') ? path.slice(1) : path));
 
         const defaultQuery = this.defaultQuery();
@@ -565,10 +567,6 @@ export abstract class AbstractPage<Item> implements AsyncIterable<Item> {
         this.body = body;
     }
 
-    /**
-     * @deprecated Use nextPageInfo instead
-     */
-    abstract nextPageParams(): Partial<Record<string, unknown>> | null;
     abstract nextPageInfo(): PageInfo | null;
 
     abstract getPaginatedItems(): Item[];
@@ -686,6 +684,7 @@ export type RequestOptions<Req = unknown | Record<string, unknown> | Readable | 
     idempotencyKey?: string;
     organization?: string;
     accessToken?: string;
+    APIKey?: string;
 
     __binaryRequest?: boolean | undefined;
     __binaryResponse?: boolean | undefined;
@@ -709,6 +708,7 @@ const requestOptionsKeys: KeysEnum<RequestOptions> = {
     idempotencyKey: true,
     organization: true,
     accessToken: true,
+    APIKey: true,
 
     __binaryRequest: true,
     __binaryResponse: true,

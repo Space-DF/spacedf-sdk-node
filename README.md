@@ -34,22 +34,23 @@ npm install spacedf-sdk
 
 Customize the SDK with a configuration file. Below are common options:
 
-| Option                       | Description                                                        | Default Value |
-| ---------------------------- | ------------------------------------------------------------------ | ------------- |
-| `organization`               | Your organization                                                  | None          |
-| `baseURL`                    | baseURL                                                            | None          |
-| `timeout`                    | The maximum amount of time                                         | 1 minute      |
-| `httpAgent`                  | An HTTP agent used to manage HTTP(S) connections                   | None          |
-| `fetch`                      | Specify a custom `fetch` function implementation                   | Node fetch    |
-| `maxRetries`                 | maxRetries                                                         | 2             |
-| `defaultHeaders`             | Default headers to include with every request to the API           | Default       |
-| `defaultQuery`               | Default query parameters to include with every request to the API. | None          |
-| `allowMultipleOrganizations` | Flag use multi organization                                        | false         |
+| Option           | Description                                                        | Default Value |
+| ---------------- | ------------------------------------------------------------------ | ------------- |
+| `organization`   | Your organization                                                  | None          |
+| `baseURL`        | baseURL                                                            | None          |
+| `APIKey`         | APIKey                                                             | None          |
+| `timeout`        | The maximum amount of time                                         | 1 minute      |
+| `httpAgent`      | An HTTP agent used to manage HTTP(S) connections                   | None          |
+| `fetch`          | Specify a custom `fetch` function implementation                   | Node fetch    |
+| `maxRetries`     | maxRetries                                                         | 2             |
+| `defaultHeaders` | Default headers to include with every request to the API           | Default       |
+| `defaultQuery`   | Default query parameters to include with every request to the API. | None          |
+| `allowMultiOrgs` | Flag use multiple organizations                                    | false         |
 
 Example:
 
 ```typescript
-const sdk = new SDK({ organization: 'your-organization' });
+const sdk = new SDK({ organization: 'your-organization', APIKey: 'your-API-key' });
 ```
 
 ## Usage
@@ -59,10 +60,10 @@ Import and initialize a client.
 ```typescript
 import SpaceDFSDK from 'spacedf-sdk';
 
-const client = new SpaceDFSDK({ organization: 'your-organization' });
+const client = new SpaceDFSDK({ organization: 'your-organization', APIKey: 'your-API-key' });
 
 /* or use with your base url */
-// const client = new SpaceDFSDK({ baseURL: 'your-url' });
+// const client = new SpaceDFSDK({ baseURL: 'your-url', APIKey: 'your-API-key' });
 ```
 
 Register new SpaceDF account.
@@ -79,17 +80,17 @@ const registerResponse = await client.auth.register({
 Authentication
 
 ```typescript
-const spacePoliciesResponse = await client.spacePolicies.retrieve(1, { accessToken: 'your-access-token' });
+client.setAccessToken('your-access-token');
 ```
 
-### Multi Organization
+### Multiple Organizations
 
-Use multiple organizations for server side
+Use multiple organizations
 
 ```typescript
 import SpaceDFSDK from 'spacedf-sdk';
 
-const client = new SpaceDFSDK({ allowMultipleOrganizations: true });
+const client = new SpaceDFSDK({ allowMultiOrgs: true });
 ```
 
 Register new SpaceDF account.
@@ -104,8 +105,17 @@ const registerResponse = await client.auth.register(
     },
     {
         organization: 'your-organization',
+        APIKey: 'your-API-key',
     },
 );
+
+/* Or */
+
+const spacePoliciesResponse = await client.spacePolicies.retrieve(1, {
+    organization: 'your-organization',
+    APIKey: 'your-API-key',
+    accessToken: 'your-access-token',
+});
 ```
 
 ## Error Handling

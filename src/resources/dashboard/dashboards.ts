@@ -22,6 +22,15 @@ export class Dashboards extends APIResource {
 
     update(id: number, params: DashboardUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Dashboard> {
         const { 'X-Space': xSpace, ...body } = params;
+        return this._client.put(`${this.dashboardPath}/dashboards/${id}`, {
+            body,
+            ...options,
+            headers: { 'X-Space': xSpace, ...options?.headers },
+        });
+    }
+
+    partialUpdate(id: number, params: DashboardUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Dashboard> {
+        const { 'X-Space': xSpace, ...body } = params;
         return this._client.patch(`${this.dashboardPath}/dashboards/${id}`, {
             body,
             ...options,
@@ -64,6 +73,15 @@ export class Dashboards extends APIResource {
     }
 
     updateWidget(dashboardId: string, id: number, params: WidgetUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Widget> {
+        const { 'X-Space': xSpace, ...body } = params;
+        return this._client.put(`${this.dashboardPath}/dashboards/${dashboardId}/widgets/${id}`, {
+            body,
+            ...options,
+            headers: { 'X-Space': xSpace, ...options?.headers },
+        });
+    }
+
+    partialUpdateWidget(dashboardId: string, id: number, params: WidgetUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Widget> {
         const { 'X-Space': xSpace, ...body } = params;
         return this._client.patch(`${this.dashboardPath}/dashboards/${dashboardId}/widgets/${id}`, {
             body,

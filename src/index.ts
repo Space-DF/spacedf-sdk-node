@@ -9,6 +9,10 @@ export interface ClientOptions {
      */
     organization?: string | null | undefined;
     /**
+     * Defaults to process.env['SPACEDF_API_KEY'].
+     */
+    APIKey?: string | undefined;
+    /**
      * Override the default base URL for the API, e.g., "https://api.example.com/v2/"
      *
      * Defaults to process.env['SPACEDF_SDK_BASE_URL'].
@@ -69,7 +73,7 @@ export interface ClientOptions {
      *
      * @default false
      */
-    allowMultipleOrganizations?: boolean;
+    allowMultiOrgs?: boolean;
 }
 
 /**
@@ -77,6 +81,7 @@ export interface ClientOptions {
  */
 export class SpaceDFSDK extends Core.APIClient {
     organization: string | null;
+    accessToken: string | null | undefined;
 
     private _options: ClientOptions;
 
@@ -84,6 +89,7 @@ export class SpaceDFSDK extends Core.APIClient {
      * API Client for interfacing with the Spacedf SDK API.
      *
      * @param {string | null | undefined} [opts.organization=process.env['SPACEDF_ORG_ID'] ?? null]
+     * @param {string | undefined} [opts.APIKey=process.env['SPACEDF_API_KEY']]
      * @param {string} [opts.baseURL=process.env['SPACEDF_SDK_BASE_URL'] ?? https://api.v0.spacedf.net/] - Override the default base URL for the API.
      * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
      * @param {number} [opts.httpAgent] - An HTTP agent used to manage HTTP(s) connections.
@@ -91,15 +97,16 @@ export class SpaceDFSDK extends Core.APIClient {
      * @param {number} [opts.maxRetries=2] - The maximum number of times the client will retry a request.
      * @param {Core.Headers} opts.defaultHeaders - Default headers to include with every request to the API.
      * @param {Core.DefaultQuery} opts.defaultQuery - Default query parameters to include with every request to the API.
-     * @param {boolean} [opts.allowMultipleOrganizations=false] - Only set this option to `true` if you handle it on the server side.
+     * @param {boolean} [opts.allowMultiOrgs=false] - Only set this option to `true` if you handle it on the server side or using multiple organizations.
      */
     constructor({
         baseURL = Core.readEnv('SPACEDF_SDK_BASE_URL'),
         organization = Core.readEnv('SPACEDF_ORG_ID') ?? null,
-        allowMultipleOrganizations = false,
+        APIKey = Core.readEnv('SPACEDF_API_KEY'),
+        allowMultiOrgs = false,
         ...opts
     }: ClientOptions = {}) {
-        if (!allowMultipleOrganizations) {
+        if (!allowMultiOrgs) {
             if (baseURL && organization)
                 throw new Errors.SpaceDFError('`baseURL` will be overridden by `organization`. You should only configure a single property.');
 
@@ -110,20 +117,23 @@ export class SpaceDFSDK extends Core.APIClient {
 
         const options: ClientOptions = {
             organization,
-            ...opts,
+            APIKey,
             baseURL: baseURL || `https://api.v0.spacedf.net/`,
+            ...opts,
         };
 
         super({
+            APIKey: options.APIKey,
             baseURL: options.baseURL!,
             timeout: options.timeout ?? 60 * 1000 /* 1 minute */,
             httpAgent: options.httpAgent,
             maxRetries: options.maxRetries,
-            allowMultipleOrganizations,
+            allowMultiOrgs,
             fetch: options.fetch,
         });
 
         this._options = options;
+        this.APIKey = APIKey;
         this.organization = organization;
     }
 
@@ -135,6 +145,7 @@ export class SpaceDFSDK extends Core.APIClient {
     dashboards: API.Dashboards = new API.Dashboards(this);
     deviceStates: API.DeviceStates = new API.DeviceStates(this);
     oauth2: API.OAuth2 = new API.OAuth2(this);
+    credentials: API.Credentials = new API.Credentials(this);
 
     protected override defaultQuery(): Core.DefaultQuery | undefined {
         return this._options.defaultQuery;
@@ -145,6 +156,17 @@ export class SpaceDFSDK extends Core.APIClient {
             ...super.defaultHeaders(opts),
             ...this._options.defaultHeaders,
         };
+    }
+
+    protected override authHeaders(opts: Core.FinalRequestOptions): Core.Headers {
+        const Authorization = `Bearer ${(this.allowMultiOrgs && opts.accessToken) || this.accessToken || ''}`;
+        const APIKey = (this.allowMultiOrgs && opts.APIKey) || this.APIKey;
+
+        return { Authorization, 'x-api-key': APIKey };
+    }
+
+    public setAccessToken(token: string | null): void {
+        this.accessToken = token;
     }
 
     static SpaceDFSDK = this;

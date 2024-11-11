@@ -10,6 +10,7 @@
 # Table of Contents
 
 -   [Auth](#Auth)
+-   [Credentials](#credentials)
 -   [Space Policies](#space-policies)
 -   [Space Role Users](#space-role-users)
 -   [Space Roles](#space-roles)
@@ -302,6 +303,41 @@ delete(id: number, params: SpaceRoleUserDeleteParams, options?: Core.RequestOpti
 
 ```typescript
 await client.spaceRoleUsers.delete(1, { 'X-Space': 'example-space' });
+```
+
+</details>
+
+---
+
+# Credentials
+
+## Overview
+
+## Methods
+
+<details>
+  <summary><strong>retrieve</strong></summary>
+
+Get a client id
+
+**Signature:**
+
+```typescript
+retrieve(options?: Core.RequestOptions): Core.APIPromise<OAuthCredentials>
+```
+
+**Parameters:**
+
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<OAuthCredentials>`
+
+**Example:**
+
+```typescript
+const credentials = await client.credentials.retrieve();
+
+console.log(credentials.client_id);
 ```
 
 </details>
