@@ -19,8 +19,8 @@ jobs:
             - name: Install dependencies
               run: npm install
 
-            - name: Build project
-              run: npm run build
+            - run: npm run build
+            - run: cd dist
 
             - name: Publish to GitHub Packages
               run: npm publish --access public
