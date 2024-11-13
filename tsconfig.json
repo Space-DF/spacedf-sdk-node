@@ -9,9 +9,9 @@
     "esModuleInterop": true,
     "baseUrl": "./",
     "paths": {
-      "spacedf-sdk/_shims/auto/*": ["src/_shims/auto/*-node"],
-      "spacedf-sdk/*": ["src/*"],
-      "spacedf-sdk": ["src/index.ts"]
+      "@space-df/sdk/_shims/auto/*": ["src/_shims/auto/*-node"],
+      "@space-df/sdk/*": ["src/*"],
+      "@space-df/sdk": ["src/index.ts"]
     },
     "noEmit": true,
 

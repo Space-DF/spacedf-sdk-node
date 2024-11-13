@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const { parse } = require('@typescript-eslint/parser');
 
-const pkgImportPath = process.env['PKG_IMPORT_PATH'] ?? 'spacedf-sdk/';
+const pkgImportPath = process.env['PKG_IMPORT_PATH'] ?? '@space-df/sdk/';
 
 const distDir = process.env['DIST_PATH'] ? path.resolve(process.env['DIST_PATH']) : path.resolve(__dirname, '..', '..', 'dist');
 const distSrcDir = path.join(distDir, 'src');

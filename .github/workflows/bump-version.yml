@@ -1,0 +1,62 @@
+name: Version Bump and Pull Request
+
+on:
+    push:
+        branches: [main]
+
+jobs:
+    version_bump:
+        if: github.event.commits[0].author.username != 'github-actions[bot]'
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Set up Git
+              run: |
+                  git config --global user.name 'github-actions[bot]'
+                  git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+            - name: Bump version
+              id: bump_version
+              run: |
+                  version=$(npm version prerelease --preid=dev --no-git-tag-version)
+                  echo "bumped_version=${version}" >> $GITHUB_ENV
+
+            - name: Create new branch
+              run: |
+                  git checkout -b "${{ env.bumped_version }}"
+                  npm install
+                  npm run build
+                  git add src/version.ts
+                  git commit -m"${{ env.bumped_version }}"
+                  git push origin "${{ env.bumped_version }}"
+
+            - name: Create Pull Request
+              id: cpr
+              uses: peter-evans/create-pull-request@v5
+              with:
+                  token: ${{ secrets.GITHUB_TOKEN }}
+                  branch: '${{ env.bumped_version }}'
+                  commit-message: '${{ env.bumped_version }}'
+                  committer: 'github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>'
+                  author: 'github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>'
+                  title: 'Bump version to ${{ env.bumped_version }}'
+                  body: 'This pull request bumps the version to ${{ env.bumped_version }}.'
+                  base: main
+                  labels: 'dev'
+
+            - name: Auto approve
+              if: steps.cpr.outputs.pull-request-operation == 'created'
+              run: gh pr review --approve "${{ steps.cpr.outputs.pull-request-number }}"
+              env:
+                  GH_TOKEN: ${{ secrets.GH_PACKAGE }}
+
+            - name: Request Automerge
+              if: steps.cpr.outputs.pull-request-operation == 'created'
+              uses: peter-evans/enable-pull-request-automerge@v3
+              with:
+                  token: ${{ secrets.GH_PACKAGE }}
+                  pull-request-number: ${{ steps.cpr.outputs.pull-request-number }}
+                  merge-method: squash
