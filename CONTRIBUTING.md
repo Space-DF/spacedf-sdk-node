@@ -39,13 +39,13 @@ yarn tsn -T examples/<your-example>.ts
 
 yarn link
 cd ../my-package
-yarn link spacedf-sdk
+yarn link @space-df/sdk
 
 # With pnpm
 
 pnpm link --global
 cd ../my-package
-pnpm link -—global spacedf-sdk
+pnpm link -—global @space-df/sdk
 
 ````
 

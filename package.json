@@ -1,5 +1,5 @@
 {
-  "name": "spacedf-sdk",
+  "name": "@space-df/sdk",
   "version": "0.0.1-alpha.0",
   "description": "The official TypeScript library for the Spacedf SDK API",
   "author": "Spacedf SDK <support@digitalfortress.dev>",
@@ -55,8 +55,8 @@
     "./shims/web.mjs"
   ],
   "imports": {
-    "spacedf-sdk": ".",
-    "spacedf-sdk/*": "./src/*"
+    "@space-df/sdk": ".",
+    "@space-df/sdk/*": "./src/*"
   },
   "exports": {
     "./_shims/auto/*": {

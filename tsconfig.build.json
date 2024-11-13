@@ -5,8 +5,8 @@
   "compilerOptions": {
     "rootDir": "./dist/src",
     "paths": {
-      "spacedf-sdk/*": ["dist/src/*"],
-      "spacedf-sdk": ["dist/src/index.ts"]
+      "@space-df/sdk/*": ["dist/src/*"],
+      "@space-df/sdk": ["dist/src/index.ts"]
     },
     "noEmit": false,
     "declaration": true,

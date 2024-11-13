@@ -1,4 +1,4 @@
-import SpaceDFSDK from 'spacedf-sdk';
+import SpaceDFSDK from '@space-df/sdk';
 
 const client = new SpaceDFSDK({ organization: 'abc' });
 

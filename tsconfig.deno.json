@@ -6,9 +6,9 @@
     "rootDir": "./deno",
     "lib": ["es2020", "DOM"],
     "paths": {
-      "spacedf-sdk/_shims/auto/*": ["deno/_shims/auto/*-deno"],
-      "spacedf-sdk/*": ["deno/*"],
-      "spacedf-sdk": ["deno/index.ts"]
+      "@space-df/sdk/_shims/auto/*": ["deno/_shims/auto/*-deno"],
+      "@space-df/sdk/*": ["deno/*"],
+      "@space-df/sdk": ["deno/index.ts"]
     },
     "noEmit": true,
     "declaration": true,
