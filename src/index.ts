@@ -111,14 +111,14 @@ export class SpaceDFSDK extends Core.APIClient {
                 throw new Errors.SpaceDFError('`baseURL` will be overridden by `organization`. You should only configure a single property.');
 
             if (organization) {
-                baseURL = `https://${organization}.api.v0.spacedf.net/`;
+                baseURL = `https://${organization}.api.v0.spacedf.net/api`;
             }
         }
 
         const options: ClientOptions = {
             organization,
             APIKey,
-            baseURL: baseURL || `https://api.v0.spacedf.net/`,
+            baseURL: baseURL || `https://api.v0.spacedf.net/api`,
             ...opts,
         };
 
