@@ -4,38 +4,38 @@ import * as Core from '../../core';
 
 export class DeviceStates extends APIResource {
     retrieveDaily(params: DailyRetrieveParams, options?: Core.RequestOptions): Core.APIPromise<DailyRetrieveResponse> {
-        const { 'X-Space': xSpace, ...query } = params;
-        return this._client.get(`${this.dashboardPath}/device-states/daily`, {
+        const { ...query } = params;
+        return this._client.get(`/device-states/daily`, {
             query,
             ...options,
-            headers: { 'X-Space': xSpace, ...options?.headers },
+            headers: { ...options?.headers },
         });
     }
 
     retrieveHourly(params: HourlyRetrieveParams, options?: Core.RequestOptions): Core.APIPromise<HourlyRetrieveResponse> {
-        const { 'X-Space': xSpace, ...query } = params;
-        return this._client.get(`${this.dashboardPath}/device-states/hourly`, {
+        const { ...query } = params;
+        return this._client.get(`/device-states/hourly`, {
             query,
             ...options,
-            headers: { 'X-Space': xSpace, ...options?.headers },
+            headers: { ...options?.headers },
         });
     }
 
     retrieveMinutely(params: MinutelyRetrieveParams, options?: Core.RequestOptions): Core.APIPromise<MinutelyRetrieveResponse> {
-        const { 'X-Space': xSpace, ...query } = params;
-        return this._client.get(`${this.dashboardPath}/device-states/minutely`, {
+        const { ...query } = params;
+        return this._client.get(`/device-states/minutely`, {
             query,
             ...options,
-            headers: { 'X-Space': xSpace, ...options?.headers },
+            headers: { ...options?.headers },
         });
     }
 
     retrieveMonthly(params: MonthlyRetrieveParams, options?: Core.RequestOptions): Core.APIPromise<MonthlyRetrieveResponse> {
-        const { 'X-Space': xSpace, ...query } = params;
-        return this._client.get(`${this.dashboardPath}/device-states/monthly`, {
+        const { ...query } = params;
+        return this._client.get(`/device-states/monthly`, {
             query,
             ...options,
-            headers: { 'X-Space': xSpace, ...options?.headers },
+            headers: { ...options?.headers },
         });
     }
 }
@@ -43,11 +43,6 @@ export class DeviceStates extends APIResource {
 export type DeviceStateListResponse<T> = ListResponse<T>;
 
 export interface DeviceStateListParams extends Omit<ListParamsResponse, 'search'> {
-    /**
-     * Header param: Space slug name
-     */
-    'X-Space': string;
-
     /**
      * Query param: device_slug_name
      */

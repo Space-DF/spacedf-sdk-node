@@ -5,37 +5,45 @@ import * as Core from '../../core';
 
 export class Spaces extends APIResource {
     create(body: SpaceCreateParams, options?: Core.RequestOptions): Core.APIPromise<Space> {
-        return this._client.post(`${this.authPath}/spaces`, { body, ...options });
+        return this._client.post(`/spaces`, { body, ...options });
     }
 
     update(params: SpaceUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Space> {
-        const { 'X-Space': xSpace, ...body } = params;
-        return this._client.patch(`${this.authPath}/spaces`, {
+        const { ...body } = params;
+        return this._client.put(`/spaces`, {
             body,
             ...options,
-            headers: { 'X-Space': xSpace, ...options?.headers },
+            headers: { ...options?.headers },
         });
     }
 
-    list(params?: SpaceListParams, options?: Core.RequestOptions): Core.APIPromise<SpaceListResponse>;
+    partialUpdate(params: SpaceUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Space> {
+        const { ...body } = params;
+        return this._client.patch(`/spaces`, {
+            body,
+            ...options,
+            headers: { ...options?.headers },
+        });
+    }
+
+    list(params?: ListParamsResponse, options?: Core.RequestOptions): Core.APIPromise<SpaceListResponse>;
     list(options?: Core.RequestOptions): Core.APIPromise<SpaceListResponse>;
-    list(params: SpaceListParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.APIPromise<SpaceListResponse> {
+    list(params: ListParamsResponse | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.APIPromise<SpaceListResponse> {
         if (isRequestOptions(params)) {
             return this.list({}, params);
         }
-        const { 'X-Space': xSpace, ...query } = params;
-        return this._client.get(`${this.authPath}/spaces`, {
+        const { ...query } = params;
+        return this._client.get(`/spaces`, {
             query,
             ...options,
-            headers: { ...(xSpace != null ? { 'X-Space': xSpace } : undefined), ...options?.headers },
+            headers: { ...options?.headers },
         });
     }
 
-    delete(params: SpaceDeleteParams, options?: Core.RequestOptions): Core.APIPromise<void> {
-        const { 'X-Space': xSpace } = params;
-        return this._client.delete(`${this.authPath}/spaces`, {
+    delete(options?: Core.RequestOptions): Core.APIPromise<void> {
+        return this._client.delete(`/spaces`, {
             ...options,
-            headers: { Accept: '*/*', 'X-Space': xSpace, ...options?.headers },
+            headers: { Accept: '*/*', ...options?.headers },
         });
     }
 }
@@ -53,6 +61,8 @@ export interface Space {
 
     is_active?: boolean;
 
+    total_devices: number;
+
     readonly created_at?: string;
 
     readonly updated_at?: string;
@@ -66,8 +76,23 @@ export interface SpaceCreateParams {
     name: string;
 
     slug_name: string;
+}
 
-    is_active?: boolean;
+export interface SpaceUpdateParams {
+    /**
+     * Body param:
+     */
+    logo: string;
+
+    /**
+     * Body param:
+     */
+    name: string;
+
+    /**
+     * Body param:
+     */
+    slug_name: string;
 }
 
 export interface SpaceUpdateParams {
@@ -87,26 +112,7 @@ export interface SpaceUpdateParams {
     slug_name: string;
 
     /**
-     * Header param: Space slug name
-     */
-    'X-Space': string;
-
-    /**
      * Body param:
      */
     is_active?: boolean;
-}
-
-export interface SpaceListParams extends ListParamsResponse {
-    /**
-     * Header param: Space slug name
-     */
-    'X-Space'?: string;
-}
-
-export interface SpaceDeleteParams {
-    /**
-     * Space slug name
-     */
-    'X-Space': string;
 }

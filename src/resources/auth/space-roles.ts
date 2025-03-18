@@ -4,54 +4,52 @@ import * as Core from '../../core';
 
 export class SpaceRoles extends APIResource {
     create(params: SpaceRoleCreateParams, options?: Core.RequestOptions): Core.APIPromise<SpaceRole> {
-        const { 'X-Space': xSpace, ...body } = params;
-        return this._client.post(`${this.authPath}/space-roles`, {
+        const { ...body } = params;
+        return this._client.post(`/space-roles`, {
             body,
             ...options,
-            headers: { 'X-Space': xSpace, ...options?.headers },
+            headers: { ...options?.headers },
         });
     }
 
-    retrieve(id: number, params: SpaceRoleRetrieveParams, options?: Core.RequestOptions): Core.APIPromise<SpaceRole> {
-        const { 'X-Space': xSpace } = params;
-        return this._client.get(`${this.authPath}/space-roles/${id}`, {
+    retrieve(id: number, options?: Core.RequestOptions): Core.APIPromise<SpaceRole> {
+        return this._client.get(`/space-roles/${id}`, {
             ...options,
-            headers: { 'X-Space': xSpace, ...options?.headers },
+            headers: { ...options?.headers },
         });
     }
 
     update(id: number, params: SpaceRoleUpdateParams, options?: Core.RequestOptions): Core.APIPromise<SpaceRole> {
-        const { 'X-Space': xSpace, ...body } = params;
-        return this._client.put(`${this.authPath}/space-roles/${id}`, {
+        const { ...body } = params;
+        return this._client.put(`/space-roles/${id}`, {
             body,
             ...options,
-            headers: { 'X-Space': xSpace, ...options?.headers },
+            headers: { ...options?.headers },
         });
     }
 
     partialUpdate(id: number, params: SpaceRoleUpdateParams, options?: Core.RequestOptions): Core.APIPromise<SpaceRole> {
-        const { 'X-Space': xSpace, ...body } = params;
-        return this._client.patch(`${this.authPath}/space-roles/${id}`, {
+        const { ...body } = params;
+        return this._client.patch(`/space-roles/${id}`, {
             body,
             ...options,
-            headers: { 'X-Space': xSpace, ...options?.headers },
+            headers: { ...options?.headers },
         });
     }
 
-    list(params: SpaceRoleListParams, options?: Core.RequestOptions): Core.APIPromise<SpaceRoleListResponse> {
-        const { 'X-Space': xSpace, ...query } = params;
-        return this._client.get(`${this.authPath}/space-roles`, {
+    list(params: ListParamsResponse, options?: Core.RequestOptions): Core.APIPromise<SpaceRoleListResponse> {
+        const { ...query } = params;
+        return this._client.get(`/space-roles`, {
             query,
             ...options,
-            headers: { 'X-Space': xSpace, ...options?.headers },
+            headers: { ...options?.headers },
         });
     }
 
-    delete(id: number, params: SpaceRoleDeleteParams, options?: Core.RequestOptions): Core.APIPromise<void> {
-        const { 'X-Space': xSpace } = params;
-        return this._client.delete(`${this.authPath}/space-roles/${id}`, {
+    delete(id: number, options?: Core.RequestOptions): Core.APIPromise<void> {
+        return this._client.delete(`/space-roles/${id}`, {
             ...options,
-            headers: { Accept: '*/*', 'X-Space': xSpace, ...options?.headers },
+            headers: { Accept: '*/*', ...options?.headers },
         });
     }
 }
@@ -82,18 +80,6 @@ export interface SpaceRoleCreateParams {
      * Body param:
      */
     policies: Array<number>;
-
-    /**
-     * Header param: Space slug name
-     */
-    'X-Space': string;
-}
-
-export interface SpaceRoleRetrieveParams {
-    /**
-     * Space slug name
-     */
-    'X-Space': string;
 }
 
 export interface SpaceRoleUpdateParams {
@@ -106,23 +92,4 @@ export interface SpaceRoleUpdateParams {
      * Body param:
      */
     policies: Array<number>;
-
-    /**
-     * Header param: Space slug name
-     */
-    'X-Space': string;
-}
-
-export interface SpaceRoleListParams extends ListParamsResponse {
-    /**
-     * Header param: Space slug name
-     */
-    'X-Space': string;
-}
-
-export interface SpaceRoleDeleteParams {
-    /**
-     * Space slug name
-     */
-    'X-Space': string;
 }
