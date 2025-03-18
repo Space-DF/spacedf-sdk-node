@@ -15,14 +15,10 @@ export class OAuth2 extends APIResource {
         };
 
         return (
-            this._client.post(`${this.consolePath}/auth/login`, { body: oAuth2AuthorizeBody, ...options }) as Core.APIPromise<{
+            this._client.post(`/auth/login`, { body: oAuth2AuthorizeBody, ...options }) as Core.APIPromise<{
                 data: OAuth2Authorize;
             }>
         )._thenUnwrap((obj) => ({ ...obj.data, verifier }));
-    }
-
-    token(body: OAuth2Token, options?: Core.RequestOptions): Core.APIPromise<OAuth2Token> {
-        return this._client.post(`${this.consolePath}/auth/oauth2/google`, { body, ...options });
     }
 }
 

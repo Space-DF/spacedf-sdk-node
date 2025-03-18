@@ -5,7 +5,7 @@ import * as Core from '../../core';
 
 export class SpacePolicies extends APIResource {
     retrieve(id: number, options?: Core.RequestOptions): Core.APIPromise<SpacePolicy> {
-        return this._client.get(`${this.authPath}/space-policies/${id}`, options);
+        return this._client.get(`/space-policies/${id}`, options);
     }
 
     list(query?: SpacePolicyListParams, options?: Core.RequestOptions): Core.APIPromise<SpacePolicyListResponse>;
@@ -14,7 +14,7 @@ export class SpacePolicies extends APIResource {
         if (isRequestOptions(query)) {
             return this.list({}, query);
         }
-        return this._client.get(`${this.authPath}/space-policies`, { query, ...options });
+        return this._client.get(`/space-policies`, { query, ...options });
     }
 }
 
