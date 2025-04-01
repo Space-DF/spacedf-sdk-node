@@ -18,12 +18,13 @@
 -   [Oauth2](#oauth2)
 -   [Dashboards](#dashboards)
 -   [Device States](#deviceStates)
+-   [Users](#users)
 
 # Auth
 
 ## Overview
 
-The `Auth` class provides authentication-related methods for user login, registration, OAuth login with Google, and token refresh. Below are the details for each method, including parameters, return types, and example usage.
+The `Auth` class provides authentication-related methods for user login, registration, OAuth login with Google, token refresh, switching spaces, and OAuth login with SpaceDF Console. Below are the details for each method, including parameters, return types, and example usage.
 
 ## Methods
 
@@ -145,6 +146,70 @@ const registerResponse = await client.auth.register({
     last_name: 'Example',
     email: 'user@example.com',
     password: 'example_password',
+});
+```
+
+</details>
+
+<details>
+  <summary><strong>oauth2SpaceDF</strong></summary>
+
+Log in a user via SpaceDF Console OAuth2.
+
+**Signature:**
+
+```typescript
+oauth2SpaceDF(body: OAuthSpaceDF, options?: Core.RequestOptions): Core.APIPromise<OAuthSpaceDF>
+```
+
+**Parameters:**
+
+-   `body` _(OAuthSpaceDF)_: Object containing OAuth2 parameters.
+    -   `code_verifier` _(string)_: The code verifier for PKCE.
+    -   `code` _(string)_: The authorization code obtained from SpaceDF Console.
+    -   `client_id` _(string)_: The client ID of the application.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<OAuthSpaceDF>`
+
+**Example:**
+
+```typescript
+const spaceDFAuthResponse = await client.auth.oauth2SpaceDF({
+    code_verifier: 'verifier',
+    code: 'auth_code_from_spacedf',
+    client_id: 'your-client-id',
+});
+```
+
+</details>
+
+<details>
+  <summary><strong>switchSpaces</strong></summary>
+
+Switch the user's active space using a refresh token.
+
+**Signature:**
+
+```typescript
+switchSpaces(body: AuthRefreshTokenParams, options?: Core.RequestOptions): Core.APIPromise<CustomTokenRefresh>
+```
+
+**Parameters:**
+
+-   `body` _(AuthRefreshTokenParams)_: Object containing the refresh token and target space.
+    -   `refresh` _(string)_: Refresh token.
+    -   `space` _(string)_: Target space to switch to.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<CustomTokenRefresh>`
+
+**Example:**
+
+```typescript
+const switchResponse = await client.auth.switchSpaces({
+    refresh: 'refresh_token',
+    space: 'target_space',
 });
 ```
 
@@ -313,12 +378,14 @@ await client.spaceRoleUsers.delete(1, { 'X-Space': 'example-space' });
 
 ## Overview
 
+The `Credentials` class provides methods for retrieving OAuth credentials, such as the client ID.
+
 ## Methods
 
 <details>
   <summary><strong>retrieve</strong></summary>
 
-Get a client id
+Retrieve the OAuth client ID.
 
 **Signature:**
 
@@ -336,7 +403,6 @@ retrieve(options?: Core.RequestOptions): Core.APIPromise<OAuthCredentials>
 
 ```typescript
 const credentials = await client.credentials.retrieve();
-
 console.log(credentials.client_id);
 ```
 
@@ -1155,3 +1221,101 @@ const monthlyData = await client.deviceStates.retrieveMonthly(monthlyParams);
 </details>
 
 ---
+
+# Users
+
+## Overview
+
+The `Users` class provides methods for managing the authenticated user's profile, including retrieving, updating, and deleting their information.
+
+## Methods
+
+<details>
+  <summary><strong>getMe</strong></summary>
+
+Retrieve the profile of the authenticated user.
+
+**Signature:**
+
+```typescript
+getMe(options?: Core.RequestOptions): Core.APIPromise<Profile>
+```
+
+**Parameters:**
+
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<Profile>`
+
+**Example:**
+
+```typescript
+const userProfile = await client.users.getMe();
+console.log(userProfile.first_name);
+```
+
+</details>
+
+<details>
+  <summary><strong>updateMe</strong></summary>
+
+Update the profile of the authenticated user.
+
+**Signature:**
+
+```typescript
+updateMe(body: Profile, options?: Core.RequestOptions): Core.APIPromise<Profile>
+```
+
+**Parameters:**
+
+-   `body` _(Profile)_: Object containing updated user profile details.
+    -   `first_name` _(string)_: User's first name.
+    -   `last_name` _(string)_: User's last name.
+    -   `email` _(string)_: User's email address.
+    -   `location` _(string)_: User's location.
+    -   `avatar` _(string)_: URL of the user's avatar.
+    -   `company_name` _(string)_: User's company name.
+    -   `title` _(string)_: User's title.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<Profile>`
+
+**Example:**
+
+```typescript
+const updatedProfile = await client.users.updateMe({
+    first_name: 'John',
+    last_name: 'Doe',
+    email: 'john.doe@example.com',
+});
+console.log(updatedProfile);
+```
+
+</details>
+
+<details>
+  <summary><strong>deleteMe</strong></summary>
+
+Delete the profile of the authenticated user.
+
+**Signature:**
+
+```typescript
+deleteMe(options?: Core.RequestOptions): Core.APIPromise<void>
+```
+
+**Parameters:**
+
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<void>`
+
+**Example:**
+
+```typescript
+await client.users.deleteMe();
+console.log('User profile deleted.');
+```
+
+</details>
