@@ -24,6 +24,11 @@ jobs:
                   version=$(npm version prerelease --preid=dev --no-git-tag-version)
                   echo "bumped_version=${version}" >> $GITHUB_ENV
 
+            - name: Update src/version.ts
+              run: |
+                  echo "export const VERSION = '${{ env.bumped_version }}';" > src/version.ts
+                  git add src/version.ts
+
             - name: Create new branch
               run: |
                   git checkout -b "${{ env.bumped_version }}"

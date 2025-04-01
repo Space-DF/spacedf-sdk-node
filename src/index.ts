@@ -146,6 +146,7 @@ export class SpaceDFSDK extends Core.APIClient {
     deviceStates: API.DeviceStates = new API.DeviceStates(this);
     oauth2: API.OAuth2 = new API.OAuth2(this);
     credentials: API.Credentials = new API.Credentials(this);
+    users: API.Users = new API.Users(this);
 
     protected override defaultQuery(): Core.DefaultQuery | undefined {
         return this._options.defaultQuery;
