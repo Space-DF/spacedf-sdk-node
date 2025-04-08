@@ -19,6 +19,24 @@ export class SpaceRoleUsers extends APIResource {
         });
     }
 
+    update(id: number, params: SpaceRoleParams, options?: Core.RequestOptions): Core.APIPromise<SpaceRoleParams> {
+        const { ...body } = params;
+        return this._client.put(`/space-role-users/${id}`, {
+            body,
+            ...options,
+            headers: { ...options?.headers },
+        });
+    }
+
+    partialUpdate(id: number, params: SpaceRoleParams, options?: Core.RequestOptions): Core.APIPromise<SpaceRoleParams> {
+        const { ...body } = params;
+        return this._client.patch(`/space-role-users/${id}`, {
+            body,
+            ...options,
+            headers: { ...options?.headers },
+        });
+    }
+
     delete(id: number, options?: Core.RequestOptions): Core.APIPromise<void> {
         return this._client.delete(`/space-role-users/${id}`, {
             ...options,
@@ -37,6 +55,10 @@ export interface SpaceRoleUser {
     readonly created_at?: string;
 
     readonly updated_at?: string;
+}
+
+export interface SpaceRoleParams {
+    space_role: string; 
 }
 
 export type SpaceRoleUserListResponse = ListResponse<SpaceRoleUser>;

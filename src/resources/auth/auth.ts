@@ -10,6 +10,10 @@ export class Auth extends APIResource {
         return this._client.post(`/auth/oauth2/google`, { body, ...options });
     }
 
+    oauthSendOtp(body: OAuthSendOtp, options?: Core.RequestOptions): Core.APIPromise<OAuthSendOtp> {
+        return this._client.post(`/auth/send-otp`, { body, ...options });
+    }
+
     oauth2SpaceDF(body: OAuthSpaceDF, options?: Core.RequestOptions): Core.APIPromise<OAuthSpaceDF> {
         return this._client.post(`/auth/oauth2/spacedf-console`, { body, ...options });
     }
@@ -47,6 +51,10 @@ export interface OAuthLogin {
     authorization_code: string;
 
     code_verifier: string;
+}
+
+export interface OAuthSendOtp {
+    email: string;
 }
 
 export interface OAuthSpaceDF {
@@ -89,4 +97,6 @@ export interface AuthRegisterParams {
     first_name: string;
 
     last_name: string;
+
+    otp: string;
 }

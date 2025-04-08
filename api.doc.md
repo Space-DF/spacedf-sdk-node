@@ -90,6 +90,35 @@ const googleAuthResponse = await client.auth.oauth2Google({
 </details>
 
 <details>
+  <summary><strong>oauthSendOtp</strong></summary>
+
+Send a one-time password (OTP) to the user's email for OAuth login.
+
+**Signature:**
+
+```typescript
+oauthSendOtp(body: OAuthSendOtp, options?: Core.RequestOptions): Core.APIPromise<OAuthSendOtp>
+```
+
+**Parameters:**
+
+-   `body` _(OAuthSendOtp)_: Object containing user email.
+    -   `email` _(string)_: The email address to send the OTP to.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<OAuthSendOtp>`
+
+**Example:**
+
+```typescript
+await client.auth.oauthSendOtp({
+    email: 'user@example.com',
+});
+```
+
+</details>
+
+<details>
   <summary><strong>refreshToken</strong></summary>
 
 Refresh the access token using a refresh token.
@@ -135,6 +164,7 @@ register(body: AuthRegisterParams, options?: Core.RequestOptions): Core.APIPromi
     -   `password` _(string)_: User's chosen password.
     -   `first_name` _(string)_: User's first name (optional).
     -   `last_name` _(string)_: User's last name (optional).
+    -   `otp` _(string)_: User's OTP code (optional).
 
 **Returns:** `Promise<Registration>`
 
@@ -340,6 +370,65 @@ list(params: SpaceRoleUserListParams, options?: Core.RequestOptions): Core.APIPr
 
 ```typescript
 const spaceRoleUsers = await client.spaceRoleUsers.list({ 'X-Space': 'example-space', page: 1, limit: 10 });
+console.log(spaceRoleUsers);
+```
+
+</details>
+
+<details>
+  <summary><strong>update</strong></summary>
+
+Update the details of a specific space role user.
+
+**Signature:**
+
+```typescript
+update(id: number, params: SpaceRoleParams, options?: Core.RequestOptions): Core.APIPromise<SpaceRoleParams>
+```
+
+**Parameters:**
+
+-   `id` _(number)_: The ID of the space role user to update.
+-   `params` _(SpaceRoleParams)_: Parameters containing updated space role details.
+    -   `space_role`: _(string)_: The updated space role for the user.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<SpaceRoleParams>`
+
+**Example:**
+
+```typescript
+const updatedRole = await client.spaceRoleUsers.update(1, { space_role: 'new-role' });
+console.log(updatedRole);
+```
+
+</details>
+
+<details>
+  <summary><strong>partialUpdate</strong></summary>
+
+Partially update the details of a specific space role user.
+
+**Signature:**
+
+```typescript
+partialUpdate(id: number, params: SpaceRoleParams, options?: Core.RequestOptions): Core.APIPromise<SpaceRoleParams>
+```
+
+**Parameters:**
+
+-   `id` _(number)_: The ID of the space role user to partially update.
+-   `params` _(SpaceRoleParams)_: Parameters containing updated space role details.
+    -   `space_role`: _(string)_: The updated space role for the user.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<SpaceRoleParams>`
+
+**Example:**
+
+```typescript
+const partialUpdatedRole = await client.spaceRoleUsers.partialUpdate(1, { space_role: 'another-role' });
+console.log(partialUpdatedRole);
 ```
 
 </details>
@@ -1316,6 +1405,133 @@ deleteMe(options?: Core.RequestOptions): Core.APIPromise<void>
 ```typescript
 await client.users.deleteMe();
 console.log('User profile deleted.');
+```
+
+</details>
+
+---
+
+# Invitation
+
+## Overview
+
+The `Invitation` class provides a method for sending invitation(s) to users to join a space with a specific role.
+
+## Methods
+
+<details>
+  <summary><strong>create</strong></summary>
+
+Send an invitation to one or more users to join a space.
+
+**Signature:**
+
+```typescript
+create(id: number, body: OAuthInvitation, options?: Core.RequestOptions): Core.APIPromise<OAuthInvitation>
+```
+
+**Parameters:**
+
+-   `id` _(number)_: The ID of the space or context where the invitation is being sent.
+-   `body` _(OAuthInvitation)_: The invitation details.
+    -   `receiver_list` _(Receiver[])_: A list of invited users.
+        -   `email` _(string)_: Email address of the invited user.
+        -   `space_role_id` _(string)_: Role ID the invited user will have in the space.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<OAuthInvitation>`
+
+**Example:**
+
+```typescript
+const invitation = await client.invitation.create(123, {
+    receiver_list: [
+        {
+            email: 'alice@example.com',
+            space_role_id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+        },
+        {
+            email: 'bob@example.com',
+            space_role_id: '3fa85f64-5717-4562-b3fc-2c963f66afb3',
+        },
+    ],
+});
+console.log(invitation);
+```
+
+</details>
+
+---
+
+# JoinSpace
+
+## Overview
+
+The `JoinSpace` class provides a method for joining a space using a token.
+
+## Methods
+
+<details>
+  <summary><strong>get</strong></summary>
+
+Join a space using the provided token.
+
+**Signature:**
+
+```typescript
+get(token: string, options?: Core.RequestOptions): Core.APIPromise<void>
+```
+
+**Parameters:**
+
+-   `token` _(string)_: The token used to join the space.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<void>`
+
+**Example:**
+
+```typescript
+const token = 'your-token-here';
+await client.joinSpace.get(token);
+console.log('Joined the space successfully');
+```
+
+</details>
+
+---
+
+# PresignedUrl
+
+## Overview
+
+The `PresignedUrl` class provides a method for retrieving a presigned URL along with the associated file name.
+
+## Methods
+
+<details>
+  <summary><strong>get</strong></summary>
+
+Retrieve a presigned URL and its associated file name.
+
+**Signature:**
+
+```typescript
+get(options?: Core.RequestOptions): Core.APIPromise<PresignedUrlResponse>
+```
+
+**Parameters:**
+
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<PresignedUrlResponse>`
+
+**Example:**
+
+```typescript
+const response = await client.presignedUrl.get();
+console.log(response.presigned_url);
+console.log(response.file_name);
 ```
 
 </details>
