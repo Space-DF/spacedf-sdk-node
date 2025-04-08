@@ -46,6 +46,10 @@ export class Spaces extends APIResource {
             headers: { Accept: '*/*', ...options?.headers },
         });
     }
+
+    invitation(slug_name: number, body: OAuthInvitation, options?: Core.RequestOptions): Core.APIPromise<OAuthInvitation> {
+        return this._client.post(`/spaces/invitation/${slug_name}`, { body, ...options });
+    }
 }
 
 export interface Space {
@@ -115,4 +119,13 @@ export interface SpaceUpdateParams {
      * Body param:
      */
     is_active?: boolean;
+}
+
+export interface OAuthInvitation {
+    receiver_list: Receiver[];
+}
+
+export interface Receiver {
+    email: string;
+    space_role_id: string;
 }
