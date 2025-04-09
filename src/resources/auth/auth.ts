@@ -86,7 +86,7 @@ export interface AuthLoginParams {
 export interface AuthRefreshTokenParams {
     refresh: string;
 
-    space: string;
+    space_slug_name: string;
 }
 
 export interface AuthRegisterParams {

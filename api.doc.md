@@ -133,6 +133,7 @@ refreshToken(body: AuthRefreshTokenParams, options?: Core.RequestOptions): Core.
 
 -   `body` _(AuthRefreshTokenParams)_: Object containing the refresh token.
     -   `refresh` _(string)_: Refresh token.
+    -   `space_slug_name` _(string)_: The slug name of the workspace to refresh the token for.
 
 **Returns:** `Promise<CustomTokenRefresh>`
 
@@ -141,6 +142,7 @@ refreshToken(body: AuthRefreshTokenParams, options?: Core.RequestOptions): Core.
 ```typescript
 const refreshResponse = await client.auth.refreshToken({
     refresh: 'refresh_token',
+    space_slug_name: 'default-1fa0d173-9c7c-4460-afa0-5a524dfcdff6',
 });
 ```
 
@@ -793,6 +795,47 @@ await client.spaces.delete({ 'X-Space': 'my-space' });
 
 </details>
 
+<details>
+  <summary><strong>invitation</strong></summary>
+
+Send an invitation to users to join a space.
+
+**Signature:**
+
+```typescript
+invitation(slug_name: number, body: OAuthInvitation, options?: Core.RequestOptions): Core.APIPromise<OAuthInvitation>
+```
+
+**Parameters:**
+
+- `slug_name` _(number)_: The slug ID of the space to which users are being invited.
+- `body` _(OAuthInvitation)_: Contains a list of receivers with emails and role IDs.
+    - `receiver_list`: _(Receiver[])_: A list of invitation targets.
+        - `email` _(string)_: Email address of the user to invite.
+        - `space_role_id` _(string)_: Role ID assigned to the user in the space.
+- `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<OAuthInvitation>`
+
+**Example:**
+
+```typescript
+const invitationResponse = await client.spaces.invitation("default-1fa0d173-9c7c-4460-afa0-5a524dfcdff6", {
+  receiver_list: [
+    {
+      email: 'user1@example.com',
+      space_role_id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+    },
+    {
+      email: 'user2@example.com',
+      space_role_id: '3fa85f64-5717-4562-b3fc-2c963f66afb3',
+    },
+  ],
+});
+```
+
+</details>
+
 ---
 
 # Oauth2
@@ -1405,58 +1448,6 @@ deleteMe(options?: Core.RequestOptions): Core.APIPromise<void>
 ```typescript
 await client.users.deleteMe();
 console.log('User profile deleted.');
-```
-
-</details>
-
----
-
-# Invitation
-
-## Overview
-
-The `Invitation` class provides a method for sending invitation(s) to users to join a space with a specific role.
-
-## Methods
-
-<details>
-  <summary><strong>create</strong></summary>
-
-Send an invitation to one or more users to join a space.
-
-**Signature:**
-
-```typescript
-create(id: number, body: OAuthInvitation, options?: Core.RequestOptions): Core.APIPromise<OAuthInvitation>
-```
-
-**Parameters:**
-
--   `id` _(number)_: The ID of the space or context where the invitation is being sent.
--   `body` _(OAuthInvitation)_: The invitation details.
-    -   `receiver_list` _(Receiver[])_: A list of invited users.
-        -   `email` _(string)_: Email address of the invited user.
-        -   `space_role_id` _(string)_: Role ID the invited user will have in the space.
--   `options` _(Core.RequestOptions)_: Additional request options.
-
-**Returns:** `Promise<OAuthInvitation>`
-
-**Example:**
-
-```typescript
-const invitation = await client.invitation.create(123, {
-    receiver_list: [
-        {
-            email: 'alice@example.com',
-            space_role_id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-        },
-        {
-            email: 'bob@example.com',
-            space_role_id: '3fa85f64-5717-4562-b3fc-2c963f66afb3',
-        },
-    ],
-});
-console.log(invitation);
 ```
 
 </details>
