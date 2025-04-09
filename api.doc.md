@@ -133,6 +133,7 @@ refreshToken(body: AuthRefreshTokenParams, options?: Core.RequestOptions): Core.
 
 -   `body` _(AuthRefreshTokenParams)_: Object containing the refresh token.
     -   `refresh` _(string)_: Refresh token.
+    -   `space_slug_name` _(string)_: The slug name of the workspace to refresh the token for.
 
 **Returns:** `Promise<CustomTokenRefresh>`
 
@@ -141,6 +142,7 @@ refreshToken(body: AuthRefreshTokenParams, options?: Core.RequestOptions): Core.
 ```typescript
 const refreshResponse = await client.auth.refreshToken({
     refresh: 'refresh_token',
+    space_slug_name: 'default-1fa0d173-9c7c-4460-afa0-5a524dfcdff6',
 });
 ```
 
