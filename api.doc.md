@@ -90,6 +90,34 @@ const googleAuthResponse = await client.auth.oauth2Google({
 </details>
 
 <details>
+  <summary><strong>googleLogin</strong></summary>
+
+Log in a user via Google using an authorization code.
+
+**Signature:**
+
+```typescript
+googleLogin(body: GoogleLogin, options?: Core.RequestOptions): Core.APIPromise<AuthTokenPair>
+```
+
+**Parameters:**
+
+-   `body` _(GoogleLogin)_: Object containing the Google authorization code.
+    -   `authorization_code` _(string)_: The authorization code received from Google OAuth2.
+
+**Returns:** `Promise<AuthTokenPair>`
+
+**Example:**
+
+```typescript
+const tokenPair = await client.auth.googleLogin({
+    authorization_code: '4/0Ab_5qllO5QRK6Uct5jTNNfW2fcf2v76Ub9NCH348fOvL0UBts4c7kRjSoUqjCf_wT05VqA',
+});
+```
+
+</details>
+
+<details>
   <summary><strong>oauthSendOtp</strong></summary>
 
 Send a one-time password (OTP) to the user's email for OAuth login.

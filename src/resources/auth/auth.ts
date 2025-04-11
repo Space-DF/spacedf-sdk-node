@@ -10,6 +10,10 @@ export class Auth extends APIResource {
         return this._client.post(`/auth/oauth2/google`, { body, ...options });
     }
 
+    googleLogin(body: GoogleLogin, options?: Core.RequestOptions): Core.APIPromise<AuthTokenPair> {
+        return this._client.post(`/auth/google/login`, { body, ...options });
+    }
+
     oauthSendOtp(body: OAuthSendOtp, options?: Core.RequestOptions): Core.APIPromise<OAuthSendOtp> {
         return this._client.post(`/auth/send-otp`, { body, ...options });
     }
@@ -51,6 +55,10 @@ export interface OAuthLogin {
     authorization_code: string;
 
     code_verifier: string;
+}
+
+export interface GoogleLogin {
+    authorization_code: string;
 }
 
 export interface OAuthSendOtp {
