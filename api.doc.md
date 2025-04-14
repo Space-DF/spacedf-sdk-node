@@ -864,6 +864,47 @@ const invitationResponse = await client.spaces.invitation("default-1fa0d173-9c7c
 
 </details>
 
+<details>
+  <summary><strong>joinSpace</strong></summary>
+
+Join a space using an invitation token.
+
+**Signature:**
+
+```typescript
+joinSpace(token: string, options?: Core.RequestOptions): Core.APIPromise<JoinSpaceResponse>
+```
+
+**Parameters:**
+
+- `token` _(string)_: The unique token received in the invitation link.
+- `options` _(Core.RequestOptions)_: Additional request options (e.g., headers).
+
+**Returns:** `Promise<JoinSpaceResponse>`
+
+Where `JoinSpaceResponse` is:
+
+```typescript
+export interface JoinSpaceResponse {
+  result?: string;
+  error?: string;
+}
+```
+
+**Example:**
+
+```typescript
+const joinResponse = await client.spaces.joinSpace("eyJ0b2tlbiI6ICJ4eXo0NTYiIH0...");
+
+if (joinResponse.error) {
+  console.error("Failed to join space:", joinResponse.error);
+} else {
+  console.log("Joined space successfully!", joinResponse.result);
+}
+```
+
+</details>
+
 ---
 
 # Oauth2
@@ -1476,44 +1517,6 @@ deleteMe(options?: Core.RequestOptions): Core.APIPromise<void>
 ```typescript
 await client.users.deleteMe();
 console.log('User profile deleted.');
-```
-
-</details>
-
----
-
-# JoinSpace
-
-## Overview
-
-The `JoinSpace` class provides a method for joining a space using a token.
-
-## Methods
-
-<details>
-  <summary><strong>get</strong></summary>
-
-Join a space using the provided token.
-
-**Signature:**
-
-```typescript
-get(token: string, options?: Core.RequestOptions): Core.APIPromise<void>
-```
-
-**Parameters:**
-
--   `token` _(string)_: The token used to join the space.
--   `options` _(Core.RequestOptions)_: Additional request options.
-
-**Returns:** `Promise<void>`
-
-**Example:**
-
-```typescript
-const token = 'your-token-here';
-await client.joinSpace.get(token);
-console.log('Joined the space successfully');
 ```
 
 </details>
