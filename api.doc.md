@@ -831,12 +831,11 @@ Send an invitation to users to join a space.
 **Signature:**
 
 ```typescript
-invitation(slug_name: number, body: OAuthInvitation, options?: Core.RequestOptions): Core.APIPromise<OAuthInvitation>
+invitation(body: OAuthInvitation, options?: Core.RequestOptions): Core.APIPromise<OAuthInvitation>
 ```
 
 **Parameters:**
 
-- `slug_name` _(number)_: The slug ID of the space to which users are being invited.
 - `body` _(OAuthInvitation)_: Contains a list of receivers with emails and role IDs.
     - `receiver_list`: _(Receiver[])_: A list of invitation targets.
         - `email` _(string)_: Email address of the user to invite.
@@ -848,7 +847,7 @@ invitation(slug_name: number, body: OAuthInvitation, options?: Core.RequestOptio
 **Example:**
 
 ```typescript
-const invitationResponse = await client.spaces.invitation("default-1fa0d173-9c7c-4460-afa0-5a524dfcdff6", {
+const invitationResponse = await client.spaces.invitation({
   receiver_list: [
     {
       email: 'user1@example.com',

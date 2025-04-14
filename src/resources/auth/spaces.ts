@@ -47,8 +47,8 @@ export class Spaces extends APIResource {
         });
     }
 
-    invitation(slug_name: string, body: OAuthInvitation, options?: Core.RequestOptions): Core.APIPromise<OAuthInvitation> {
-        return this._client.post(`/spaces/invitation/${slug_name}`, { body, ...options });
+    invitation(body: OAuthInvitation, options?: Core.RequestOptions): Core.APIPromise<OAuthInvitation> {
+        return this._client.post(`/spaces/invitation`, { body, ...options });
     }
 
     joinSpace(token: string, options?: Core.RequestOptions): Core.APIPromise<JoinSpaceResponse> {
