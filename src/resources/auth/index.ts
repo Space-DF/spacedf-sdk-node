@@ -5,5 +5,4 @@ export * from './space-roles';
 export * from './space-role-users';
 export * from './credentials';
 export * from './users';
-export * from './join-space';
 export * from './presigned-url';

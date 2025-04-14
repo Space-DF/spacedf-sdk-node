@@ -50,6 +50,10 @@ export class Spaces extends APIResource {
     invitation(slug_name: string, body: OAuthInvitation, options?: Core.RequestOptions): Core.APIPromise<OAuthInvitation> {
         return this._client.post(`/spaces/invitation/${slug_name}`, { body, ...options });
     }
+
+    joinSpace(token: string, options?: Core.RequestOptions): Core.APIPromise<JoinSpaceResponse> {
+        return this._client.get(`/spaces/join-space/${token}`, options);
+    }      
 }
 
 export interface Space {
@@ -128,4 +132,9 @@ export interface OAuthInvitation {
 export interface Receiver {
     email: string;
     space_role_id: string;
+}
+
+export interface JoinSpaceResponse {
+    error?: string;
+    result?: string;
 }

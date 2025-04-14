@@ -147,7 +147,6 @@ export class SpaceDFSDK extends Core.APIClient {
     oauth2: API.OAuth2 = new API.OAuth2(this);
     credentials: API.Credentials = new API.Credentials(this);
     users: API.Users = new API.Users(this);
-    joinSpace: API.JoinSpace = new API.JoinSpace(this);
     presignedUrl: API.PresignedUrl = new API.PresignedUrl(this);
 
     protected override defaultQuery(): Core.DefaultQuery | undefined {
