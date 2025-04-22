@@ -14,8 +14,16 @@ export class Auth extends APIResource {
         return this._client.post(`/auth/google/login`, { body, ...options });
     }
 
-    oauthSendOtp(body: OAuthSendOtp, options?: Core.RequestOptions): Core.APIPromise<OAuthSendOtp> {
+    oauthSendOtp(body: OAuthSendEmail, options?: Core.RequestOptions): Core.APIPromise<OAuthSendEmail> {
         return this._client.post(`/auth/send-otp`, { body, ...options });
+    }
+
+    forgetPassword(body: AuthLoginParams, options?: Core.RequestOptions): Core.APIPromise<AuthLoginParams> {
+        return this._client.post(`/auth/forget-password`, { body, ...options });
+    }
+
+    sendEmailConfirm(body: OAuthSendEmail, options?: Core.RequestOptions): Core.APIPromise<OAuthSendEmail> {
+        return this._client.post(`/auth/send-email-confirm`, { body, ...options });
     }
 
     oauth2SpaceDF(body: OAuthSpaceDF, options?: Core.RequestOptions): Core.APIPromise<OAuthSpaceDF> {
@@ -61,7 +69,7 @@ export interface GoogleLogin {
     authorization_code: string;
 }
 
-export interface OAuthSendOtp {
+export interface OAuthSendEmail {
     email: string;
 }
 
