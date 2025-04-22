@@ -18,7 +18,7 @@ export class Auth extends APIResource {
         return this._client.post(`/auth/send-otp`, { body, ...options });
     }
 
-    forgetPassword(body: AuthLoginParams, options?: Core.RequestOptions): Core.APIPromise<AuthLoginParams> {
+    forgetPassword(body: ForgetPasswordParams, options?: Core.RequestOptions): Core.APIPromise<ForgetPasswordParams> {
         return this._client.post(`/auth/forget-password`, { body, ...options });
     }
 
@@ -95,6 +95,12 @@ export interface Registration {
 
 export interface AuthLoginParams {
     email: string;
+
+    password: string;
+}
+
+export interface ForgetPasswordParams {
+    token: string;
 
     password: string;
 }
