@@ -149,28 +149,28 @@ await client.auth.oauthSendOtp({
 <details>
   <summary><strong>forgetPassword</strong></summary>
 
-Send a password reset request for a user's account using their email and password.
+Send a password reset request for a user's account using their token and password.
 
 **Signature:**
 
 ```typescript
-forgetPassword(body: AuthLoginParams, options?: Core.RequestOptions): Core.APIPromise<AuthLoginParams>
+forgetPassword(body: ForgetPasswordParams, options?: Core.RequestOptions): Core.APIPromise<ForgetPasswordParams>
 ```
 
 **Parameters:**
 
--   `body` _(AuthLoginParams)_: Object containing user credentials.
-    -   `email` _(string)_: The email address associated with the user's account.
+-   `body` _(ForgetPasswordParams)_: Object containing user credentials.
+    -   `token` _(string)_: The token associated with the user's account.
     -   `password` _(string)_: The new password to set for the account.
 -   `options` _(Core.RequestOptions)_: Additional request options.
 
-**Returns:** `Promise<AuthLoginParams>`
+**Returns:** `Promise<ForgetPasswordParams>`
 
 **Example:**
 
 ```typescript
 await client.auth.forgetPassword({
-    email: 'user@example.com',
+    token: 'token',
     password: 'newSecurePassword123',
 });
 ```
