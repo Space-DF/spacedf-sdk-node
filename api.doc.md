@@ -147,6 +147,66 @@ await client.auth.oauthSendOtp({
 </details>
 
 <details>
+  <summary><strong>forgetPassword</strong></summary>
+
+Send a password reset request for a user's account using their email and password.
+
+**Signature:**
+
+```typescript
+forgetPassword(body: AuthLoginParams, options?: Core.RequestOptions): Core.APIPromise<AuthLoginParams>
+```
+
+**Parameters:**
+
+-   `body` _(AuthLoginParams)_: Object containing user credentials.
+    -   `email` _(string)_: The email address associated with the user's account.
+    -   `password` _(string)_: The new password to set for the account.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<AuthLoginParams>`
+
+**Example:**
+
+```typescript
+await client.auth.forgetPassword({
+    email: 'user@example.com',
+    password: 'newSecurePassword123',
+});
+```
+
+</details>
+
+<details>
+  <summary><strong>sendEmailConfirm</strong></summary>
+
+Send a confirmation email to the user's address to verify ownership.
+
+**Signature:**
+
+```typescript
+sendEmailConfirm(body: OAuthSendEmail, options?: Core.RequestOptions): Core.APIPromise<OAuthSendEmail>
+```
+
+**Parameters:**
+
+-   `body` _(OAuthSendEmail)_: Object containing user email.
+    -   `email` _(string)_: The email address to send the confirmation link to.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<OAuthSendEmail>`
+
+**Example:**
+
+```typescript
+await client.auth.sendEmailConfirm({
+    email: 'user@example.com',
+});
+```
+
+</details>
+
+<details>
   <summary><strong>refreshToken</strong></summary>
 
 Refresh the access token using a refresh token.
