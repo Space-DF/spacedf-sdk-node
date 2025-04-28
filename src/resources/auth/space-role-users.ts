@@ -37,6 +37,13 @@ export class SpaceRoleUsers extends APIResource {
         });
     }
 
+    setSpaceDefault(id: String, options?: Core.RequestOptions): Core.APIPromise<void> {
+        return this._client.post(`/space-role-users/${id}/default`, {
+            ...options,
+            headers: {...options?.headers },
+        });
+    }
+
     delete(id: number, options?: Core.RequestOptions): Core.APIPromise<void> {
         return this._client.delete(`/space-role-users/${id}`, {
             ...options,
