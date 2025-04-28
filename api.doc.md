@@ -524,6 +524,33 @@ console.log(partialUpdatedRole);
 </details>
 
 <details>
+  <summary><strong>setSpaceDefault</strong></summary>
+
+Set a specific space role user as the default for their space.
+
+**Signature:**
+
+```typescript
+setSpaceDefault(id: string, options?: Core.RequestOptions): Core.APIPromise<void>
+```
+
+**Parameters:**
+
+- `id` _(string)_: The ID of the space role user to set as default.
+- `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<void>`
+
+**Example:**
+
+```typescript
+await client.spaceRoleUsers.setSpaceDefault("3fa85f64-5717-4562-b3fc-2c963f ...");
+console.log('Space role user has been set as default.');
+```
+
+</details>
+
+<details>
   <summary><strong>delete</strong></summary>
 
 Delete a specific space role user by their ID.
