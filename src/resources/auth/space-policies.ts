@@ -8,7 +8,7 @@ export class SpacePolicies extends APIResource {
         const { 'X-Space': xspace } = params;
         return this._client.get(`/space-policies/${id}`, {
             ...options,
-            headers: { ...options?.headers, 'X-Space': xspace, },
+            headers: { ...options?.headers, 'X-Space': xspace },
         });
     }
 
@@ -66,5 +66,5 @@ export type SpacePolicyListResponse = ListResponse<SpacePolicy>;
 export type SpacePolicyListParams = ListParamsResponse;
 
 export interface SpacePolicyParams {
-    'X-Space': string
+    'X-Space': string;
 }
