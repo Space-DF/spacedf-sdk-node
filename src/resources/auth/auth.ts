@@ -107,8 +107,6 @@ export interface ForgetPasswordParams {
 
 export interface AuthRefreshTokenParams {
     refresh: string;
-
-    space_slug_name: string;
 }
 
 export interface AuthRegisterParams {

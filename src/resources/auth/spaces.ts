@@ -9,20 +9,20 @@ export class Spaces extends APIResource {
     }
 
     update(params: SpaceUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Space> {
-        const { ...body } = params;
+        const { 'X-Space': xspace, ...body } = params;
         return this._client.put(`/spaces`, {
             body,
             ...options,
-            headers: { ...options?.headers },
+            headers: { ...options?.headers, 'X-Space': xspace, },
         });
     }
 
     partialUpdate(params: SpaceUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Space> {
-        const { ...body } = params;
+        const { 'X-Space': xspace, ...body } = params;
         return this._client.patch(`/spaces`, {
             body,
             ...options,
-            headers: { ...options?.headers },
+            headers: { ...options?.headers, 'X-Space': xspace, },
         });
     }
 
@@ -39,16 +39,21 @@ export class Spaces extends APIResource {
             headers: { ...options?.headers },
         });
     }
-
-    delete(options?: Core.RequestOptions): Core.APIPromise<void> {
+    delete(params: SpaceParams, options?: Core.RequestOptions): Core.APIPromise<void> {
+        const { 'X-Space': xspace } = params;
         return this._client.delete(`/spaces`, {
             ...options,
-            headers: { Accept: '*/*', ...options?.headers },
+            headers: { Accept: '*/*', ...options?.headers, 'X-Space': xspace,},
         });
     }
 
-    invitation(body: OAuthInvitation, options?: Core.RequestOptions): Core.APIPromise<OAuthInvitation> {
-        return this._client.post(`/spaces/invitation`, { body, ...options });
+    invitation(params: OAuthInvitationParams, options?: Core.RequestOptions): Core.APIPromise<OAuthInvitationParams> {
+        const { 'X-Space': xspace, ...body } = params;
+        return this._client.post(`/spaces/invitation`, { 
+            body, 
+            ...options,
+            headers: { ...options?.headers, 'X-Space': xspace, },
+        });
     }
 
     joinSpace(token: string, options?: Core.RequestOptions): Core.APIPromise<JoinSpaceResponse> {
@@ -101,6 +106,15 @@ export interface SpaceUpdateParams {
      * Body param:
      */
     slug_name: string;
+
+    /**
+     * Header param:
+     */
+    'X-Space': string;
+}
+
+export interface SpaceParams {
+    'X-Space': string;
 }
 
 export interface SpaceUpdateParams {
@@ -125,8 +139,9 @@ export interface SpaceUpdateParams {
     is_active?: boolean;
 }
 
-export interface OAuthInvitation {
+export interface OAuthInvitationParams {
     receiver_list: Receiver[];
+    'X-Space': string;
 }
 
 export interface Receiver {
