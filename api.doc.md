@@ -221,7 +221,6 @@ refreshToken(body: AuthRefreshTokenParams, options?: Core.RequestOptions): Core.
 
 -   `body` _(AuthRefreshTokenParams)_: Object containing the refresh token.
     -   `refresh` _(string)_: Refresh token.
-    -   `space_slug_name` _(string)_: The slug name of the workspace to refresh the token for.
 
 **Returns:** `Promise<CustomTokenRefresh>`
 
@@ -379,13 +378,13 @@ List all space policies or filter them based on query parameters.
 **Signature:**
 
 ```typescript
-list(query?: SpacePolicyListParams, options?: Core.RequestOptions): Core.APIPromise<SpacePolicyListResponse>;
-list(options?: Core.RequestOptions): Core.APIPromise<SpacePolicyListResponse>;
-list(query: SpacePolicyListParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.APIPromise<SpacePolicyListResponse>
+list(spaceName: string, query?: SpacePolicyListParams, options?: Core.RequestOptions): Core.APIPromise<SpacePolicyListResponse>;
+list(spaceName: string, options?: Core.RequestOptions): Core.APIPromise<SpacePolicyListResponse>;
+list(spaceName: string, query: SpacePolicyListParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.APIPromise<SpacePolicyListResponse>
 ```
 
 **Parameters:**
-
+-   `spaceName` _string_: The space slug name.
 -   `query` _(SpacePolicyListParams)_: (optional) Filters to apply when listing policies.
 -   `options` _(Core.RequestOptions)_: Additional request options.
 
@@ -394,7 +393,7 @@ list(query: SpacePolicyListParams | Core.RequestOptions = {}, options?: Core.Req
 **Example:**
 
 ```typescript
-const spacePolicies = await client.spacePolicies.list({ page: 1, limit: 10 });
+const spacePolicies = await client.spacePolicies.list('your-space-slug', { page: 1, limit: 10 });
 ```
 
 </details>
@@ -417,13 +416,13 @@ Retrieve a specific space role user by their ID.
 **Signature:**
 
 ```typescript
-retrieve(id: number, params: SpaceRoleUserRetrieveParams, options?: Core.RequestOptions): Core.APIPromise<SpaceRoleUser>
+retrieve(id: number, params: SpaceParams, options?: Core.RequestOptions): Core.APIPromise<SpaceRoleUser>
 ```
 
 **Parameters:**
 
 -   `id` _(number)_: The ID of the space role user to retrieve.
--   `params` _(SpaceRoleUserRetrieveParams)_: Parameters containing the space slug.
+-   `params` _(SpaceParams)_: Parameters containing the space slug.
     -   `X-Space`: _(string)_: Space slug name.
 -   `options` _(Core.RequestOptions)_: Additional request options.
 
@@ -445,13 +444,12 @@ List all space role users or filter them based on query parameters.
 **Signature:**
 
 ```typescript
-list(params: SpaceRoleUserListParams, options?: Core.RequestOptions): Core.APIPromise<SpaceRoleUserListResponse>
+list(spaceName: string, params: ListParamsResponse, options?: Core.RequestOptions): Core.APIPromise<SpaceRoleUserListResponse>
 ```
 
 **Parameters:**
-
--   `params` _(SpaceRoleUserListParams)_: Parameters containing the space slug and any additional filters.
-    -   `X-Space`: _(string)_: Header param for space slug name.
+-   `spaceName`: _(string)_: Header param for space slug name.
+-   `params` _(SpaceRoleUserListParams)_: Parameters containing any additional filters.
 -   `options` _(Core.RequestOptions)_: Additional request options.
 
 **Returns:** `Promise<SpaceRoleUserListResponse>`
@@ -459,7 +457,7 @@ list(params: SpaceRoleUserListParams, options?: Core.RequestOptions): Core.APIPr
 **Example:**
 
 ```typescript
-const spaceRoleUsers = await client.spaceRoleUsers.list({ 'X-Space': 'example-space', page: 1, limit: 10 });
+const spaceRoleUsers = await client.spaceRoleUsers.list('example-space', { page: 1, limit: 10 });
 console.log(spaceRoleUsers);
 ```
 
@@ -481,6 +479,7 @@ update(id: number, params: SpaceRoleParams, options?: Core.RequestOptions): Core
 -   `id` _(number)_: The ID of the space role user to update.
 -   `params` _(SpaceRoleParams)_: Parameters containing updated space role details.
     -   `space_role`: _(string)_: The updated space role for the user.
+    -   `X-Space`: _(string)_: The space slug name.
 -   `options` _(Core.RequestOptions)_: Additional request options.
 
 **Returns:** `Promise<SpaceRoleParams>`
@@ -488,7 +487,7 @@ update(id: number, params: SpaceRoleParams, options?: Core.RequestOptions): Core
 **Example:**
 
 ```typescript
-const updatedRole = await client.spaceRoleUsers.update(1, { space_role: 'new-role' });
+const updatedRole = await client.spaceRoleUsers.update(1, { space_role: 'new-role', 'X-Space': 'your-space-slug' });
 console.log(updatedRole);
 ```
 
@@ -510,6 +509,7 @@ partialUpdate(id: number, params: SpaceRoleParams, options?: Core.RequestOptions
 -   `id` _(number)_: The ID of the space role user to partially update.
 -   `params` _(SpaceRoleParams)_: Parameters containing updated space role details.
     -   `space_role`: _(string)_: The updated space role for the user.
+    -   `X-Space`: _(string)_: The space slug name.
 -   `options` _(Core.RequestOptions)_: Additional request options.
 
 **Returns:** `Promise<SpaceRoleParams>`
@@ -517,7 +517,7 @@ partialUpdate(id: number, params: SpaceRoleParams, options?: Core.RequestOptions
 **Example:**
 
 ```typescript
-const partialUpdatedRole = await client.spaceRoleUsers.partialUpdate(1, { space_role: 'another-role' });
+const partialUpdatedRole = await client.spaceRoleUsers.partialUpdate(1, { space_role: 'another-role', 'X-Space': 'your-space-slug' });
 console.log(partialUpdatedRole);
 ```
 
@@ -531,12 +531,14 @@ Set a specific space role user as the default for their space.
 **Signature:**
 
 ```typescript
-setSpaceDefault(id: string, options?: Core.RequestOptions): Core.APIPromise<void>
+setSpaceDefault(id: String, params: SpaceParams, options?: Core.RequestOptions): Core.APIPromise<void>
 ```
 
 **Parameters:**
 
 - `id` _(string)_: The ID of the space role user to set as default.
+-  `params` _(SpaceParams)_: Parameters containing the space slug.
+  -   `X-Space`: _(string)_: Space slug name.
 - `options` _(Core.RequestOptions)_: Additional request options.
 
 **Returns:** `Promise<void>`
@@ -558,13 +560,13 @@ Delete a specific space role user by their ID.
 **Signature:**
 
 ```typescript
-delete(id: number, params: SpaceRoleUserDeleteParams, options?: Core.RequestOptions): Core.APIPromise<void>
+delete(id: number, params: SpaceParams, options?: Core.RequestOptions): Core.APIPromise<void>
 ```
 
 **Parameters:**
 
 -   `id` _(number)_: The ID of the space role user to delete.
--   `params` _(SpaceRoleUserDeleteParams)_: Parameters containing the space slug.
+-   `params` _(SpaceParams)_: Parameters containing the space slug.
     -   `X-Space`: _(string)_: Space slug name.
 -   `options` _(Core.RequestOptions)_: Additional request options.
 
@@ -665,13 +667,13 @@ Retrieve a specific space role by its ID.
 **Signature:**
 
 ```typescript
-retrieve(id: number, params: SpaceRoleRetrieveParams, options?: Core.RequestOptions): Core.APIPromise<SpaceRole>
+retrieve(id: number, params: SpaceParams, options?: Core.RequestOptions): Core.APIPromise<SpaceRole>
 ```
 
 **Parameters:**
 
 -   `id` _(number)_: The ID of the space role to retrieve.
--   `params` _(SpaceRoleRetrieveParams)_: Parameters containing the space slug.
+-   `params` _(SpaceParams)_: Parameters containing the space slug.
     -   `X-Space`: _(string)_: Space slug name.
 -   `options` _(Core.RequestOptions)_: Additional request options.
 
@@ -727,13 +729,12 @@ List all space roles or filter them based on query parameters.
 **Signature:**
 
 ```typescript
-list(params: SpaceRoleListParams, options?: Core.RequestOptions): Core.APIPromise<SpaceRoleListResponse>
+list(spaceName: string, params: ListParamsResponse, options?: Core.RequestOptions): Core.APIPromise<SpaceRoleListResponse>
 ```
 
 **Parameters:**
-
--   `params` _(SpaceRoleListParams)_: Parameters containing the space slug and any additional filters.
-    -   `X-Space`: _(string)_: Header param for space slug name.
+-   `spaceName`: _(string)_: Header param for space slug name.
+-   `params` _(ListParamsResponse)_: Parameters containing the additional filters.
 -   `options` _(Core.RequestOptions)_: Additional request options.
 
 **Returns:** `Promise<SpaceRoleListResponse>`
@@ -741,7 +742,7 @@ list(params: SpaceRoleListParams, options?: Core.RequestOptions): Core.APIPromis
 **Example:**
 
 ```typescript
-const spaceRoles = await client.spaceRoles.list({ 'X-Space': 'example-space', page: 1, limit: 10 });
+const spaceRoles = await client.spaceRoles.list('example-space', { page: 1, limit: 10 });
 ```
 
 </details>
@@ -891,12 +892,12 @@ Delete a specific space.
 **Signature:**
 
 ```typescript
-delete(params: SpaceDeleteParams, options?: Core.RequestOptions): Core.APIPromise<void>
+delete(params: SpaceParams, options?: Core.RequestOptions): Core.APIPromise<void>
 ```
 
 **Parameters:**
 
--   `params` _(SpaceDeleteParams)_: Parameters containing the space slug.
+-   `params` _(SpaceParams)_: Parameters containing the space slug.
     -   `X-Space`: _(string)_: Space slug name.
 -   `options` _(Core.RequestOptions)_: Additional request options.
 
@@ -918,18 +919,19 @@ Send an invitation to users to join a space.
 **Signature:**
 
 ```typescript
-invitation(body: OAuthInvitation, options?: Core.RequestOptions): Core.APIPromise<OAuthInvitation>
+invitation(params: OAuthInvitationParams, options?: Core.RequestOptions): Core.APIPromise<OAuthInvitationParams>
 ```
 
 **Parameters:**
 
-- `body` _(OAuthInvitation)_: Contains a list of receivers with emails and role IDs.
+- `params` _(OAuthInvitationParams)_: Contains a list of receivers with emails and role IDs.
     - `receiver_list`: _(Receiver[])_: A list of invitation targets.
         - `email` _(string)_: Email address of the user to invite.
         - `space_role_id` _(string)_: Role ID assigned to the user in the space.
+    -  `X-Space`: _(string)_: The space slug name.
 - `options` _(Core.RequestOptions)_: Additional request options.
 
-**Returns:** `Promise<OAuthInvitation>`
+**Returns:** `Promise<OAuthInvitationParams>`
 
 **Example:**
 
@@ -945,6 +947,7 @@ const invitationResponse = await client.spaces.invitation({
       space_role_id: '3fa85f64-5717-4562-b3fc-2c963f66afb3',
     },
   ],
+  'X-Space': 'your-space-slug',
 });
 ```
 
