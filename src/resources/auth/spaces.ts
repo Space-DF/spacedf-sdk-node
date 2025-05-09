@@ -13,7 +13,7 @@ export class Spaces extends APIResource {
         return this._client.put(`/spaces`, {
             body,
             ...options,
-            headers: { ...options?.headers, 'X-Space': xspace, },
+            headers: { ...options?.headers, 'X-Space': xspace },
         });
     }
 
@@ -22,7 +22,7 @@ export class Spaces extends APIResource {
         return this._client.patch(`/spaces`, {
             body,
             ...options,
-            headers: { ...options?.headers, 'X-Space': xspace, },
+            headers: { ...options?.headers, 'X-Space': xspace },
         });
     }
 
@@ -43,16 +43,16 @@ export class Spaces extends APIResource {
         const { 'X-Space': xspace } = params;
         return this._client.delete(`/spaces`, {
             ...options,
-            headers: { Accept: '*/*', ...options?.headers, 'X-Space': xspace,},
+            headers: { Accept: '*/*', ...options?.headers, 'X-Space': xspace },
         });
     }
 
     invitation(params: OAuthInvitationParams, options?: Core.RequestOptions): Core.APIPromise<OAuthInvitationParams> {
         const { 'X-Space': xspace, ...body } = params;
-        return this._client.post(`/spaces/invitation`, { 
-            body, 
+        return this._client.post(`/spaces/invitation`, {
+            body,
             ...options,
-            headers: { ...options?.headers, 'X-Space': xspace, },
+            headers: { ...options?.headers, 'X-Space': xspace },
         });
     }
 

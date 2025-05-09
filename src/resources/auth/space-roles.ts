@@ -12,7 +12,7 @@ export class SpaceRoles extends APIResource {
         });
     }
 
-    retrieve(id: number, params: SpaceParams, options?: Core.RequestOptions): Core.APIPromise<SpaceRole> {
+    retrieve(id: number, params: SpaceRoleParams, options?: Core.RequestOptions): Core.APIPromise<SpaceRole> {
         const { 'X-Space': xspace } = params;
         return this._client.get(`/space-roles/${id}`, {
             ...options,
@@ -43,11 +43,11 @@ export class SpaceRoles extends APIResource {
         return this._client.get(`/space-roles`, {
             query,
             ...options,
-            headers: { ...options?.headers, 'X-Space': spaceName, },
+            headers: { ...options?.headers, 'X-Space': spaceName },
         });
     }
 
-    delete(id: number, params: SpaceParams, options?: Core.RequestOptions): Core.APIPromise<void> {
+    delete(id: number, params: SpaceRoleParams, options?: Core.RequestOptions): Core.APIPromise<void> {
         const { 'X-Space': xspace } = params;
         return this._client.delete(`/space-roles/${id}`, {
             ...options,
@@ -86,7 +86,7 @@ export interface SpaceRoleCreateParams {
     /**
      * Header param:
      */
-    'X-Space': string
+    'X-Space': string;
 }
 
 export interface SpaceRoleUpdateParams {
@@ -102,9 +102,9 @@ export interface SpaceRoleUpdateParams {
     /**
      * Header param:
      */
-    'X-Space': string
+    'X-Space': string;
 }
 
-export interface SpaceParams {
-    'X-Space': string
+export interface SpaceRoleParams {
+    'X-Space': string;
 }

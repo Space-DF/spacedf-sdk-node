@@ -9,16 +9,16 @@
 
 # Table of Contents
 
--   [Auth](#Auth)
--   [Credentials](#credentials)
--   [Space Policies](#space-policies)
--   [Space Role Users](#space-role-users)
--   [Space Roles](#space-roles)
--   [Spaces](#spaces)
--   [Oauth2](#oauth2)
--   [Dashboards](#dashboards)
--   [Device States](#deviceStates)
--   [Users](#users)
+- [Auth](#Auth)
+- [Credentials](#credentials)
+- [Space Policies](#space-policies)
+- [Space Role Users](#space-role-users)
+- [Space Roles](#space-roles)
+- [Spaces](#spaces)
+- [Oauth2](#oauth2)
+- [Dashboards](#dashboards)
+- [Device States](#deviceStates)
+- [Users](#users)
 
 # Auth
 
@@ -41,10 +41,10 @@ login(body: AuthLoginParams, options?: Core.RequestOptions): Core.APIPromise<Tok
 
 **Parameters:**
 
--   `body` _(AuthLoginParams)_: Object containing user credentials.
-    -   `email` _(string)_: User's email address.
-    -   `password` _(string)_: User's password.
--   `options` _(Core.RequestOptions)_: Additional request options.
+- `body` _(AuthLoginParams)_: Object containing user credentials.
+    - `email` _(string)_: User's email address.
+    - `password` _(string)_: User's password.
+- `options` _(Core.RequestOptions)_: Additional request options.
 
 **Returns:** `Promise<TokenPair>`
 
@@ -72,9 +72,9 @@ oauth2Google(body: AuthOauth2GoogleParams, options?: Core.RequestOptions): Core.
 
 **Parameters:**
 
--   `body` _(AuthOauth2GoogleParams)_: Object containing OAuth2 parameters.
-    -   `authorization_code` _(string)_: The authorization code obtained from Google.
-    -   `code_verifier` _(string)_: The code verifier for PKCE.
+- `body` _(AuthOauth2GoogleParams)_: Object containing OAuth2 parameters.
+    - `authorization_code` _(string)_: The authorization code obtained from Google.
+    - `code_verifier` _(string)_: The code verifier for PKCE.
 
 **Returns:** `Promise<OAuthLogin>`
 
@@ -102,8 +102,8 @@ googleLogin(body: GoogleLogin, options?: Core.RequestOptions): Core.APIPromise<A
 
 **Parameters:**
 
--   `body` _(GoogleLogin)_: Object containing the Google authorization code.
-    -   `authorization_code` _(string)_: The authorization code received from Google OAuth2.
+- `body` _(GoogleLogin)_: Object containing the Google authorization code.
+    - `authorization_code` _(string)_: The authorization code received from Google OAuth2.
 
 **Returns:** `Promise<AuthTokenPair>`
 
@@ -130,9 +130,9 @@ oauthSendOtp(body: OAuthSendOtp, options?: Core.RequestOptions): Core.APIPromise
 
 **Parameters:**
 
--   `body` _(OAuthSendOtp)_: Object containing user email.
-    -   `email` _(string)_: The email address to send the OTP to.
--   `options` _(Core.RequestOptions)_: Additional request options.
+- `body` _(OAuthSendOtp)_: Object containing user email.
+    - `email` _(string)_: The email address to send the OTP to.
+- `options` _(Core.RequestOptions)_: Additional request options.
 
 **Returns:** `Promise<OAuthSendOtp>`
 
@@ -159,10 +159,10 @@ forgetPassword(body: ForgetPasswordParams, options?: Core.RequestOptions): Core.
 
 **Parameters:**
 
--   `body` _(ForgetPasswordParams)_: Object containing user credentials.
-    -   `token` _(string)_: The token associated with the user's account.
-    -   `password` _(string)_: The new password to set for the account.
--   `options` _(Core.RequestOptions)_: Additional request options.
+- `body` _(ForgetPasswordParams)_: Object containing user credentials.
+    - `token` _(string)_: The token associated with the user's account.
+    - `password` _(string)_: The new password to set for the account.
+- `options` _(Core.RequestOptions)_: Additional request options.
 
 **Returns:** `Promise<ForgetPasswordParams>`
 
@@ -190,9 +190,9 @@ sendEmailConfirm(body: OAuthSendEmail, options?: Core.RequestOptions): Core.APIP
 
 **Parameters:**
 
--   `body` _(OAuthSendEmail)_: Object containing user email.
-    -   `email` _(string)_: The email address to send the confirmation link to.
--   `options` _(Core.RequestOptions)_: Additional request options.
+- `body` _(OAuthSendEmail)_: Object containing user email.
+    - `email` _(string)_: The email address to send the confirmation link to.
+- `options` _(Core.RequestOptions)_: Additional request options.
 
 **Returns:** `Promise<OAuthSendEmail>`
 
@@ -219,8 +219,8 @@ refreshToken(body: AuthRefreshTokenParams, options?: Core.RequestOptions): Core.
 
 **Parameters:**
 
--   `body` _(AuthRefreshTokenParams)_: Object containing the refresh token.
-    -   `refresh` _(string)_: Refresh token.
+- `body` _(AuthRefreshTokenParams)_: Object containing the refresh token.
+    - `refresh` _(string)_: Refresh token.
 
 **Returns:** `Promise<CustomTokenRefresh>`
 
@@ -248,12 +248,12 @@ register(body: AuthRegisterParams, options?: Core.RequestOptions): Core.APIPromi
 
 **Parameters:**
 
--   `body` _(AuthRegisterParams)_: Object containing user registration details.
-    -   `email` _(string)_: User's email address.
-    -   `password` _(string)_: User's chosen password.
-    -   `first_name` _(string)_: User's first name (optional).
-    -   `last_name` _(string)_: User's last name (optional).
-    -   `otp` _(string)_: User's OTP code (optional).
+- `body` _(AuthRegisterParams)_: Object containing user registration details.
+    - `email` _(string)_: User's email address.
+    - `password` _(string)_: User's chosen password.
+    - `first_name` _(string)_: User's first name (optional).
+    - `last_name` _(string)_: User's last name (optional).
+    - `otp` _(string)_: User's OTP code (optional).
 
 **Returns:** `Promise<Registration>`
 
@@ -283,11 +283,11 @@ oauth2SpaceDF(body: OAuthSpaceDF, options?: Core.RequestOptions): Core.APIPromis
 
 **Parameters:**
 
--   `body` _(OAuthSpaceDF)_: Object containing OAuth2 parameters.
-    -   `code_verifier` _(string)_: The code verifier for PKCE.
-    -   `code` _(string)_: The authorization code obtained from SpaceDF Console.
-    -   `client_id` _(string)_: The client ID of the application.
--   `options` _(Core.RequestOptions)_: Additional request options.
+- `body` _(OAuthSpaceDF)_: Object containing OAuth2 parameters.
+    - `code_verifier` _(string)_: The code verifier for PKCE.
+    - `code` _(string)_: The authorization code obtained from SpaceDF Console.
+    - `client_id` _(string)_: The client ID of the application.
+- `options` _(Core.RequestOptions)_: Additional request options.
 
 **Returns:** `Promise<OAuthSpaceDF>`
 
@@ -316,10 +316,10 @@ switchSpaces(body: AuthRefreshTokenParams, options?: Core.RequestOptions): Core.
 
 **Parameters:**
 
--   `body` _(AuthRefreshTokenParams)_: Object containing the refresh token and target space.
-    -   `refresh` _(string)_: Refresh token.
-    -   `space` _(string)_: Target space to switch to.
--   `options` _(Core.RequestOptions)_: Additional request options.
+- `body` _(AuthRefreshTokenParams)_: Object containing the refresh token and target space.
+    - `refresh` _(string)_: Refresh token.
+    - `space` _(string)_: Target space to switch to.
+- `options` _(Core.RequestOptions)_: Additional request options.
 
 **Returns:** `Promise<CustomTokenRefresh>`
 
@@ -357,8 +357,8 @@ retrieve(id: number, options?: Core.RequestOptions): Core.APIPromise<SpacePolicy
 
 **Parameters:**
 
--   `id` _(number)_: The ID of the space policy to retrieve.
--   `options` _(Core.RequestOptions)_: Additional request options.
+- `id` _(number)_: The ID of the space policy to retrieve.
+- `options` _(Core.RequestOptions)_: Additional request options.
 
 **Returns:** `Promise<SpacePolicy>`
 
@@ -384,9 +384,10 @@ list(spaceName: string, query: SpacePolicyListParams | Core.RequestOptions = {},
 ```
 
 **Parameters:**
--   `spaceName` _string_: The space slug name.
--   `query` _(SpacePolicyListParams)_: (optional) Filters to apply when listing policies.
--   `options` _(Core.RequestOptions)_: Additional request options.
+
+- `spaceName` _string_: The space slug name.
+- `query` _(SpacePolicyListParams)_: (optional) Filters to apply when listing policies.
+- `options` _(Core.RequestOptions)_: Additional request options.
 
 **Returns:** `Promise<SpacePolicyListResponse>`
 
@@ -416,15 +417,15 @@ Retrieve a specific space role user by their ID.
 **Signature:**
 
 ```typescript
-retrieve(id: number, params: SpaceParams, options?: Core.RequestOptions): Core.APIPromise<SpaceRoleUser>
+retrieve(id: number, params: SpaceRoleUsersParams, options?: Core.RequestOptions): Core.APIPromise<SpaceRoleUser>
 ```
 
 **Parameters:**
 
--   `id` _(number)_: The ID of the space role user to retrieve.
--   `params` _(SpaceParams)_: Parameters containing the space slug.
-    -   `X-Space`: _(string)_: Space slug name.
--   `options` _(Core.RequestOptions)_: Additional request options.
+- `id` _(number)_: The ID of the space role user to retrieve.
+- `params` _(SpaceRoleUsersParams)_: Parameters containing the space slug.
+    - `X-Space`: _(string)_: Space slug name.
+- `options` _(Core.RequestOptions)_: Additional request options.
 
 **Returns:** `Promise<SpaceRoleUser>`
 
@@ -448,9 +449,10 @@ list(spaceName: string, params: ListParamsResponse, options?: Core.RequestOption
 ```
 
 **Parameters:**
--   `spaceName`: _(string)_: Header param for space slug name.
--   `params` _(SpaceRoleUserListParams)_: Parameters containing any additional filters.
--   `options` _(Core.RequestOptions)_: Additional request options.
+
+- `spaceName`: _(string)_: Header param for space slug name.
+- `params` _(SpaceRoleUserListParams)_: Parameters containing any additional filters.
+- `options` _(Core.RequestOptions)_: Additional request options.
 
 **Returns:** `Promise<SpaceRoleUserListResponse>`
 
@@ -476,11 +478,11 @@ update(id: number, params: SpaceRoleParams, options?: Core.RequestOptions): Core
 
 **Parameters:**
 
--   `id` _(number)_: The ID of the space role user to update.
--   `params` _(SpaceRoleParams)_: Parameters containing updated space role details.
-    -   `space_role`: _(string)_: The updated space role for the user.
-    -   `X-Space`: _(string)_: The space slug name.
--   `options` _(Core.RequestOptions)_: Additional request options.
+- `id` _(number)_: The ID of the space role user to update.
+- `params` _(SpaceRoleParams)_: Parameters containing updated space role details.
+    - `space_role`: _(string)_: The updated space role for the user.
+    - `X-Space`: _(string)_: The space slug name.
+- `options` _(Core.RequestOptions)_: Additional request options.
 
 **Returns:** `Promise<SpaceRoleParams>`
 
@@ -506,11 +508,11 @@ partialUpdate(id: number, params: SpaceRoleParams, options?: Core.RequestOptions
 
 **Parameters:**
 
--   `id` _(number)_: The ID of the space role user to partially update.
--   `params` _(SpaceRoleParams)_: Parameters containing updated space role details.
-    -   `space_role`: _(string)_: The updated space role for the user.
-    -   `X-Space`: _(string)_: The space slug name.
--   `options` _(Core.RequestOptions)_: Additional request options.
+- `id` _(number)_: The ID of the space role user to partially update.
+- `params` _(SpaceRoleParams)_: Parameters containing updated space role details.
+    - `space_role`: _(string)_: The updated space role for the user.
+    - `X-Space`: _(string)_: The space slug name.
+- `options` _(Core.RequestOptions)_: Additional request options.
 
 **Returns:** `Promise<SpaceRoleParams>`
 
@@ -531,14 +533,14 @@ Set a specific space role user as the default for their space.
 **Signature:**
 
 ```typescript
-setSpaceDefault(id: String, params: SpaceParams, options?: Core.RequestOptions): Core.APIPromise<void>
+setSpaceDefault(id: String, params: SpaceRoleUsersParams, options?: Core.RequestOptions): Core.APIPromise<void>
 ```
 
 **Parameters:**
 
 - `id` _(string)_: The ID of the space role user to set as default.
--  `params` _(SpaceParams)_: Parameters containing the space slug.
-  -   `X-Space`: _(string)_: Space slug name.
+- `params` _(SpaceRoleUsersParams)_: Parameters containing the space slug.
+- `X-Space`: _(string)_: Space slug name.
 - `options` _(Core.RequestOptions)_: Additional request options.
 
 **Returns:** `Promise<void>`
@@ -546,7 +548,7 @@ setSpaceDefault(id: String, params: SpaceParams, options?: Core.RequestOptions):
 **Example:**
 
 ```typescript
-await client.spaceRoleUsers.setSpaceDefault("3fa85f64-5717-4562-b3fc ...");
+await client.spaceRoleUsers.setSpaceDefault('3fa85f64-5717-4562-b3fc ...');
 console.log('Space role user has been set as default.');
 ```
 
@@ -560,15 +562,15 @@ Delete a specific space role user by their ID.
 **Signature:**
 
 ```typescript
-delete(id: number, params: SpaceParams, options?: Core.RequestOptions): Core.APIPromise<void>
+delete(id: number, params: SpaceRoleUsersParams, options?: Core.RequestOptions): Core.APIPromise<void>
 ```
 
 **Parameters:**
 
--   `id` _(number)_: The ID of the space role user to delete.
--   `params` _(SpaceParams)_: Parameters containing the space slug.
-    -   `X-Space`: _(string)_: Space slug name.
--   `options` _(Core.RequestOptions)_: Additional request options.
+- `id` _(number)_: The ID of the space role user to delete.
+- `params` _(SpaceRoleUsersParams)_: Parameters containing the space slug.
+    - `X-Space`: _(string)_: Space slug name.
+- `options` _(Core.RequestOptions)_: Additional request options.
 
 **Returns:** `Promise<void>`
 
@@ -603,7 +605,7 @@ retrieve(options?: Core.RequestOptions): Core.APIPromise<OAuthCredentials>
 
 **Parameters:**
 
--   `options` _(Core.RequestOptions)_: Additional request options.
+- `options` _(Core.RequestOptions)_: Additional request options.
 
 **Returns:** `Promise<OAuthCredentials>`
 
@@ -639,11 +641,11 @@ create(params: SpaceRoleCreateParams, options?: Core.RequestOptions): Core.APIPr
 
 **Parameters:**
 
--   `params` _(SpaceRoleCreateParams)_: Parameters for creating a new space role.
-    -   `name`: _(string)_: The name of the space role.
-    -   `policies`: _(Array<number>)_: An array of policy IDs associated with the space role.
-    -   `X-Space`: _(string)_: Header param for space slug name.
--   `options` _(Core.RequestOptions)_: Additional request options.
+- `params` _(SpaceRoleCreateParams)_: Parameters for creating a new space role.
+    - `name`: _(string)_: The name of the space role.
+    - `policies`: _(Array<number>)_: An array of policy IDs associated with the space role.
+    - `X-Space`: _(string)_: Header param for space slug name.
+- `options` _(Core.RequestOptions)_: Additional request options.
 
 **Returns:** `Promise<SpaceRole>`
 
@@ -667,15 +669,15 @@ Retrieve a specific space role by its ID.
 **Signature:**
 
 ```typescript
-retrieve(id: number, params: SpaceParams, options?: Core.RequestOptions): Core.APIPromise<SpaceRole>
+retrieve(id: number, params: SpaceRolesParams, options?: Core.RequestOptions): Core.APIPromise<SpaceRole>
 ```
 
 **Parameters:**
 
--   `id` _(number)_: The ID of the space role to retrieve.
--   `params` _(SpaceParams)_: Parameters containing the space slug.
-    -   `X-Space`: _(string)_: Space slug name.
--   `options` _(Core.RequestOptions)_: Additional request options.
+- `id` _(number)_: The ID of the space role to retrieve.
+- `params` _(SpaceRolesParams)_: Parameters containing the space slug.
+    - `X-Space`: _(string)_: Space slug name.
+- `options` _(Core.RequestOptions)_: Additional request options.
 
 **Returns:** `Promise<SpaceRole>`
 
@@ -700,12 +702,12 @@ update(id: number, params: SpaceRoleUpdateParams, options?: Core.RequestOptions)
 
 **Parameters:**
 
--   `id` _(number)_: The ID of the space role to update.
--   `params` _(SpaceRoleUpdateParams)_: Parameters for updating the space role.
-    -   `name`: _(string)_: The new name of the space role.
-    -   `policies`: _(Array<number>)_: An updated array of policy IDs associated with the space role.
-    -   `X-Space`: _(string)_: Header param for space slug name.
--   `options` _(Core.RequestOptions)_: Additional request options.
+- `id` _(number)_: The ID of the space role to update.
+- `params` _(SpaceRoleUpdateParams)_: Parameters for updating the space role.
+    - `name`: _(string)_: The new name of the space role.
+    - `policies`: _(Array<number>)_: An updated array of policy IDs associated with the space role.
+    - `X-Space`: _(string)_: Header param for space slug name.
+- `options` _(Core.RequestOptions)_: Additional request options.
 
 **Returns:** `Promise<SpaceRole>`
 
@@ -733,9 +735,10 @@ list(spaceName: string, params: ListParamsResponse, options?: Core.RequestOption
 ```
 
 **Parameters:**
--   `spaceName`: _(string)_: Header param for space slug name.
--   `params` _(ListParamsResponse)_: Parameters containing the additional filters.
--   `options` _(Core.RequestOptions)_: Additional request options.
+
+- `spaceName`: _(string)_: Header param for space slug name.
+- `params` _(ListParamsResponse)_: Parameters containing the additional filters.
+- `options` _(Core.RequestOptions)_: Additional request options.
 
 **Returns:** `Promise<SpaceRoleListResponse>`
 
@@ -760,10 +763,10 @@ delete(id: number, params: SpaceRoleDeleteParams, options?: Core.RequestOptions)
 
 **Parameters:**
 
--   `id` _(number)_: The ID of the space role to delete.
--   `params` _(SpaceRoleDeleteParams)_: Parameters containing the space slug.
-    -   `X-Space`: _(string)_: Space slug name.
--   `options` _(Core.RequestOptions)_: Additional request options.
+- `id` _(number)_: The ID of the space role to delete.
+- `params` _(SpaceRoleDeleteParams)_: Parameters containing the space slug.
+    - `X-Space`: _(string)_: Space slug name.
+- `options` _(Core.RequestOptions)_: Additional request options.
 
 **Returns:** `Promise<void>`
 
@@ -798,12 +801,12 @@ create(body: SpaceCreateParams, options?: Core.RequestOptions): Core.APIPromise<
 
 **Parameters:**
 
--   `body` _(SpaceCreateParams)_: Parameters for creating a new space.
-    -   `logo`: _(string)_: URL of the space logo.
-    -   `name`: _(string)_: The name of the space.
-    -   `slug_name`: _(string)_: Slug name for the space.
-    -   `is_active` _(boolean)_: (Optional) Whether the space is active.
--   `options` _(Core.RequestOptions)_: Additional request options.
+- `body` _(SpaceCreateParams)_: Parameters for creating a new space.
+    - `logo`: _(string)_: URL of the space logo.
+    - `name`: _(string)_: The name of the space.
+    - `slug_name`: _(string)_: Slug name for the space.
+    - `is_active` _(boolean)_: (Optional) Whether the space is active.
+- `options` _(Core.RequestOptions)_: Additional request options.
 
 **Returns:** `Promise<Space>`
 
@@ -833,13 +836,13 @@ update(params: SpaceUpdateParams, options?: Core.RequestOptions): Core.APIPromis
 
 **Parameters:**
 
--   `params` _(SpaceUpdateParams)_: Parameters for updating the space.
-    -   `logo`: _(string)_: URL of the new space logo.
-    -   `name`: _(string)_: The new name of the space.
-    -   `slug_name`: _(string)_: The new slug name for the space.
-    -   `X-Space`: _(string)_: Header param for space slug name.
-    -   `is_active` _(boolean)_: (Optional) Whether the space is active.
--   `options` _(Core.RequestOptions)_: Additional request options.
+- `params` _(SpaceUpdateParams)_: Parameters for updating the space.
+    - `logo`: _(string)_: URL of the new space logo.
+    - `name`: _(string)_: The new name of the space.
+    - `slug_name`: _(string)_: The new slug name for the space.
+    - `X-Space`: _(string)_: Header param for space slug name.
+    - `is_active` _(boolean)_: (Optional) Whether the space is active.
+- `options` _(Core.RequestOptions)_: Additional request options.
 
 **Returns:** `Promise<Space>`
 
@@ -870,9 +873,9 @@ list(params?: SpaceListParams, options?: Core.RequestOptions): Core.APIPromise<S
 
 **Parameters:**
 
--   `params` _(SpaceListParams)_: (Optional) Parameters containing the space slug and any additional filters.
-    -   `X-Space`: _(string)_: Header param for space slug name (optional).
--   `options` _(Core.RequestOptions)_: Additional request options.
+- `params` _(SpaceListParams)_: (Optional) Parameters containing the space slug and any additional filters.
+    - `X-Space`: _(string)_: Header param for space slug name (optional).
+- `options` _(Core.RequestOptions)_: Additional request options.
 
 **Returns:** `Promise<SpaceListResponse>`
 
@@ -897,9 +900,9 @@ delete(params: SpaceParams, options?: Core.RequestOptions): Core.APIPromise<void
 
 **Parameters:**
 
--   `params` _(SpaceParams)_: Parameters containing the space slug.
-    -   `X-Space`: _(string)_: Space slug name.
--   `options` _(Core.RequestOptions)_: Additional request options.
+- `params` _(SpaceParams)_: Parameters containing the space slug.
+    - `X-Space`: _(string)_: Space slug name.
+- `options` _(Core.RequestOptions)_: Additional request options.
 
 **Returns:** `Promise<void>`
 
@@ -928,7 +931,7 @@ invitation(params: OAuthInvitationParams, options?: Core.RequestOptions): Core.A
     - `receiver_list`: _(Receiver[])_: A list of invitation targets.
         - `email` _(string)_: Email address of the user to invite.
         - `space_role_id` _(string)_: Role ID assigned to the user in the space.
-    -  `X-Space`: _(string)_: The space slug name.
+    - `X-Space`: _(string)_: The space slug name.
 - `options` _(Core.RequestOptions)_: Additional request options.
 
 **Returns:** `Promise<OAuthInvitationParams>`
@@ -937,17 +940,17 @@ invitation(params: OAuthInvitationParams, options?: Core.RequestOptions): Core.A
 
 ```typescript
 const invitationResponse = await client.spaces.invitation({
-  receiver_list: [
-    {
-      email: 'user1@example.com',
-      space_role_id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-    },
-    {
-      email: 'user2@example.com',
-      space_role_id: '3fa85f64-5717-4562-b3fc-2c963f66afb3',
-    },
-  ],
-  'X-Space': 'your-space-slug',
+    receiver_list: [
+        {
+            email: 'user1@example.com',
+            space_role_id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+        },
+        {
+            email: 'user2@example.com',
+            space_role_id: '3fa85f64-5717-4562-b3fc-2c963f66afb3',
+        },
+    ],
+    'X-Space': 'your-space-slug',
 });
 ```
 
@@ -975,20 +978,20 @@ Where `JoinSpaceResponse` is:
 
 ```typescript
 export interface JoinSpaceResponse {
-  result?: string;
-  error?: string;
+    result?: string;
+    error?: string;
 }
 ```
 
 **Example:**
 
 ```typescript
-const joinResponse = await client.spaces.joinSpace("eyJ0b2tlbiI6ICJ4eXo0NTYiIH0...");
+const joinResponse = await client.spaces.joinSpace('eyJ0b2tlbiI6ICJ4eXo0NTYiIH0...');
 
 if (joinResponse.error) {
-  console.error("Failed to join space:", joinResponse.error);
+    console.error('Failed to join space:', joinResponse.error);
 } else {
-  console.log("Joined space successfully!", joinResponse.result);
+    console.log('Joined space successfully!', joinResponse.result);
 }
 ```
 
@@ -1017,11 +1020,11 @@ async authorize(body: OAuth2AuthorizeParams, options?: Core.RequestOptions): Pro
 
 **Parameters:**
 
--   `body` _(OAuth2AuthorizeParams)_: Parameters required for authorization.
-    -   `client_id`: _(string)_: The client ID of the application.
-    -   `redirect_uri`: _(string)_: The URI to redirect to after authorization.
-    -   `scopes`: _(Array<'organization'>)_: Scopes for the authorization request.
--   `options` _(Core.RequestOptions)_: (Optional) Additional request options.
+- `body` _(OAuth2AuthorizeParams)_: Parameters required for authorization.
+    - `client_id`: _(string)_: The client ID of the application.
+    - `redirect_uri`: _(string)_: The URI to redirect to after authorization.
+    - `scopes`: _(Array<'organization'>)_: Scopes for the authorization request.
+- `options` _(Core.RequestOptions)_: (Optional) Additional request options.
 
 **Returns:** `Promise<OAuth2Authorize>`
 
@@ -1051,13 +1054,13 @@ token(body: OAuth2Token, options?: Core.RequestOptions): Core.APIPromise<OAuth2T
 
 **Parameters:**
 
--   `body` _(OAuth2Token)_: Parameters required to obtain an access token.
-    -   `client_id`: _(string)_: The client ID of the application.
-    -   `client_secret`: _(string)_: The client secret of the application.
-    -   `code`: _(string)_: The authorization code received from the authorization server.
-    -   `code_verifier`: _(string)_: The code verifier used in the authorization request.
-    -   `scopes`: _(Array<'organization'>)_: (Optional) Scopes for the token request.
-    -   `id_token`: _(string)_: (Optional) ID token if available.
+- `body` _(OAuth2Token)_: Parameters required to obtain an access token.
+    - `client_id`: _(string)_: The client ID of the application.
+    - `client_secret`: _(string)_: The client secret of the application.
+    - `code`: _(string)_: The authorization code received from the authorization server.
+    - `code_verifier`: _(string)_: The code verifier used in the authorization request.
+    - `scopes`: _(Array<'organization'>)_: (Optional) Scopes for the token request.
+    - `id_token`: _(string)_: (Optional) ID token if available.
 
 **Returns:** `Promise<OAuth2Token>`
 
@@ -1098,9 +1101,9 @@ create(params: DashboardCreateParams, options?: Core.RequestOptions): Core.APIPr
 
 **Parameters:**
 
--   `params` _(DashboardCreateParams)_: Parameters required for creating a dashboard.
-    -   `name`: _(string)_: The name of the dashboard.
-    -   `X-Space`: _(string)_: The space slug name.
+- `params` _(DashboardCreateParams)_: Parameters required for creating a dashboard.
+    - `name`: _(string)_: The name of the dashboard.
+    - `X-Space`: _(string)_: The space slug name.
 
 **Returns:** `Promise<Dashboard>`
 
@@ -1129,9 +1132,9 @@ retrieve(id: number, params: DashboardRetrieveParams, options?: Core.RequestOpti
 
 **Parameters:**
 
--   `id` _(number)_: The ID of the dashboard to retrieve.
--   `params` _(DashboardRetrieveParams)_: Parameters required for retrieving a dashboard.
-    -   `X-Space`: _(string)_: The space slug name.
+- `id` _(number)_: The ID of the dashboard to retrieve.
+- `params` _(DashboardRetrieveParams)_: Parameters required for retrieving a dashboard.
+    - `X-Space`: _(string)_: The space slug name.
 
 **Returns:** `Promise<Dashboard>`
 
@@ -1157,10 +1160,10 @@ update(id: number, params: DashboardUpdateParams, options?: Core.RequestOptions)
 
 **Parameters:**
 
--   `id` _(number)_: The ID of the dashboard to update.
--   `params` _(DashboardUpdateParams)_: Parameters required for updating a dashboard.
-    -   `name`: _(string)_: The new name of the dashboard.
-    -   `X-Space`: _(string)_: The space slug name.
+- `id` _(number)_: The ID of the dashboard to update.
+- `params` _(DashboardUpdateParams)_: Parameters required for updating a dashboard.
+    - `name`: _(string)_: The new name of the dashboard.
+    - `X-Space`: _(string)_: The space slug name.
 
 **Returns:** `Promise<Dashboard>`
 
@@ -1189,8 +1192,8 @@ list(params: DashboardListParams, options?: Core.RequestOptions): Core.APIPromis
 
 **Parameters:**
 
--   `params` _(DashboardListParams)_: Parameters for listing dashboards.
-    -   `X-Space`: _(string)_: The space slug name.
+- `params` _(DashboardListParams)_: Parameters for listing dashboards.
+    - `X-Space`: _(string)_: The space slug name.
 
 **Returns:** `Promise<DashboardListResponse>`
 
@@ -1215,9 +1218,9 @@ delete(id: number, params: DashboardDeleteParams, options?: Core.RequestOptions)
 
 **Parameters:**
 
--   `id` _(number)_: The ID of the dashboard to delete.
--   `params` _(DashboardDeleteParams)_: Parameters required for deleting a dashboard.
-    -   `X-Space`: _(string)_: The space slug name.
+- `id` _(number)_: The ID of the dashboard to delete.
+- `params` _(DashboardDeleteParams)_: Parameters required for deleting a dashboard.
+    - `X-Space`: _(string)_: The space slug name.
 
 **Returns:** `Promise<void>`
 
@@ -1242,10 +1245,10 @@ createWidget(dashboardId: string, params: WidgetCreateParams, options?: Core.Req
 
 **Parameters:**
 
--   `dashboardId` _(string)_: The ID of the dashboard to create the widget in.
--   `params` _(WidgetCreateParams)_: Parameters required for creating a widget.
-    -   `configuration`: _(any)_: Configuration settings for the widget.
-    -   `X-Space`: _(string)_: The space slug name.
+- `dashboardId` _(string)_: The ID of the dashboard to create the widget in.
+- `params` _(WidgetCreateParams)_: Parameters required for creating a widget.
+    - `configuration`: _(any)_: Configuration settings for the widget.
+    - `X-Space`: _(string)_: The space slug name.
 
 **Returns:** `Promise<Widget>`
 
@@ -1274,10 +1277,10 @@ retrieveWidget(dashboardId: string, id: number, params: WidgetRetrieveParams, op
 
 **Parameters:**
 
--   `dashboardId` _(string)_: The ID of the dashboard containing the widget.
--   `id` _(number)_: The ID of the widget to retrieve.
--   `params` _(WidgetRetrieveParams)_: Parameters required for retrieving a widget.
-    -   `X-Space`: _(string)_: The space slug name.
+- `dashboardId` _(string)_: The ID of the dashboard containing the widget.
+- `id` _(number)_: The ID of the widget to retrieve.
+- `params` _(WidgetRetrieveParams)_: Parameters required for retrieving a widget.
+    - `X-Space`: _(string)_: The space slug name.
 
 **Returns:** `Promise<Widget>`
 
@@ -1302,11 +1305,11 @@ updateWidget(dashboardId: string, id: number, params: WidgetUpdateParams, option
 
 **Parameters:**
 
--   `dashboardId` _(string)_: The ID of the dashboard containing the widget.
--   `id` _(number)_: The ID of the widget to update.
--   `params` _(WidgetUpdateParams)_: Parameters required for updating a widget.
-    -   `configuration`: _(any)_: New configuration settings for the widget.
-    -   `X-Space`: _(string)_: The space slug name.
+- `dashboardId` _(string)_: The ID of the dashboard containing the widget.
+- `id` _(number)_: The ID of the widget to update.
+- `params` _(WidgetUpdateParams)_: Parameters required for updating a widget.
+    - `configuration`: _(any)_: New configuration settings for the widget.
+    - `X-Space`: _(string)_: The space slug name.
 
 **Returns:** `Promise<Widget>`
 
@@ -1335,10 +1338,10 @@ listWidgets(dashboardId: string, params: WidgetListParams, options?: Core.Reques
 
 **Parameters:**
 
--   `dashboardId` _(string)_: The ID of the dashboard to list widgets from.
--   `params` _(WidgetListParams)_: Parameters for listing widgets.
-    -   `X-Space`: _(string)_: The space slug name.
-    -   `ordering`: _(string)_: (Optional) Field to use when ordering the results.
+- `dashboardId` _(string)_: The ID of the dashboard to list widgets from.
+- `params` _(WidgetListParams)_: Parameters for listing widgets.
+    - `X-Space`: _(string)_: The space slug name.
+    - `ordering`: _(string)_: (Optional) Field to use when ordering the results.
 
 **Returns:** `Promise<WidgetListResponse>`
 
@@ -1363,10 +1366,10 @@ deleteWidget(dashboardId: string, id: number, params: WidgetDeleteParams, option
 
 **Parameters:**
 
--   `dashboardId` _(string)_: The ID of the dashboard containing the widget.
--   `id` _(number)_: The ID of the widget to delete.
--   `params` _(WidgetDeleteParams)_: Parameters required for deleting a widget.
-    -   `X-Space`: _(string)_: The space slug name.
+- `dashboardId` _(string)_: The ID of the dashboard containing the widget.
+- `id` _(number)_: The ID of the widget to delete.
+- `params` _(WidgetDeleteParams)_: Parameters required for deleting a widget.
+    - `X-Space`: _(string)_: The space slug name.
 
 **Returns:** `Promise<void>`
 
@@ -1399,9 +1402,9 @@ retrieveDaily(params: DailyRetrieveParams, options?: Core.RequestOptions): Core.
 
 **Parameters:**
 
--   `params` _(DailyRetrieveParams)_: Parameters for retrieving daily device states.
-    -   `X-Space`: _(string)_: Space slug name.
-    -   Other query parameters specific to daily retrieval.
+- `params` _(DailyRetrieveParams)_: Parameters for retrieving daily device states.
+    - `X-Space`: _(string)_: Space slug name.
+    - Other query parameters specific to daily retrieval.
 
 **Returns:** `Promise<DailyRetrieveResponse>`
 
@@ -1430,9 +1433,9 @@ retrieveHourly(params: HourlyRetrieveParams, options?: Core.RequestOptions): Cor
 
 **Parameters:**
 
--   `params` _(HourlyRetrieveParams)_: Parameters for retrieving hourly device states.
-    -   `X-Space`: _(string)_: Space slug name.
-    -   Other query parameters specific to hourly retrieval.
+- `params` _(HourlyRetrieveParams)_: Parameters for retrieving hourly device states.
+    - `X-Space`: _(string)_: Space slug name.
+    - Other query parameters specific to hourly retrieval.
 
 **Returns:** `Promise<HourlyRetrieveResponse>`
 
@@ -1461,9 +1464,9 @@ retrieveMinutely(params: MinutelyRetrieveParams, options?: Core.RequestOptions):
 
 **Parameters:**
 
--   `params` _(MinutelyRetrieveParams)_: Parameters for retrieving minutely device states.
-    -   `X-Space`: _(string)_: Space slug name.
-    -   Other query parameters specific to minutely retrieval.
+- `params` _(MinutelyRetrieveParams)_: Parameters for retrieving minutely device states.
+    - `X-Space`: _(string)_: Space slug name.
+    - Other query parameters specific to minutely retrieval.
 
 **Returns:** `Promise<MinutelyRetrieveResponse>`
 
@@ -1492,9 +1495,9 @@ retrieveMonthly(params: MonthlyRetrieveParams, options?: Core.RequestOptions): C
 
 **Parameters:**
 
--   `params` _(MonthlyRetrieveParams)_: Parameters for retrieving monthly device states.
-    -   `X-Space`: _(string)_: Space slug name.
-    -   Other query parameters specific to monthly retrieval.
+- `params` _(MonthlyRetrieveParams)_: Parameters for retrieving monthly device states.
+    - `X-Space`: _(string)_: Space slug name.
+    - Other query parameters specific to monthly retrieval.
 
 **Returns:** `Promise<MonthlyRetrieveResponse>`
 
@@ -1533,7 +1536,7 @@ getMe(options?: Core.RequestOptions): Core.APIPromise<Profile>
 
 **Parameters:**
 
--   `options` _(Core.RequestOptions)_: Additional request options.
+- `options` _(Core.RequestOptions)_: Additional request options.
 
 **Returns:** `Promise<Profile>`
 
@@ -1559,15 +1562,15 @@ updateMe(body: Profile, options?: Core.RequestOptions): Core.APIPromise<Profile>
 
 **Parameters:**
 
--   `body` _(Profile)_: Object containing updated user profile details.
-    -   `first_name` _(string)_: User's first name.
-    -   `last_name` _(string)_: User's last name.
-    -   `email` _(string)_: User's email address.
-    -   `location` _(string)_: User's location.
-    -   `avatar` _(string)_: URL of the user's avatar.
-    -   `company_name` _(string)_: User's company name.
-    -   `title` _(string)_: User's title.
--   `options` _(Core.RequestOptions)_: Additional request options.
+- `body` _(Profile)_: Object containing updated user profile details.
+    - `first_name` _(string)_: User's first name.
+    - `last_name` _(string)_: User's last name.
+    - `email` _(string)_: User's email address.
+    - `location` _(string)_: User's location.
+    - `avatar` _(string)_: URL of the user's avatar.
+    - `company_name` _(string)_: User's company name.
+    - `title` _(string)_: User's title.
+- `options` _(Core.RequestOptions)_: Additional request options.
 
 **Returns:** `Promise<Profile>`
 
@@ -1597,7 +1600,7 @@ deleteMe(options?: Core.RequestOptions): Core.APIPromise<void>
 
 **Parameters:**
 
--   `options` _(Core.RequestOptions)_: Additional request options.
+- `options` _(Core.RequestOptions)_: Additional request options.
 
 **Returns:** `Promise<void>`
 
@@ -1633,7 +1636,7 @@ get(options?: Core.RequestOptions): Core.APIPromise<PresignedUrlResponse>
 
 **Parameters:**
 
--   `options` _(Core.RequestOptions)_: Additional request options.
+- `options` _(Core.RequestOptions)_: Additional request options.
 
 **Returns:** `Promise<PresignedUrlResponse>`
 

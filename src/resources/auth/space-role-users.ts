@@ -3,7 +3,7 @@ import { ListParamsResponse, ListResponse } from '../../types/api';
 import * as Core from '../../core';
 
 export class SpaceRoleUsers extends APIResource {
-    retrieve(id: number, params: SpaceParams, options?: Core.RequestOptions): Core.APIPromise<SpaceRoleUser> {
+    retrieve(id: number, params: SpaceRoleUsersParams, options?: Core.RequestOptions): Core.APIPromise<SpaceRoleUser> {
         const { 'X-Space': xspace } = params;
         return this._client.get(`/space-role-users/${id}`, {
             ...options,
@@ -20,7 +20,7 @@ export class SpaceRoleUsers extends APIResource {
         });
     }
 
-    update(id: number, params: SpaceRoleParams, options?: Core.RequestOptions): Core.APIPromise<SpaceRoleParams> {
+    update(id: number, params: SpaceRoleUserUpdateParams, options?: Core.RequestOptions): Core.APIPromise<SpaceRoleUserUpdateParams> {
         const { 'X-Space': xspace, ...body } = params;
         return this._client.put(`/space-role-users/${id}`, {
             body,
@@ -29,7 +29,7 @@ export class SpaceRoleUsers extends APIResource {
         });
     }
 
-    partialUpdate(id: number, params: SpaceRoleParams, options?: Core.RequestOptions): Core.APIPromise<SpaceRoleParams> {
+    partialUpdate(id: number, params: SpaceRoleUserUpdateParams, options?: Core.RequestOptions): Core.APIPromise<SpaceRoleUserUpdateParams> {
         const { 'X-Space': xspace, ...body } = params;
         return this._client.patch(`/space-role-users/${id}`, {
             body,
@@ -38,15 +38,15 @@ export class SpaceRoleUsers extends APIResource {
         });
     }
 
-    setSpaceDefault(id: String, params: SpaceParams, options?: Core.RequestOptions): Core.APIPromise<void> {
+    setSpaceDefault(id: String, params: SpaceRoleUsersParams, options?: Core.RequestOptions): Core.APIPromise<void> {
         const { 'X-Space': xspace } = params;
         return this._client.post(`/space-role-users/${id}/default`, {
             ...options,
-            headers: {...options?.headers, 'X-Space': xspace },
+            headers: { ...options?.headers, 'X-Space': xspace },
         });
     }
 
-    delete(id: number, params: SpaceParams, options?: Core.RequestOptions): Core.APIPromise<void> {
+    delete(id: number, params: SpaceRoleUsersParams, options?: Core.RequestOptions): Core.APIPromise<void> {
         const { 'X-Space': xspace } = params;
         return this._client.delete(`/space-role-users/${id}`, {
             ...options,
@@ -67,12 +67,12 @@ export interface SpaceRoleUser {
     readonly updated_at?: string;
 }
 
-export interface SpaceRoleParams {
+export interface SpaceRoleUserUpdateParams {
     space_role: string;
     'X-Space': string;
 }
 
-export interface SpaceParams {
+export interface SpaceRoleUsersParams {
     'X-Space': string;
 }
 
