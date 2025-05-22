@@ -1650,8 +1650,6 @@ console.log(response.file_name);
 
 </details>
 
----
-
 # DeviceConnector
 
 ## Overview
