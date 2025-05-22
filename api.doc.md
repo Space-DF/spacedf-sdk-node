@@ -1649,3 +1649,844 @@ console.log(response.file_name);
 ```
 
 </details>
+
+# DeviceConnector
+
+## Overview
+
+The `DeviceConnector` class provides methods for retrieving and listing connector. Below are the details for each method, including parameters, return types, and example usage.
+
+## Methods
+
+<details>
+  <summary><strong>create</strong></summary>
+
+Create a new device connector.
+
+**Signature:**
+
+```typescript
+create(params: DeviceConnectorParams, options?: Core.RequestOptions): Core.APIPromise<DeviceConnectorParams>
+```
+
+**Parameters:**
+
+- params (DeviceConnectorParams): Parameters for creating a device connector:
+    - network_server (string): The URL or address of the network server.
+    - name (string): The name of the device connector.
+    - connector_type (string): The type of the connector (e.g., mqtt, http).
+    - status? (string): Optional status of the connector.
+    - deviceHttpConfig? (DeviceHttpConfig): Optional HTTP-specific configuration:
+        - api_token (string): Token used to authenticate HTTP requests.
+        - address_url (string): Base URL of the HTTP endpoint.
+    - deviceMqttConfig? (DeviceMqttConfig): Optional MQTT-specific configuration:
+        - mqtt_broker (string): Address of the MQTT broker.
+        - username (string): Username for broker authentication.
+        - password (string): Password for broker authentication.
+- options (Core.RequestOptions): Additional request options.
+
+**Returns:** Promise `<DeviceConnectorParams>`
+
+**Example:**
+
+```typescript
+const newMqttConnector = await client.deviceConnector.create({
+    network_server: 'poue4567-e89...',
+    name: 'MQTT Connector 1',
+    connector_type: 'mqtt_broker',
+    deviceMqttConfig: {
+        mqtt_broker: 'mqtt://broker.example.com',
+        username: 'user123',
+        password: 'secretpass',
+    },
+});
+
+const newHttpConnector = await client.deviceConnector.create({
+    network_server: 'poue4567-e89...',
+    name: 'HTTP Connector 1',
+    connector_type: 'http_server',
+    deviceHttpConfig: {
+        api_token: 'your_api_token_here',
+        address_url: 'http://api.example.com/data',
+    },
+});
+```
+
+</details>
+
+<details>
+  <summary><strong>testConnectionPreview</strong></summary>
+
+Test connection to a device connector without saving it (preview only).
+
+**Signature:**
+
+```typescript
+testConnectionPreview(params: DeviceConnectorParams, options?: Core.RequestOptions): Core.APIPromise<void>
+```
+
+**Parameters:**
+
+- params (DeviceConnectorParams): Parameters for testing a device connector connection:
+    - network_server (string): The URL or address of the network server.
+    - name (string): The name of the device connector.
+    - connector_type (string): The type of the connector (e.g., mqtt, http).
+    - status? (string): Optional status of the connector.
+    - deviceHttpConfig? (DeviceHttpConfig): Optional HTTP-specific configuration:
+        - api_token (string): Token used to authenticate HTTP requests.
+        - address_url (string): Base URL of the HTTP endpoint.
+    - deviceMqttConfig? (DeviceMqttConfig): Optional MQTT-specific configuration:
+        - mqtt_broker (string): Address of the MQTT broker.
+        - username (string): Username for broker authentication.
+        - password (string): Password for broker authentication.
+- options (Core.RequestOptions): Additional request options.
+
+**Returns:** Promise `<void>`
+
+**Example:**
+
+```typescript
+await client.deviceConnector.testConnectionPreview({
+    network_server: 'poue4567-e89...',
+    name: 'MQTT Connector Preview',
+    connector_type: 'mqtt_broker',
+    deviceMqttConfig: {
+        mqtt_broker: 'mqtt://broker.example.com',
+        username: 'testuser',
+        password: 'testpass',
+    },
+});
+
+await client.deviceConnector.testConnectionPreview({
+    network_server: 'poue4567-e89...',
+    name: 'HTTP Connector Preview',
+    connector_type: 'http_server',
+    deviceHttpConfig: {
+        api_token: 'test_api_token',
+        address_url: 'http://api.example.com/data',
+    },
+});
+```
+
+</details>
+
+<details>
+  <summary><strong>testConnection</strong></summary>
+
+Test an existing device connector by ID.
+
+**Signature:**
+
+```typescript
+testConnection(id: string, options?: Core.RequestOptions): Core.APIPromise<void>
+```
+
+**Parameters:**
+
+- `id` (string): A UUID string identifying the device connector to test.
+- `options`? (Core.RequestOptions): Additional request options such as custom headers.
+
+**Returns:** `Promise <void>`
+
+**Example:**
+
+```typescript
+await client.deviceConnector.testConnection('123e4567-e89b-12d3-a456-426614174000');
+```
+
+</details>
+
+---
+
+# DeviceModel
+
+## Overview
+
+The `DeviceModel` class provides methods for retrieving and listing device model. Below are the details for each method, including parameters, return types, and example usage.
+
+## Methods
+
+<details>
+  <summary><strong>create</strong></summary>
+
+Create a new device model.
+
+**Signature:**
+
+```typescript
+create(params: DeviceModelParams, options?: Core.RequestOptions): Core.APIPromise<DeviceModelParams>
+```
+
+**Parameters:**
+
+- params (DeviceModelParams): Parameters for creating a device model:
+    - name (string): The name of the device model.
+    - alias (string): The alias of the device model.
+    - image_url (string): The image URL of the device model.
+    - default_config (object): The default configuration object.
+    - manufacture (string): The manufacturer of the device model.
+- options (Core.RequestOptions): Additional request options.
+
+**Returns:** Promise<DeviceModelParams>
+
+**Example:**
+
+```typescript
+const newDeviceModel = await client.deviceModel.create({
+    name: 'Model X',
+    alias: 'model_x',
+    image_url: 'http://example.com/image.png',
+    default_config: {},
+    manufacture: '123e4567-e89...',
+});
+```
+
+</details>
+
+<details>
+  <summary><strong>retrieve</strong></summary>
+
+Retrieve a device model by its ID.
+
+**Signature:**
+
+```typescript
+retrieve(id: string, options?: Core.RequestOptions): Core.APIPromise<DeviceModelParams>
+```
+
+**Parameters:**
+
+- `id` (string): The unique identifier of the device model to retrieve.
+- `options` (Core.RequestOptions): Additional request options.
+
+**Returns:** `Promise<DeviceModelParams>`
+
+**Example:**
+
+```typescript
+const deviceModel = await client.deviceModel.retrieve('123e4567-e89b-12d3-a456-426614174000');
+console.log(deviceModel.name);
+```
+
+</details>
+
+<details>
+  <summary><strong>update</strong></summary>
+
+Update an existing device model by its ID.
+
+**Signature:**
+
+```typescript
+update(id: string, params: DeviceModelParams, options?: Core.RequestOptions): Core.APIPromise<DeviceModelParams>
+```
+
+**Parameters:**
+
+- `id` (string): The unique identifier of the device model to update.
+- `params` (DeviceModelParams): The data to update the device model with:
+    - `name` (string): The name of the device model.
+    - `alias` (string): The alias of the device model.
+    - `image_url` (string): The image URL of the device model.
+    - `default_config` (object): The default configuration object.
+    - `manufacture` (string): The manufacturer of the device model.
+- `options` (Core.RequestOptions): Additional request options.
+
+**Returns:** `Promise<DeviceModelParams>`
+
+**Example:**
+
+```typescript
+const updatedDeviceModel = await client.deviceModel.update('123e4567-e89b-12d3-a456-426614174000', {
+    name: 'Model Y',
+    alias: 'model_y',
+    image_url: 'http://example.com/image2.png',
+    default_config: { setting: true },
+    manufacture: '123e4567-e89...',
+});
+console.log(updatedDeviceModel);
+```
+
+</details>
+
+<details>
+  <summary><strong>list</strong></summary>
+
+Retrieve a list of device models with optional filters.
+
+**Signature:**
+
+```typescript
+list(params: ListParamsResponse, options?: Core.RequestOptions): Core.APIPromise<DeviceModelListResponse>
+```
+
+**Parameters:**
+
+- `params` (ListParamsResponse): Query parameters to filter and paginate the results:
+    - `ordering` (string, optional): Which field to use when ordering the results.
+    - `search` (string, optional): A search term.
+    - `limit` (integer, optional): Number of results to return per page.
+    - `offset` (integer, optional): The initial index from which to return the results.
+- `options` (Core.RequestOptions): Additional request options.
+
+**Returns:** `Promise<DeviceModelListResponse>`
+
+**Example:**
+
+```typescript
+const deviceModels = await client.deviceModel.list({
+    ordering: 'name',
+    search: 'model',
+    limit: 10,
+    offset: 0,
+});
+console.log(deviceModels.results);
+```
+
+</details>
+
+<details>
+<summary><strong>delete</strong></summary>
+
+Delete a device models by its ID.
+
+**Signature:**
+
+```typescript
+delete(id: string, options?: Core.RequestOptions): Core.APIPromise<void>
+```
+
+**Parameters:**
+
+- `id` _(string)_: A UUID string identifying this device models.
+- `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<void>`
+
+**Example:**
+
+```typescript
+await client.deviceModel.delete('a557d013-f6...');
+```
+
+</details>
+
+---
+
+# Device
+
+## Overview
+
+The `Device` class provides methods for retrieving and listing device. Below are the details for each method, including parameters, return types, and example usage.
+
+## Methods
+
+<details>
+  <summary><strong>create</strong></summary>
+
+Create a new device.
+
+**Signature:**
+
+```typescript
+create(params: DeviceParams, options?: Core.RequestOptions): Core.APIPromise<DeviceParams>
+```
+
+**Parameters:**
+
+- `params` _(DeviceParams)_: Parameters for creating a device:
+    - `status` _(string, optional)_: The status of the device.
+    - `device_connector` _(string)_: The connector type or identifier for the device.
+    - `device_model` _(string)_: The model identifier of the device.
+- `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<DeviceParams>`
+
+**Example:**
+
+```typescript
+const newDevice = await client.devices.create({
+    status: 'active',
+    device_connector: '123e4567-e89...',
+    device_model: 'poye4567-e89...',
+});
+```
+
+</details>
+
+<details>
+  <summary><strong>retrieve</strong></summary>
+
+Retrieve details of a device by its ID.
+
+**Signature:**
+
+```typescript
+    retrieve(id: string, options?: Core.RequestOptions): Core.APIPromise<DeviceParams>
+```
+
+**Parameters:**
+
+- `id` _(string)_: The unique identifier of the device to retrieve.
+- `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<DeviceParams>`
+
+**Example:**
+
+```typescript
+const device = await client.devices.retrieve('1l3e4567-e89...');
+console.log(device.device_model);
+```
+
+</details>
+
+<details>
+  <summary><strong>update</strong></summary>
+
+Update an existing device by its ID.
+
+**Signature:**
+
+```typescript
+    update(id: string, params: DeviceParams, options?: Core.RequestOptions): Core.APIPromise<DeviceParams>
+```
+
+**Parameters:**
+
+- `id` _(string)_: The unique identifier of the device to update.
+- `params` _(DeviceParams)_: Parameters to update the device with:
+    - `status` _(string, optional)_: The status of the device.
+    - `device_connector` _(string)_: The connector type or identifier for the device.
+    - `device_model` _(string)_: The model identifier of the device.
+- `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<DeviceParams>`
+
+**Example:**
+
+```typescript
+const updatedDevice = await client.devices.update('device-id-123', {
+    status: 'active',
+    device_connector: '123e4567-e89...',
+    device_model: 'ks3e4567-e89...',
+});
+```
+
+</details>
+
+<details>
+  <summary><strong>list</strong></summary>
+
+List devices with optional pagination.
+
+**Signature:**
+
+```typescript
+    list(params: ListParamsResponse, options?: Core.RequestOptions): Core.APIPromise<DeviceListResponse>
+```
+
+**Parameters:**
+
+- `params` _(ListParamsResponse)_: Query parameters for listing devices:
+    - `limit` _(integer, optional)_: Number of results to return per page.
+    - `offset` _(integer, optional)_: The initial index from which to return the results.
+- `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<DeviceListResponse>`
+
+**Example:**
+
+```typescript
+const devices = await client.devices.list({ limit: 10, offset: 0 });
+console.log(devices.results);
+```
+
+</details>
+
+<details>
+  <summary><strong>delete</strong></summary>
+
+Delete a device by its ID.
+
+**Signature:**
+
+```typescript
+    delete(id: number, options?: Core.RequestOptions): Core.APIPromise<void>
+```
+
+**Parameters:**
+
+- `id` _(number)_: The unique identifier of the device to delete.
+- `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<void>`
+
+**Example:**
+
+```typescript
+await client.devices.delete('123e4567-e89...');
+console.log('Device deleted successfully.');
+```
+
+</details>
+
+---
+
+# Manufacturers
+
+## Overview
+
+The `Manufacturers` class provides methods for retrieving and listing manufacturers of device. Below are the details for each method, including parameters, return types, and example usage.
+
+## Methods
+
+<details>
+  <summary><strong>create</strong></summary>
+
+Create a new manufacturer.
+
+**Signature:**
+
+```typescript
+    create(params: ManufacturersParams, options?: Core.RequestOptions): Core.APIPromise<ManufacturersParams>
+```
+
+**Parameters:**
+
+- `params` _(ManufacturersParams)_: Parameters for creating a manufacturer:
+    - `name` _(string)_: The name of the manufacturer.
+    - `location` _(string)_: The location of the manufacturer.
+    - `description` _(string)_: A description of the manufacturer.
+    - `portal_url` _(string)_: The portal URL information of the manufacturer.
+    - `national` _(string)_: The nationality or country of the manufacturer.
+- `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<ManufacturersParams>`
+
+**Example:**
+
+````typescript
+    const newManufacturer = await client.manufacturers.create({
+        name: 'Acme Corp',
+        location: 'USA',
+        description: 'Leading manufacturer of widgets',
+        portal_url: 'https://acme.example.com',
+        national: 'US',
+    });
+    ```
+</details>
+
+<details>
+  <summary><strong>retrieve</strong></summary>
+
+Retrieve details of a manufacturer by its ID.
+
+**Signature:**
+```typescript
+    retrieve(id: string, options?: Core.RequestOptions): Core.APIPromise<ManufacturersParams>
+````
+
+**Parameters:**
+
+- `id` _(string)_: The unique identifier of the manufacturer to retrieve.
+- `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<ManufacturersParams>`
+
+**Example:**
+
+```typescript
+const manufacturer = await client.manufacturers.retrieve('123e4567-e89...');
+console.log(manufacturer.name);
+```
+
+</details>
+
+<details>
+  <summary><strong>update</strong></summary>
+
+Update an existing manufacturer by its ID.
+
+**Signature:**
+
+```typescript
+    update(id: string, params: ManufacturersParams, options?: Core.RequestOptions): Core.APIPromise<ManufacturersParams>
+```
+
+**Parameters:**
+
+- `id` _(string)_: The unique identifier of the manufacturer to update.
+- `params` _(ManufacturersParams)_: Parameters for updating the manufacturer:
+    - `name` _(string)_: The name of the manufacturer.
+    - `location` _(string)_: The location of the manufacturer.
+    - `description` _(string)_: A description of the manufacturer.
+    - `portal_url` _(string)_: The portal URL information of the manufacturer.
+    - `national` _(string)_: The nationality or country of the manufacturer.
+- `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<ManufacturersParams>`
+
+**Example:**
+
+```typescript
+const updatedManufacturer = await client.manufacturers.update('123e4567-e89...', {
+    name: 'Acme Corp Updated',
+    location: 'USA',
+    description: 'Updated description',
+    portal_url: 'https://acme.example.com',
+    national: 'US',
+});
+```
+
+</details>
+
+<details>
+  <summary><strong>list</strong></summary>
+
+List manufacturers with optional filtering, ordering, and pagination.
+
+**Signature:**
+
+```typescript
+    list(params: ListParamsResponse, options?: Core.RequestOptions): Core.APIPromise<ManufacturersListResponse>
+```
+
+**Parameters:**
+
+- `params` _(ListParamsResponse)_: Query parameters for filtering, ordering, and pagination:
+    - `ordering` _(string, optional)_: Which field to use when ordering the results.
+    - `search` _(string, optional)_: A search term to filter results.
+    - `limit` _(integer, optional)_: Number of results to return per page.
+    - `offset` _(integer, optional)_: The initial index from which to return the results.
+- `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<ManufacturersListResponse>`
+
+**Response shape:**
+
+- `count` _(integer)_: Total number of manufacturers matching the query.
+- `next` _(string | null)_: URL to the next page of results, or `null`.
+- `previous` _(string | null)_: URL to the previous page of results, or `null`.
+- `results` _(ManufacturersParams[])_: Array of manufacturer objects.
+
+**Example:**
+
+```typescript
+const listResponse = await client.manufacturers.list({
+    ordering: 'name',
+    search: 'acme',
+    limit: 10,
+    offset: 0,
+});
+console.log(listResponse.results);
+```
+
+</details>
+
+<details>
+  <summary><strong>delete</strong></summary>
+
+Delete a manufacturer by its ID.
+
+**Signature:**
+
+```typescript
+    delete(id: number, options?: Core.RequestOptions): Core.APIPromise<void>
+```
+
+**Parameters:**
+
+- `id` _(number)_: A UUID string identifying this manufacturer. (Note: Type is `number` in code but described as UUID string)
+- `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<void>` (No content on success)
+
+**Example:**
+
+```typescript
+await client.manufacturers.delete('123e4567-e89...');
+```
+
+</details>
+
+---
+
+# NetworkServer
+
+## Overview
+
+The `NetworkServer` class provides methods for retrieving and listing network server. Below are the details for each method, including parameters, return types, and example usage.
+
+## Methods
+
+<details>
+  <summary><strong>create</strong></summary>
+
+Create a new network server.
+
+**Signature:**
+
+```typescript
+reate(params: NetworkServerParams, options?: Core.RequestOptions): Core.APIPromise<NetworkServerParams>
+```
+
+**Parameters:**
+
+- `params` _(NetworkServerParams)_: Parameters for creating a new network server.
+    - `name`: _(string)_: The name of the network server.
+    - `logo`: _(string)_: The logo of the network server.
+    - `description`: _(string)_: The description of the network server.
+    - `type_connect`: _(string[])_: An array of connection types supported by the network server.  
+      Possible values may include:
+    - `"mqtt_broker"`: The server connects using MQTT protocol.
+    - `"http_server"`: The server exposes HTTP endpoints.
+- `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<NetworkServerParams>`
+
+**Example:**
+
+```typescript
+const newNetworkServer = await client.networkServer.create({
+    name: 'Chirpstack',
+    logo: 'logo-url',
+    description: 'example-description',
+    type_connect: ['mqtt_broker', 'http_server'],
+});
+```
+
+</details>
+
+<details>
+  <summary><strong>retrieve</strong></summary>
+Retrieve details of a network server by its ID.
+
+**Signature:**
+
+```typescript
+    retrieve(id: string, options?: Core.RequestOptions): Core.APIPromise<NetworkServerParams>
+```
+
+**Parameters:**
+
+- `id` _(string)_: The unique identifier of the network server to retrieve.
+- `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<NetworkServerParams>`
+
+**Example:**
+
+```typescript
+const networkServer = await client.networkServer.retrieve('a557d013-f6...');
+console.log(networkServer.name);
+```
+
+</details>
+
+<details>
+  <summary><strong>update</strong></summary>
+
+Update an existing network server by its ID.
+
+**Signature:**
+
+```typescript
+update(id: string, params: NetworkServerParams, options?: Core.RequestOptions): Core.APIPromise<NetworkServerParams>
+```
+
+**Parameters:**
+
+- `id` _(string)_: The unique identifier of the network server to update.
+- `params` _(NetworkServerParams)_: Parameters for updating the network server.
+    - `name`: _(string)_: The name of the network server.
+    - `logo`: _(string)_: The logo of the network server.
+    - `description`: _(string)_: The description of the network server.
+    - `type_connect`: _(string[])_: An array of connection types supported by the network server. Possible values include:
+        - `"mqtt_broker"`: The server connects using MQTT protocol.
+        - `"http_server"`: The server exposes HTTP endpoints.
+- `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<NetworkServerParams>`
+
+**Example:**
+
+```typescript
+const updatedNetworkServer = await client.networkServer.update('a557d013-f6 ...', {
+    name: 'Chirpstack Updated',
+    logo: 'new-logo-url',
+    description: 'updated-description',
+    type_connect: ['mqtt_broker'],
+});
+```
+
+</details>
+
+<details>
+<summary><strong>list</strong></summary>
+
+List network servers with optional filtering, ordering, and pagination.
+
+**Signature:**
+
+```typescript
+list(params: ListParamsResponse, options?: Core.RequestOptions): Core.APIPromise<NetworkServerListResponse>
+```
+
+**Parameters:**
+
+- `params` _(ListParamsResponse)_: Query parameters for filtering, ordering, and pagination:
+    - `ordering` _(string, optional)_: Which field to use when ordering the results.
+    - `search` _(string, optional)_: A search term to filter results.
+    - `limit` _(integer, optional)_: Number of results to return per page.
+    - `offset` _(integer, optional)_: The initial index from which to return the results.
+- `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<NetworkServerListResponse>`
+
+**Response shape:**
+
+- `count` _(integer)_: Total number of network servers matching the query.
+- `next` _(string | null)_: URL to the next page of results, or `null`.
+- `previous` _(string | null)_: URL to the previous page of results, or `null`.
+- `results` _(NetworkServer[])_: Array of network server objects.
+
+**Example:**
+
+```typescript
+const listResponse = await client.networkServer.list({
+    ordering: 'name',
+    search: 'chirpstack',
+    limit: 10,
+    offset: 0,
+});
+console.log(listResponse.results);
+```
+
+</details>
+
+<details>
+<summary><strong>delete</strong></summary>
+
+Delete a network server by its ID.
+
+**Signature:**
+
+```typescript
+delete(id: string, options?: Core.RequestOptions): Core.APIPromise<void>
+```
+
+**Parameters:**
+
+- `id` _(string)_: A UUID string identifying this network server.
+- `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<void>`
+
+**Example:**
+
+```typescript
+await client.networkServer.delete('a557d013-f6...');
+```
+
+</details>

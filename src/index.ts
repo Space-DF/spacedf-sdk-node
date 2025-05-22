@@ -148,6 +148,11 @@ export class SpaceDFSDK extends Core.APIClient {
     credentials: API.Credentials = new API.Credentials(this);
     users: API.Users = new API.Users(this);
     presignedUrl: API.PresignedUrl = new API.PresignedUrl(this);
+    deviceConnector: API.DeviceConnector = new API.DeviceConnector(this);
+    deviceModel: API.DeviceModel = new API.DeviceModel(this);
+    device: API.Device = new API.Device(this);
+    manufacturers: API.Manufacturers = new API.Manufacturers(this);
+    networkServer: API.NetworkServer = new API.NetworkServer(this);
 
     protected override defaultQuery(): Core.DefaultQuery | undefined {
         return this._options.defaultQuery;
