@@ -148,7 +148,7 @@ export class SpaceDFSDK extends Core.APIClient {
     credentials: API.Credentials = new API.Credentials(this);
     users: API.Users = new API.Users(this);
     presignedUrl: API.PresignedUrl = new API.PresignedUrl(this);
-    deviceConnector: API.DeviceConnector = new API.DeviceConnector(this)
+    deviceConnector: API.DeviceConnector = new API.DeviceConnector(this);
     deviceModel: API.DeviceModel = new API.DeviceModel(this);
     device: API.Device = new API.Device(this);
     manufacturers: API.Manufacturers = new API.Manufacturers(this);

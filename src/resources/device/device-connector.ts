@@ -38,13 +38,12 @@ export interface DeviceConnectorParams {
 }
 
 export interface DeviceHttpConfig {
-    "api_token": string;
-    "address_url": string;
+    api_token: string;
+    address_url: string;
 }
 
 export interface DeviceMqttConfig {
-    "mqtt_broker": string;
-    "username": string;
-    "password": string;
+    mqtt_broker: string;
+    username: string;
+    password: string;
 }
-

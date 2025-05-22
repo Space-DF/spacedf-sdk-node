@@ -18,7 +18,7 @@ export class Device extends APIResource {
             headers: { ...options?.headers },
         });
     }
-    
+
     update(id: string, params: DeviceParams, options?: Core.RequestOptions): Core.APIPromise<DeviceParams> {
         const { ...body } = params;
         return this._client.put(`/devices/${id}/`, {
@@ -27,7 +27,7 @@ export class Device extends APIResource {
             headers: { ...options?.headers },
         });
     }
-    
+
     partialUpdate(id: number, params: DeviceParams, options?: Core.RequestOptions): Core.APIPromise<DeviceParams> {
         const { ...body } = params;
         return this._client.patch(`/devices/${id}/`, {
@@ -36,7 +36,7 @@ export class Device extends APIResource {
             headers: { ...options?.headers },
         });
     }
-    
+
     list(params: ListParamsResponse, options?: Core.RequestOptions): Core.APIPromise<DeviceListResponse> {
         const { ...query } = params;
         return this._client.get(`/devices/`, {
@@ -45,14 +45,13 @@ export class Device extends APIResource {
             headers: { ...options?.headers },
         });
     }
-    
+
     delete(id: number, options?: Core.RequestOptions): Core.APIPromise<void> {
         return this._client.delete(`/devices/${id}/`, {
             ...options,
             headers: { Accept: '*/*', ...options?.headers },
         });
     }
-
 }
 
 export interface DeviceParams {

@@ -1664,6 +1664,7 @@ The `DeviceConnector` class provides methods for retrieving and listing connecto
 Create a new device connector.
 
 **Signature:**
+
 ```typescript
 create(params: DeviceConnectorParams, options?: Core.RequestOptions): Core.APIPromise<DeviceConnectorParams>
 ```
@@ -1671,44 +1672,46 @@ create(params: DeviceConnectorParams, options?: Core.RequestOptions): Core.APIPr
 **Parameters:**
 
 - params (DeviceConnectorParams): Parameters for creating a device connector:
-  - network_server (string): The URL or address of the network server.
-  - name (string): The name of the device connector.
-  - connector_type (string): The type of the connector (e.g., mqtt, http).
-  - status? (string): Optional status of the connector.
-  - deviceHttpConfig? (DeviceHttpConfig): Optional HTTP-specific configuration:
-    - api_token (string): Token used to authenticate HTTP requests.
-    - address_url (string): Base URL of the HTTP endpoint.
-  - deviceMqttConfig? (DeviceMqttConfig): Optional MQTT-specific configuration:
-    - mqtt_broker (string): Address of the MQTT broker.
-    - username (string): Username for broker authentication.
-    - password (string): Password for broker authentication.
+    - network_server (string): The URL or address of the network server.
+    - name (string): The name of the device connector.
+    - connector_type (string): The type of the connector (e.g., mqtt, http).
+    - status? (string): Optional status of the connector.
+    - deviceHttpConfig? (DeviceHttpConfig): Optional HTTP-specific configuration:
+        - api_token (string): Token used to authenticate HTTP requests.
+        - address_url (string): Base URL of the HTTP endpoint.
+    - deviceMqttConfig? (DeviceMqttConfig): Optional MQTT-specific configuration:
+        - mqtt_broker (string): Address of the MQTT broker.
+        - username (string): Username for broker authentication.
+        - password (string): Password for broker authentication.
 - options (Core.RequestOptions): Additional request options.
 
 **Returns:** Promise `<DeviceConnectorParams>`
 
 **Example:**
+
 ```typescript
 const newMqttConnector = await client.deviceConnector.create({
-  network_server: 'poue4567-e89...',
-  name: 'MQTT Connector 1',
-  connector_type: 'mqtt_broker',
-  deviceMqttConfig: {
-    mqtt_broker: 'mqtt://broker.example.com',
-    username: 'user123',
-    password: 'secretpass'
-  }
+    network_server: 'poue4567-e89...',
+    name: 'MQTT Connector 1',
+    connector_type: 'mqtt_broker',
+    deviceMqttConfig: {
+        mqtt_broker: 'mqtt://broker.example.com',
+        username: 'user123',
+        password: 'secretpass',
+    },
 });
 
 const newHttpConnector = await client.deviceConnector.create({
-  network_server: 'poue4567-e89...',
-  name: 'HTTP Connector 1',
-  connector_type: 'http_server',
-  deviceHttpConfig: {
-    api_token: 'your_api_token_here',
-    address_url: 'http://api.example.com/data'
-  }
+    network_server: 'poue4567-e89...',
+    name: 'HTTP Connector 1',
+    connector_type: 'http_server',
+    deviceHttpConfig: {
+        api_token: 'your_api_token_here',
+        address_url: 'http://api.example.com/data',
+    },
 });
 ```
+
 </details>
 
 <details>
@@ -1717,6 +1720,7 @@ const newHttpConnector = await client.deviceConnector.create({
 Test connection to a device connector without saving it (preview only).
 
 **Signature:**
+
 ```typescript
 testConnectionPreview(params: DeviceConnectorParams, options?: Core.RequestOptions): Core.APIPromise<void>
 ```
@@ -1724,44 +1728,46 @@ testConnectionPreview(params: DeviceConnectorParams, options?: Core.RequestOptio
 **Parameters:**
 
 - params (DeviceConnectorParams): Parameters for testing a device connector connection:
-  - network_server (string): The URL or address of the network server.
-  - name (string): The name of the device connector.
-  - connector_type (string): The type of the connector (e.g., mqtt, http).
-  - status? (string): Optional status of the connector.
-  - deviceHttpConfig? (DeviceHttpConfig): Optional HTTP-specific configuration:
-    - api_token (string): Token used to authenticate HTTP requests.
-    - address_url (string): Base URL of the HTTP endpoint.
-  - deviceMqttConfig? (DeviceMqttConfig): Optional MQTT-specific configuration:
-    - mqtt_broker (string): Address of the MQTT broker.
-    - username (string): Username for broker authentication.
-    - password (string): Password for broker authentication.
+    - network_server (string): The URL or address of the network server.
+    - name (string): The name of the device connector.
+    - connector_type (string): The type of the connector (e.g., mqtt, http).
+    - status? (string): Optional status of the connector.
+    - deviceHttpConfig? (DeviceHttpConfig): Optional HTTP-specific configuration:
+        - api_token (string): Token used to authenticate HTTP requests.
+        - address_url (string): Base URL of the HTTP endpoint.
+    - deviceMqttConfig? (DeviceMqttConfig): Optional MQTT-specific configuration:
+        - mqtt_broker (string): Address of the MQTT broker.
+        - username (string): Username for broker authentication.
+        - password (string): Password for broker authentication.
 - options (Core.RequestOptions): Additional request options.
 
 **Returns:** Promise `<void>`
 
 **Example:**
+
 ```typescript
 await client.deviceConnector.testConnectionPreview({
-  network_server: 'poue4567-e89...',
-  name: 'MQTT Connector Preview',
-  connector_type: 'mqtt_broker',
-  deviceMqttConfig: {
-    mqtt_broker: 'mqtt://broker.example.com',
-    username: 'testuser',
-    password: 'testpass'
-  }
+    network_server: 'poue4567-e89...',
+    name: 'MQTT Connector Preview',
+    connector_type: 'mqtt_broker',
+    deviceMqttConfig: {
+        mqtt_broker: 'mqtt://broker.example.com',
+        username: 'testuser',
+        password: 'testpass',
+    },
 });
 
 await client.deviceConnector.testConnectionPreview({
-  network_server: 'poue4567-e89...',
-  name: 'HTTP Connector Preview',
-  connector_type: 'http_server',
-  deviceHttpConfig: {
-    api_token: 'test_api_token',
-    address_url: 'http://api.example.com/data'
-  }
+    network_server: 'poue4567-e89...',
+    name: 'HTTP Connector Preview',
+    connector_type: 'http_server',
+    deviceHttpConfig: {
+        api_token: 'test_api_token',
+        address_url: 'http://api.example.com/data',
+    },
 });
 ```
+
 </details>
 
 <details>
@@ -1770,6 +1776,7 @@ await client.deviceConnector.testConnectionPreview({
 Test an existing device connector by ID.
 
 **Signature:**
+
 ```typescript
 testConnection(id: string, options?: Core.RequestOptions): Core.APIPromise<void>
 ```
@@ -1782,9 +1789,11 @@ testConnection(id: string, options?: Core.RequestOptions): Core.APIPromise<void>
 **Returns:** `Promise <void>`
 
 **Example:**
+
 ```typescript
 await client.deviceConnector.testConnection('123e4567-e89b-12d3-a456-426614174000');
 ```
+
 </details>
 
 ---
@@ -1803,31 +1812,35 @@ The `DeviceModel` class provides methods for retrieving and listing device model
 Create a new device model.
 
 **Signature:**
+
 ```typescript
 create(params: DeviceModelParams, options?: Core.RequestOptions): Core.APIPromise<DeviceModelParams>
 ```
+
 **Parameters:**
 
 - params (DeviceModelParams): Parameters for creating a device model:
-  - name (string): The name of the device model.
-  - alias (string): The alias of the device model.
-  - image_url (string): The image URL of the device model.
-  - default_config (object): The default configuration object.
-  - manufacture (string): The manufacturer of the device model.
+    - name (string): The name of the device model.
+    - alias (string): The alias of the device model.
+    - image_url (string): The image URL of the device model.
+    - default_config (object): The default configuration object.
+    - manufacture (string): The manufacturer of the device model.
 - options (Core.RequestOptions): Additional request options.
 
 **Returns:** Promise<DeviceModelParams>
 
 **Example:**
+
 ```typescript
 const newDeviceModel = await client.deviceModel.create({
-  name: 'Model X',
-  alias: 'model_x',
-  image_url: 'http://example.com/image.png',
-  default_config: {},
-  manufacture: '123e4567-e89...',
+    name: 'Model X',
+    alias: 'model_x',
+    image_url: 'http://example.com/image.png',
+    default_config: {},
+    manufacture: '123e4567-e89...',
 });
 ```
+
 </details>
 
 <details>
@@ -1836,9 +1849,11 @@ const newDeviceModel = await client.deviceModel.create({
 Retrieve a device model by its ID.
 
 **Signature:**
+
 ```typescript
 retrieve(id: string, options?: Core.RequestOptions): Core.APIPromise<DeviceModelParams>
 ```
+
 **Parameters:**
 
 - `id` (string): The unique identifier of the device model to retrieve.
@@ -1852,6 +1867,7 @@ retrieve(id: string, options?: Core.RequestOptions): Core.APIPromise<DeviceModel
 const deviceModel = await client.deviceModel.retrieve('123e4567-e89b-12d3-a456-426614174000');
 console.log(deviceModel.name);
 ```
+
 </details>
 
 <details>
@@ -1860,18 +1876,20 @@ console.log(deviceModel.name);
 Update an existing device model by its ID.
 
 **Signature:**
+
 ```typescript
 update(id: string, params: DeviceModelParams, options?: Core.RequestOptions): Core.APIPromise<DeviceModelParams>
 ```
+
 **Parameters:**
 
 - `id` (string): The unique identifier of the device model to update.
 - `params` (DeviceModelParams): The data to update the device model with:
-  - `name` (string): The name of the device model.
-  - `alias` (string): The alias of the device model.
-  - `image_url` (string): The image URL of the device model.
-  - `default_config` (object): The default configuration object.
-  - `manufacture` (string): The manufacturer of the device model.
+    - `name` (string): The name of the device model.
+    - `alias` (string): The alias of the device model.
+    - `image_url` (string): The image URL of the device model.
+    - `default_config` (object): The default configuration object.
+    - `manufacture` (string): The manufacturer of the device model.
 - `options` (Core.RequestOptions): Additional request options.
 
 **Returns:** `Promise<DeviceModelParams>`
@@ -1880,14 +1898,15 @@ update(id: string, params: DeviceModelParams, options?: Core.RequestOptions): Co
 
 ```typescript
 const updatedDeviceModel = await client.deviceModel.update('123e4567-e89b-12d3-a456-426614174000', {
-  name: 'Model Y',
-  alias: 'model_y',
-  image_url: 'http://example.com/image2.png',
-  default_config: { setting: true },
-  manufacture: '123e4567-e89...',
+    name: 'Model Y',
+    alias: 'model_y',
+    image_url: 'http://example.com/image2.png',
+    default_config: { setting: true },
+    manufacture: '123e4567-e89...',
 });
 console.log(updatedDeviceModel);
 ```
+
 </details>
 
 <details>
@@ -1896,16 +1915,18 @@ console.log(updatedDeviceModel);
 Retrieve a list of device models with optional filters.
 
 **Signature:**
+
 ```typescript
 list(params: ListParamsResponse, options?: Core.RequestOptions): Core.APIPromise<DeviceModelListResponse>
 ```
+
 **Parameters:**
 
 - `params` (ListParamsResponse): Query parameters to filter and paginate the results:
-  - `ordering` (string, optional): Which field to use when ordering the results.
-  - `search` (string, optional): A search term.
-  - `limit` (integer, optional): Number of results to return per page.
-  - `offset` (integer, optional): The initial index from which to return the results.
+    - `ordering` (string, optional): Which field to use when ordering the results.
+    - `search` (string, optional): A search term.
+    - `limit` (integer, optional): Number of results to return per page.
+    - `offset` (integer, optional): The initial index from which to return the results.
 - `options` (Core.RequestOptions): Additional request options.
 
 **Returns:** `Promise<DeviceModelListResponse>`
@@ -1914,15 +1935,15 @@ list(params: ListParamsResponse, options?: Core.RequestOptions): Core.APIPromise
 
 ```typescript
 const deviceModels = await client.deviceModel.list({
-  ordering: 'name',
-  search: 'model',
-  limit: 10,
-  offset: 0,
+    ordering: 'name',
+    search: 'model',
+    limit: 10,
+    offset: 0,
 });
 console.log(deviceModels.results);
 ```
-</details>
 
+</details>
 
 <details>
 <summary><strong>delete</strong></summary>
@@ -1930,9 +1951,11 @@ console.log(deviceModels.results);
 Delete a device models by its ID.
 
 **Signature:**
+
 ```typescript
 delete(id: string, options?: Core.RequestOptions): Core.APIPromise<void>
 ```
+
 **Parameters:**
 
 - `id` _(string)_: A UUID string identifying this device models.
@@ -1941,9 +1964,11 @@ delete(id: string, options?: Core.RequestOptions): Core.APIPromise<void>
 **Returns:** `Promise<void>`
 
 **Example:**
+
 ```typescript
-await client.deviceModel.delete("a557d013-f6...");
+await client.deviceModel.delete('a557d013-f6...');
 ```
+
 </details>
 
 ---
@@ -1962,9 +1987,11 @@ The `Device` class provides methods for retrieving and listing device. Below are
 Create a new device.
 
 **Signature:**
+
 ```typescript
 create(params: DeviceParams, options?: Core.RequestOptions): Core.APIPromise<DeviceParams>
 ```
+
 **Parameters:**
 
 - `params` _(DeviceParams)_: Parameters for creating a device:
@@ -1976,13 +2003,15 @@ create(params: DeviceParams, options?: Core.RequestOptions): Core.APIPromise<Dev
 **Returns:** `Promise<DeviceParams>`
 
 **Example:**
+
 ```typescript
-    const newDevice = await client.devices.create({
-        status: 'active',
-        device_connector: '123e4567-e89...',
-        device_model: 'poye4567-e89...',
-    });
+const newDevice = await client.devices.create({
+    status: 'active',
+    device_connector: '123e4567-e89...',
+    device_model: 'poye4567-e89...',
+});
 ```
+
 </details>
 
 <details>
@@ -1991,9 +2020,11 @@ create(params: DeviceParams, options?: Core.RequestOptions): Core.APIPromise<Dev
 Retrieve details of a device by its ID.
 
 **Signature:**
+
 ```typescript
     retrieve(id: string, options?: Core.RequestOptions): Core.APIPromise<DeviceParams>
 ```
+
 **Parameters:**
 
 - `id` _(string)_: The unique identifier of the device to retrieve.
@@ -2002,10 +2033,12 @@ Retrieve details of a device by its ID.
 **Returns:** `Promise<DeviceParams>`
 
 **Example:**
+
 ```typescript
-    const device = await client.devices.retrieve('1l3e4567-e89...');
-    console.log(device.device_model);
+const device = await client.devices.retrieve('1l3e4567-e89...');
+console.log(device.device_model);
 ```
+
 </details>
 
 <details>
@@ -2014,9 +2047,11 @@ Retrieve details of a device by its ID.
 Update an existing device by its ID.
 
 **Signature:**
+
 ```typescript
     update(id: string, params: DeviceParams, options?: Core.RequestOptions): Core.APIPromise<DeviceParams>
 ```
+
 **Parameters:**
 
 - `id` _(string)_: The unique identifier of the device to update.
@@ -2029,13 +2064,15 @@ Update an existing device by its ID.
 **Returns:** `Promise<DeviceParams>`
 
 **Example:**
+
 ```typescript
-    const updatedDevice = await client.devices.update('device-id-123', {
-        status: 'active',
-        device_connector: '123e4567-e89...',
-        device_model: 'ks3e4567-e89...',
-    });
+const updatedDevice = await client.devices.update('device-id-123', {
+    status: 'active',
+    device_connector: '123e4567-e89...',
+    device_model: 'ks3e4567-e89...',
+});
 ```
+
 </details>
 
 <details>
@@ -2044,9 +2081,11 @@ Update an existing device by its ID.
 List devices with optional pagination.
 
 **Signature:**
+
 ```typescript
     list(params: ListParamsResponse, options?: Core.RequestOptions): Core.APIPromise<DeviceListResponse>
 ```
+
 **Parameters:**
 
 - `params` _(ListParamsResponse)_: Query parameters for listing devices:
@@ -2057,10 +2096,12 @@ List devices with optional pagination.
 **Returns:** `Promise<DeviceListResponse>`
 
 **Example:**
+
 ```typescript
-    const devices = await client.devices.list({ limit: 10, offset: 0 });
-    console.log(devices.results);
+const devices = await client.devices.list({ limit: 10, offset: 0 });
+console.log(devices.results);
 ```
+
 </details>
 
 <details>
@@ -2069,9 +2110,11 @@ List devices with optional pagination.
 Delete a device by its ID.
 
 **Signature:**
+
 ```typescript
     delete(id: number, options?: Core.RequestOptions): Core.APIPromise<void>
 ```
+
 **Parameters:**
 
 - `id` _(number)_: The unique identifier of the device to delete.
@@ -2080,10 +2123,12 @@ Delete a device by its ID.
 **Returns:** `Promise<void>`
 
 **Example:**
+
 ```typescript
-    await client.devices.delete("123e4567-e89...");
-    console.log('Device deleted successfully.');
+await client.devices.delete('123e4567-e89...');
+console.log('Device deleted successfully.');
 ```
+
 </details>
 
 ---
@@ -2102,9 +2147,11 @@ The `Manufacturers` class provides methods for retrieving and listing manufactur
 Create a new manufacturer.
 
 **Signature:**
+
 ```typescript
     create(params: ManufacturersParams, options?: Core.RequestOptions): Core.APIPromise<ManufacturersParams>
 ```
+
 **Parameters:**
 
 - `params` _(ManufacturersParams)_: Parameters for creating a manufacturer:
@@ -2118,7 +2165,8 @@ Create a new manufacturer.
 **Returns:** `Promise<ManufacturersParams>`
 
 **Example:**
-```typescript
+
+````typescript
     const newManufacturer = await client.manufacturers.create({
         name: 'Acme Corp',
         location: 'USA',
@@ -2137,7 +2185,8 @@ Retrieve details of a manufacturer by its ID.
 **Signature:**
 ```typescript
     retrieve(id: string, options?: Core.RequestOptions): Core.APIPromise<ManufacturersParams>
-```
+````
+
 **Parameters:**
 
 - `id` _(string)_: The unique identifier of the manufacturer to retrieve.
@@ -2146,10 +2195,12 @@ Retrieve details of a manufacturer by its ID.
 **Returns:** `Promise<ManufacturersParams>`
 
 **Example:**
+
 ```typescript
-    const manufacturer = await client.manufacturers.retrieve('123e4567-e89...');
-    console.log(manufacturer.name);
+const manufacturer = await client.manufacturers.retrieve('123e4567-e89...');
+console.log(manufacturer.name);
 ```
+
 </details>
 
 <details>
@@ -2158,9 +2209,11 @@ Retrieve details of a manufacturer by its ID.
 Update an existing manufacturer by its ID.
 
 **Signature:**
+
 ```typescript
     update(id: string, params: ManufacturersParams, options?: Core.RequestOptions): Core.APIPromise<ManufacturersParams>
 ```
+
 **Parameters:**
 
 - `id` _(string)_: The unique identifier of the manufacturer to update.
@@ -2175,15 +2228,17 @@ Update an existing manufacturer by its ID.
 **Returns:** `Promise<ManufacturersParams>`
 
 **Example:**
+
 ```typescript
-    const updatedManufacturer = await client.manufacturers.update('123e4567-e89...', {
-        name: 'Acme Corp Updated',
-        location: 'USA',
-        description: 'Updated description',
-        portal_url: 'https://acme.example.com',
-        national: 'US',
-    });
+const updatedManufacturer = await client.manufacturers.update('123e4567-e89...', {
+    name: 'Acme Corp Updated',
+    location: 'USA',
+    description: 'Updated description',
+    portal_url: 'https://acme.example.com',
+    national: 'US',
+});
 ```
+
 </details>
 
 <details>
@@ -2192,9 +2247,11 @@ Update an existing manufacturer by its ID.
 List manufacturers with optional filtering, ordering, and pagination.
 
 **Signature:**
+
 ```typescript
     list(params: ListParamsResponse, options?: Core.RequestOptions): Core.APIPromise<ManufacturersListResponse>
 ```
+
 **Parameters:**
 
 - `params` _(ListParamsResponse)_: Query parameters for filtering, ordering, and pagination:
@@ -2214,15 +2271,17 @@ List manufacturers with optional filtering, ordering, and pagination.
 - `results` _(ManufacturersParams[])_: Array of manufacturer objects.
 
 **Example:**
+
 ```typescript
-    const listResponse = await client.manufacturers.list({
-        ordering: 'name',
-        search: 'acme',
-        limit: 10,
-        offset: 0,
-    });
-    console.log(listResponse.results);
+const listResponse = await client.manufacturers.list({
+    ordering: 'name',
+    search: 'acme',
+    limit: 10,
+    offset: 0,
+});
+console.log(listResponse.results);
 ```
+
 </details>
 
 <details>
@@ -2231,9 +2290,11 @@ List manufacturers with optional filtering, ordering, and pagination.
 Delete a manufacturer by its ID.
 
 **Signature:**
+
 ```typescript
     delete(id: number, options?: Core.RequestOptions): Core.APIPromise<void>
 ```
+
 **Parameters:**
 
 - `id` _(number)_: A UUID string identifying this manufacturer. (Note: Type is `number` in code but described as UUID string)
@@ -2242,9 +2303,11 @@ Delete a manufacturer by its ID.
 **Returns:** `Promise<void>` (No content on success)
 
 **Example:**
+
 ```typescript
-    await client.manufacturers.delete("123e4567-e89...");
+await client.manufacturers.delete('123e4567-e89...');
 ```
+
 </details>
 
 ---
@@ -2289,9 +2352,10 @@ const newNetworkServer = await client.networkServer.create({
     name: 'Chirpstack',
     logo: 'logo-url',
     description: 'example-description',
-    type_connect: ["mqtt_broker", "http_server"],
+    type_connect: ['mqtt_broker', 'http_server'],
 });
 ```
+
 </details>
 
 <details>
@@ -2299,9 +2363,11 @@ const newNetworkServer = await client.networkServer.create({
 Retrieve details of a network server by its ID.
 
 **Signature:**
+
 ```typescript
     retrieve(id: string, options?: Core.RequestOptions): Core.APIPromise<NetworkServerParams>
 ```
+
 **Parameters:**
 
 - `id` _(string)_: The unique identifier of the network server to retrieve.
@@ -2310,10 +2376,12 @@ Retrieve details of a network server by its ID.
 **Returns:** `Promise<NetworkServerParams>`
 
 **Example:**
+
 ```typescript
 const networkServer = await client.networkServer.retrieve('a557d013-f6...');
 console.log(networkServer.name);
 ```
+
 </details>
 
 <details>
@@ -2322,9 +2390,11 @@ console.log(networkServer.name);
 Update an existing network server by its ID.
 
 **Signature:**
+
 ```typescript
 update(id: string, params: NetworkServerParams, options?: Core.RequestOptions): Core.APIPromise<NetworkServerParams>
 ```
+
 **Parameters:**
 
 - `id` _(string)_: The unique identifier of the network server to update.
@@ -2340,14 +2410,16 @@ update(id: string, params: NetworkServerParams, options?: Core.RequestOptions): 
 **Returns:** `Promise<NetworkServerParams>`
 
 **Example:**
+
 ```typescript
 const updatedNetworkServer = await client.networkServer.update('a557d013-f6 ...', {
-  name: 'Chirpstack Updated',
-  logo: 'new-logo-url',
-  description: 'updated-description',
-  type_connect: ["mqtt_broker"],
+    name: 'Chirpstack Updated',
+    logo: 'new-logo-url',
+    description: 'updated-description',
+    type_connect: ['mqtt_broker'],
 });
 ```
+
 </details>
 
 <details>
@@ -2356,9 +2428,11 @@ const updatedNetworkServer = await client.networkServer.update('a557d013-f6 ...'
 List network servers with optional filtering, ordering, and pagination.
 
 **Signature:**
+
 ```typescript
 list(params: ListParamsResponse, options?: Core.RequestOptions): Core.APIPromise<NetworkServerListResponse>
 ```
+
 **Parameters:**
 
 - `params` _(ListParamsResponse)_: Query parameters for filtering, ordering, and pagination:
@@ -2378,15 +2452,17 @@ list(params: ListParamsResponse, options?: Core.RequestOptions): Core.APIPromise
 - `results` _(NetworkServer[])_: Array of network server objects.
 
 **Example:**
+
 ```typescript
 const listResponse = await client.networkServer.list({
-  ordering: 'name',
-  search: 'chirpstack',
-  limit: 10,
-  offset: 0,
+    ordering: 'name',
+    search: 'chirpstack',
+    limit: 10,
+    offset: 0,
 });
 console.log(listResponse.results);
 ```
+
 </details>
 
 <details>
@@ -2395,9 +2471,11 @@ console.log(listResponse.results);
 Delete a network server by its ID.
 
 **Signature:**
+
 ```typescript
 delete(id: string, options?: Core.RequestOptions): Core.APIPromise<void>
 ```
+
 **Parameters:**
 
 - `id` _(string)_: A UUID string identifying this network server.
@@ -2406,7 +2484,9 @@ delete(id: string, options?: Core.RequestOptions): Core.APIPromise<void>
 **Returns:** `Promise<void>`
 
 **Example:**
+
 ```typescript
-await client.networkServer.delete("a557d013-f6...");
+await client.networkServer.delete('a557d013-f6...');
 ```
+
 </details>
