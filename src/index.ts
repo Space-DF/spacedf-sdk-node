@@ -153,7 +153,7 @@ export class SpaceDFSDK extends Core.APIClient {
     device: API.Device = new API.Device(this);
     manufacturers: API.Manufacturers = new API.Manufacturers(this);
     networkServer: API.NetworkServer = new API.NetworkServer(this);
-
+    deviceSpaces: API.DeviceSpaces = new API.DeviceSpaces(this);
     protected override defaultQuery(): Core.DefaultQuery | undefined {
         return this._options.defaultQuery;
     }
