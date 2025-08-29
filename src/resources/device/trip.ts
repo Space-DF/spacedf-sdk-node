@@ -8,27 +8,24 @@ interface TripListParams extends ListParamsResponse {
 
 export class Trip extends APIResource {
     create(params: TripParams, options?: Core.RequestOptions): Core.APIPromise<TripParams> {
-        const { ...body } = params;
         return this._client.post(`/trips/`, {
-            body,
+            body: params,
             ...options,
             headers: { ...options?.headers },
         });
     }
 
     retrieve(id: string, params: { include_transformed_data?: boolean }, options?: Core.RequestOptions): Core.APIPromise<TripParams> {
-        const { ...query } = params;
         return this._client.get(`/trips/${id}/`, {
-            query,
+            query: params,
             ...options,
             headers: { ...options?.headers },
         });
     }
 
     list(params: TripListParams, options?: Core.RequestOptions): Core.APIPromise<TripListResponse> {
-        const { ...query } = params;
         return this._client.get(`/trips/`, {
-            query,
+            query: params,
             ...options,
             headers: { ...options?.headers },
         });
@@ -41,17 +38,17 @@ export class Trip extends APIResource {
         });
     }
 
+    partialUpdate(id: string, params: TripParams, options?: Core.RequestOptions): Core.APIPromise<TripParams> {
         return this._client.patch(`/trips/${id}/`, {
-            body,
+            body: params,
             ...options,
             headers: { ...options?.headers },
         });
     }
 
     update(id: string, params: TripParams, options?: Core.RequestOptions): Core.APIPromise<TripParams> {
-        const { ...body } = params;
         return this._client.put(`/trips/${id}/`, {
-            body,
+            body: params,
             ...options,
             headers: { ...options?.headers },
         });
