@@ -43,7 +43,7 @@ export class Trip extends APIResource {
 
     partialUpdate(id: string, params: TripParams, options?: Core.RequestOptions): Core.APIPromise<TripParams> {
         const { ...body } = params;
-        return this._client.put(`/trips/${id}/`, {
+        return this._client.patch(`/trips/${id}/`, {
             body,
             ...options,
             headers: { ...options?.headers },
