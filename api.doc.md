@@ -18,6 +18,7 @@
 -   [Oauth2](#oauth2)
 -   [Dashboards](#dashboards)
 -   [Device States](#deviceStates)
+-   [Device Spaces](#device-spaces)
 -   [Users](#users)
 -   [Trip](#trip)
 
@@ -2494,13 +2495,128 @@ await client.networkServer.delete('a557d013-f6...');
 
 ---
 
+# Device Spaces
+
+## Overview
+
+The `DeviceSpaces` class provides methods for managing device spaces within an application. Device spaces allow for grouping and organizing devices within specific spaces. Below are the details for each method, including parameters, return types, and example usage.
+
+## Methods
+
+<details>
+  <summary><strong>create</strong></summary>
+
+Create a new device space.
+
+**Signature:**
+
+```typescript
+create(params: DeviceSpacesParams, options?: Core.RequestOptions): Core.APIPromise<DeviceSpacesParams>
+```
+
+**Parameters:**
+
+-   `params` _(DeviceSpacesParams)_: Parameters for creating a new device space.
+    -   `name` _(string)_: The name of the device space.
+    -   `description` _(string)_: A description of the device space.
+    -   `dev_eui` _(string)_: A dev_eui of device space.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<DeviceSpacesParams>`
+
+**Example:**
+
+```typescript
+const newDeviceSpace = await client.deviceSpaces.create({
+    name: 'Sensor Network A',
+    description: 'Device space for temperature and humidity sensors',
+    dev_eui: '8437687685476895',
+});
+```
+
+</details>
+
+<details>
+  <summary><strong>list</strong></summary>
+
+List device spaces with optional filtering, ordering, and pagination.
+
+**Signature:**
+
+```typescript
+list(params: ListParamsResponse, options?: Core.RequestOptions): Core.APIPromise<DeviceSpacesListResponse>
+```
+
+**Parameters:**
+
+-   `params` _(ListParamsResponse)_: Query parameters for filtering, ordering, and pagination:
+    -   `ordering` _(string, optional)_: Which field to use when ordering the results.
+    -   `search` _(string, optional)_: A search term to filter results.
+    -   `limit` _(integer, optional)_: Number of results to return per page.
+    -   `offset` _(integer, optional)_: The initial index from which to return the results.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<DeviceSpacesListResponse>`
+
+**Response shape:**
+
+-   `count` _(integer)_: Total number of device spaces matching the query.
+-   `next` _(string | null)_: URL to the next page of results, or `null`.
+-   `previous` _(string | null)_: URL to the previous page of results, or `null`.
+-   `results` _(DeviceSpacesParams[])_: Array of device space objects.
+
+**Example:**
+
+```typescript
+const listResponse = await client.deviceSpaces.list(
+    {
+        ordering: 'name',
+        search: 'sensor',
+        limit: 10,
+        offset: 0,
+    },
+    {
+        'X-Space': 'space-slug-name',
+    },
+);
+console.log(listResponse.results);
+```
+
+</details>
+
+<details>
+  <summary><strong>delete</strong></summary>
+
+Delete a device space by its ID.
+
+**Signature:**
+
+```typescript
+delete(id: string, options?: Core.RequestOptions): Core.APIPromise<void>
+```
+
+**Parameters:**
+
+-   `id` _(string)_: A UUID string identifying this device space.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<void>`
+
+**Example:**
+
+```typescript
+await client.deviceSpaces.delete('789e0123-e89b-12d3-a456-426614174002');
+```
+
+</details>
+
+---
+
 # Trip
 
 ## Overview
 
 The `Trip` class provides methods for managing device trips, including creating, retrieving, updating, listing, and deleting trip records. Trips represent journeys or data collection periods for devices. Below are the details for each method, including parameters, return types, and example usage.
-
-## Methods
 
 <details>
   <summary><strong>create</strong></summary>
