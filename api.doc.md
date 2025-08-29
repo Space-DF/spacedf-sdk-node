@@ -2618,6 +2618,46 @@ await client.deviceSpaces.delete('789e0123-e89b-12d3-a456-426614174002');
 
 The `Trip` class provides methods for managing device trips, including creating, retrieving, updating, listing, and deleting trip records. Trips represent journeys or data collection periods for devices. Below are the details for each method, including parameters, return types, and example usage.
 
+## Types
+
+### TripParams
+
+```typescript
+interface TripParams {
+    space_device: string; // The unique identifier of the device associated with this trip
+    start_at: string; // The start timestamp of the trip (ISO 8601 format)
+    ended_at: string; // The end timestamp of the trip (ISO 8601 format)
+}
+```
+
+### TripListParams
+
+```typescript
+interface TripListParams extends ListParamsResponse {
+    include_checkpoints?: boolean; // Whether to include checkpoints in the response
+}
+```
+
+This interface extends `ListParamsResponse` which includes:
+
+-   `limit?: number` - Number of results to return per page
+-   `offset?: number` - The initial index from which to return the results
+-   `ordering?: string` - Which field to use when ordering the results
+-   `search?: string` - A search term to filter results
+
+### TripListResponse
+
+```typescript
+type TripListResponse = ListResponse<TripParams>;
+```
+
+Where `ListResponse<T>` includes:
+
+-   `count: number` - Total number of trips matching the query
+-   `results: TripParams[]` - Array of trip objects
+-   `next?: string | null` - URL to the next page of results, or null
+-   `previous?: string | null` - URL to the previous page of results, or null
+
 <details>
   <summary><strong>create</strong></summary>
 
@@ -2659,14 +2699,18 @@ Retrieve details of a trip by its ID.
 **Signature:**
 
 ```typescript
-retrieve(id: string, params: { include_transformed_data?: boolean }, options?: Core.RequestOptions): Core.APIPromise<TripParams>
+retrieve(id: string, params: TripListParams, options?: Core.RequestOptions): Core.APIPromise<TripParams>
 ```
 
 **Parameters:**
 
 -   `id` _(string)_: The unique identifier of the trip to retrieve.
--   `params` _(object)_: Query parameters for the request.
-    -   `include_transformed_data` _(boolean, optional)_: Whether to include transformed data in the response.
+-   `params` _(TripListParams)_: Query parameters for the request.
+    -   `include_checkpoints` _(boolean, optional)_: Whether to include checkpoints in the response.
+    -   `ordering` _(string, optional)_: Which field to use when ordering the results.
+    -   `search` _(string, optional)_: A search term to filter results.
+    -   `limit` _(integer, optional)_: Number of results to return per page.
+    -   `offset` _(integer, optional)_: The initial index from which to return the results.
 -   `options` _(Core.RequestOptions)_: Additional request options.
 
 **Returns:** `Promise<TripParams>`
@@ -2675,7 +2719,7 @@ retrieve(id: string, params: { include_transformed_data?: boolean }, options?: C
 
 ```typescript
 const trip = await client.trip.retrieve('trip-uuid-456', {
-    include_transformed_data: true,
+    include_checkpoints: true,
 });
 console.log(trip.space_device);
 ```
@@ -2690,17 +2734,18 @@ List trips with optional filtering, ordering, and pagination.
 **Signature:**
 
 ```typescript
-list(params: TripListParams, options?: Core.RequestOptions): Core.APIPromise<TripListResponse>
+list(params: TripListParams & { space_device__device_id: string }, options?: Core.RequestOptions): Core.APIPromise<TripListResponse>
 ```
 
 **Parameters:**
 
--   `params` _(TripListParams)_: Query parameters for filtering, ordering, and pagination:
+-   `params` _(TripListParams & { space_device\_\_device_id: string })_: Query parameters for filtering, ordering, and pagination:
+    -   `space_device__device_id` _(string)_: **Required.** The device ID to filter trips by.
     -   `ordering` _(string, optional)_: Which field to use when ordering the results.
     -   `search` _(string, optional)_: A search term to filter results.
     -   `limit` _(integer, optional)_: Number of results to return per page.
     -   `offset` _(integer, optional)_: The initial index from which to return the results.
-    -   `include_transformed_data` _(boolean, optional)_: Whether to include transformed data in the response.
+    -   `include_checkpoints` _(boolean, optional)_: Whether to include checkpoints in the response.
 -   `options` _(Core.RequestOptions)_: Additional request options.
 
 **Returns:** `Promise<TripListResponse>`
@@ -2716,10 +2761,11 @@ list(params: TripListParams, options?: Core.RequestOptions): Core.APIPromise<Tri
 
 ```typescript
 const listResponse = await client.trip.list({
+    space_device__device_id: 'device-uuid-123',
     ordering: 'start_at',
     limit: 20,
     offset: 0,
-    include_transformed_data: false,
+    include_checkpoints: false,
 });
 console.log(listResponse.results);
 ```
@@ -2768,16 +2814,16 @@ Partially update an existing trip by its ID.
 **Signature:**
 
 ```typescript
-partialUpdate(id: string, params: TripParams, options?: Core.RequestOptions): Core.APIPromise<TripParams>
+partialUpdate(id: string, params: Partial<TripParams>, options?: Core.RequestOptions): Core.APIPromise<TripParams>
 ```
 
 **Parameters:**
 
 -   `id` _(string)_: The unique identifier of the trip to update.
--   `params` _(TripParams)_: Parameters for partially updating the trip. Only provided fields will be updated.
-    -   `space_device`: _(string, optional)_: The unique identifier of the device associated with this trip.
-    -   `start_at`: _(string, optional)_: The start timestamp of the trip (ISO 8601 format).
-    -   `ended_at`: _(string, optional)_: The end timestamp of the trip (ISO 8601 format).
+-   `params` _(Partial<TripParams>)_: Parameters for partially updating the trip. Only provided fields will be updated.
+    -   `space_device` _(string, optional)_: The unique identifier of the device associated with this trip.
+    -   `start_at` _(string, optional)_: The start timestamp of the trip (ISO 8601 format).
+    -   `ended_at` _(string, optional)_: The end timestamp of the trip (ISO 8601 format).
 -   `options` _(Core.RequestOptions)_: Additional request options.
 
 **Returns:** `Promise<TripParams>`

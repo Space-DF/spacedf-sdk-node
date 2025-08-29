@@ -3,7 +3,7 @@ import { ListParamsResponse, ListResponse } from '../../types/api';
 import * as Core from '../../core';
 
 interface TripListParams extends ListParamsResponse {
-    include_transformed_data?: boolean;
+    include_checkpoints?: boolean;
 }
 
 export class Trip extends APIResource {
@@ -15,7 +15,7 @@ export class Trip extends APIResource {
         });
     }
 
-    retrieve(id: string, params: { include_transformed_data?: boolean }, options?: Core.RequestOptions): Core.APIPromise<TripParams> {
+    retrieve(id: string, params: TripListParams, options?: Core.RequestOptions): Core.APIPromise<TripParams> {
         return this._client.get(`/trips/${id}/`, {
             query: params,
             ...options,
@@ -23,7 +23,12 @@ export class Trip extends APIResource {
         });
     }
 
-    list(params: TripListParams, options?: Core.RequestOptions): Core.APIPromise<TripListResponse> {
+    list(
+        params: TripListParams & {
+            space_device__device_id: string;
+        },
+        options?: Core.RequestOptions,
+    ): Core.APIPromise<TripListResponse> {
         return this._client.get(`/trips/`, {
             query: params,
             ...options,
