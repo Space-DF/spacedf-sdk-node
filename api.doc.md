@@ -20,6 +20,7 @@
 -   [Device States](#deviceStates)
 -   [Device Spaces](#device-spaces)
 -   [Users](#users)
+-   [Trip](#trip)
 
 # Auth
 
@@ -2610,3 +2611,209 @@ await client.deviceSpaces.delete('789e0123-e89b-12d3-a456-426614174002');
 </details>
 
 ---
+
+# Trip
+
+## Overview
+
+The `Trip` class provides methods for managing device trips, including creating, retrieving, updating, listing, and deleting trip records. Trips represent journeys or data collection periods for devices. Below are the details for each method, including parameters, return types, and example usage.
+
+<details>
+  <summary><strong>create</strong></summary>
+
+Create a new trip record.
+
+**Signature:**
+
+```typescript
+create(params: TripParams, options?: Core.RequestOptions): Core.APIPromise<TripParams>
+```
+
+**Parameters:**
+
+-   `params` _(TripParams)_: Parameters for creating a new trip.
+    -   `space_device`: _(string)_: The unique identifier of the device associated with this trip.
+    -   `start_at`: _(string)_: The start timestamp of the trip (ISO 8601 format).
+    -   `ended_at`: _(string)_: The end timestamp of the trip (ISO 8601 format).
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<TripParams>`
+
+**Example:**
+
+```typescript
+const newTrip = await client.trip.create({
+    space_device: 'device-uuid-123',
+    start_at: '2024-01-15T08:00:00Z',
+    ended_at: '2024-01-15T18:30:00Z',
+});
+```
+
+</details>
+
+<details>
+  <summary><strong>retrieve</strong></summary>
+
+Retrieve details of a trip by its ID.
+
+**Signature:**
+
+```typescript
+retrieve(id: string, params: { include_transformed_data?: boolean }, options?: Core.RequestOptions): Core.APIPromise<TripParams>
+```
+
+**Parameters:**
+
+-   `id` _(string)_: The unique identifier of the trip to retrieve.
+-   `params` _(object)_: Query parameters for the request.
+    -   `include_transformed_data` _(boolean, optional)_: Whether to include transformed data in the response.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<TripParams>`
+
+**Example:**
+
+```typescript
+const trip = await client.trip.retrieve('trip-uuid-456', {
+    include_transformed_data: true,
+});
+console.log(trip.space_device);
+```
+
+</details>
+
+<details>
+  <summary><strong>list</strong></summary>
+
+List trips with optional filtering, ordering, and pagination.
+
+**Signature:**
+
+```typescript
+list(params: TripListParams, options?: Core.RequestOptions): Core.APIPromise<TripListResponse>
+```
+
+**Parameters:**
+
+-   `params` _(TripListParams)_: Query parameters for filtering, ordering, and pagination:
+    -   `ordering` _(string, optional)_: Which field to use when ordering the results.
+    -   `search` _(string, optional)_: A search term to filter results.
+    -   `limit` _(integer, optional)_: Number of results to return per page.
+    -   `offset` _(integer, optional)_: The initial index from which to return the results.
+    -   `include_transformed_data` _(boolean, optional)_: Whether to include transformed data in the response.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<TripListResponse>`
+
+**Response shape:**
+
+-   `count` _(integer)_: Total number of trips matching the query.
+-   `next` _(string | null)_: URL to the next page of results, or `null`.
+-   `previous` _(string | null)_: URL to the previous page of results, or `null`.
+-   `results` _(TripParams[])_: Array of trip objects.
+
+**Example:**
+
+```typescript
+const listResponse = await client.trip.list({
+    ordering: 'start_at',
+    limit: 20,
+    offset: 0,
+    include_transformed_data: false,
+});
+console.log(listResponse.results);
+```
+
+</details>
+
+<details>
+  <summary><strong>update</strong></summary>
+
+Update an existing trip by its ID (full update).
+
+**Signature:**
+
+```typescript
+update(id: string, params: TripParams, options?: Core.RequestOptions): Core.APIPromise<TripParams>
+```
+
+**Parameters:**
+
+-   `id` _(string)_: The unique identifier of the trip to update.
+-   `params` _(TripParams)_: Parameters for updating the trip.
+    -   `space_device`: _(string)_: The unique identifier of the device associated with this trip.
+    -   `start_at`: _(string)_: The start timestamp of the trip (ISO 8601 format).
+    -   `ended_at`: _(string)_: The end timestamp of the trip (ISO 8601 format).
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<TripParams>`
+
+**Example:**
+
+```typescript
+const updatedTrip = await client.trip.update('trip-uuid-456', {
+    space_device: 'device-uuid-123',
+    start_at: '2024-01-15T09:00:00Z',
+    ended_at: '2024-01-15T19:00:00Z',
+});
+```
+
+</details>
+
+<details>
+  <summary><strong>partialUpdate</strong></summary>
+
+Partially update an existing trip by its ID.
+
+**Signature:**
+
+```typescript
+partialUpdate(id: string, params: TripParams, options?: Core.RequestOptions): Core.APIPromise<TripParams>
+```
+
+**Parameters:**
+
+-   `id` _(string)_: The unique identifier of the trip to update.
+-   `params` _(TripParams)_: Parameters for partially updating the trip. Only provided fields will be updated.
+    -   `space_device`: _(string, optional)_: The unique identifier of the device associated with this trip.
+    -   `start_at`: _(string, optional)_: The start timestamp of the trip (ISO 8601 format).
+    -   `ended_at`: _(string, optional)_: The end timestamp of the trip (ISO 8601 format).
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<TripParams>`
+
+**Example:**
+
+```typescript
+const partiallyUpdatedTrip = await client.trip.partialUpdate('trip-uuid-456', {
+    ended_at: '2024-01-15T20:00:00Z',
+});
+```
+
+</details>
+
+<details>
+  <summary><strong>delete</strong></summary>
+
+Delete a trip by its ID.
+
+**Signature:**
+
+```typescript
+delete(id: string, options?: Core.RequestOptions): Core.APIPromise<void>
+```
+
+**Parameters:**
+
+-   `id` _(string)_: The unique identifier of the trip to delete.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<void>`
+
+**Example:**
+
+```typescript
+await client.trip.delete('trip-uuid-456');
+```
+
+</details>

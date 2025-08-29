@@ -4,3 +4,4 @@ export * from './network-server';
 export * from './devices';
 export * from './manufacturers';
 export * from './device-spaces';
+export * from './trip';
