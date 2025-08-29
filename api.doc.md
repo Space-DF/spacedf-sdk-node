@@ -2517,10 +2517,8 @@ create(params: DeviceSpacesParams, options?: Core.RequestOptions): Core.APIPromi
 
 -   `params` _(DeviceSpacesParams)_: Parameters for creating a new device space.
     -   `name` _(string)_: The name of the device space.
-    -   `slug_name` _(string)_: The slug name for the device space (URL-friendly identifier).
     -   `description` _(string)_: A description of the device space.
-    -   `space` _(string)_: The ID of the parent space.
-    -   `device` _(string)_: The ID of the device to associate with this device space.
+    -   `dev_eui` _(string)_: A dev_eui of device space.
 -   `options` _(Core.RequestOptions)_: Additional request options.
 
 **Returns:** `Promise<DeviceSpacesParams>`
@@ -2530,10 +2528,8 @@ create(params: DeviceSpacesParams, options?: Core.RequestOptions): Core.APIPromi
 ```typescript
 const newDeviceSpace = await client.deviceSpaces.create({
     name: 'Sensor Network A',
-    slug_name: 'sensor-network-a',
     description: 'Device space for temperature and humidity sensors',
-    space: '123e4567-e89b-12d3-a456-426614174000',
-    device: '456e7890-e89b-12d3-a456-426614174001',
+    dev_eui: '8437687685476895',
 });
 ```
 
