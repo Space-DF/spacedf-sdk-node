@@ -2,6 +2,10 @@ import { APIResource } from '../../resource';
 import * as Core from '../../core';
 import { ListParamsResponse, ListResponse } from '../../types/api';
 
+interface DeviceSpacesListParams extends ListParamsResponse {
+    include_latest_checkpoint?: boolean;
+}
+
 export class DeviceSpaces extends APIResource {
     create(params: DeviceSpacesParams, options?: Core.RequestOptions): Core.APIPromise<DeviceSpacesParams> {
         const { ...body } = params;
@@ -12,7 +16,7 @@ export class DeviceSpaces extends APIResource {
         });
     }
 
-    list(params: ListParamsResponse, options?: Core.RequestOptions): Core.APIPromise<DeviceSpacesListResponse> {
+    list(params: DeviceSpacesListParams, options?: Core.RequestOptions): Core.APIPromise<DeviceSpacesListResponse> {
         const { ...query } = params;
         return this._client.get(`/device-spaces`, {
             query,
