@@ -2554,6 +2554,7 @@ list(params: ListParamsResponse, options?: Core.RequestOptions): Core.APIPromise
     -   `search` _(string, optional)_: A search term to filter results.
     -   `limit` _(integer, optional)_: Number of results to return per page.
     -   `offset` _(integer, optional)_: The initial index from which to return the results.
+    -   `include_latest_checkpoint` _(boolean, optional)_: Include latest checkpoint
 -   `options` _(Core.RequestOptions)_: Additional request options.
 
 **Returns:** `Promise<DeviceSpacesListResponse>`
