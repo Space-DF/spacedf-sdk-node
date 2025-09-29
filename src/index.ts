@@ -143,6 +143,7 @@ export class SpaceDFSDK extends Core.APIClient {
     spaceRoles: API.SpaceRoles = new API.SpaceRoles(this);
     spaces: API.Spaces = new API.Spaces(this);
     dashboards: API.Dashboards = new API.Dashboards(this);
+    widgets: API.Widgets = new API.Widgets(this);
     deviceStates: API.DeviceStates = new API.DeviceStates(this);
     oauth2: API.OAuth2 = new API.OAuth2(this);
     credentials: API.Credentials = new API.Credentials(this);
