@@ -18,6 +18,7 @@
 -   [Oauth2](#oauth2)
 -   [Dashboards](#dashboards)
 -   [Device States](#deviceStates)
+-   [Widgets](#widgets)
 -   [Device Spaces](#device-spaces)
 -   [Users](#users)
 -   [Trip](#trip)
@@ -2489,6 +2490,88 @@ delete(id: string, options?: Core.RequestOptions): Core.APIPromise<void>
 
 ```typescript
 await client.networkServer.delete('a557d013-f6...');
+```
+
+</details>
+
+---
+
+# Widgets
+
+## Overview
+
+The `Widgets` class provides methods to manage dashboard widgets, including bulk updating widget configurations. This class allows you to update multiple widgets at once with their respective configurations.
+
+## Methods
+
+<details>
+  <summary><strong>updateWidgets</strong></summary>
+
+Updates multiple widgets with their configurations in a single bulk operation.
+
+**Signature:**
+
+```typescript
+updateWidgets(params: WidgetsUpdateParams[], options?: Core.RequestOptions): Core.APIPromise<void>
+```
+
+**Parameters:**
+
+-   `params` _(WidgetsUpdateParams[])_: Array of widget update parameters.
+    -   `id` _(string)_: The unique identifier of the widget to update.
+    -   `configuration` _(any)_: The configuration object for the widget.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:**
+
+-   `Core.APIPromise<void>`: A promise that resolves when the bulk update is complete.
+
+**Example Usage:**
+
+```typescript
+import { SpaceDFSDK } from 'spacedf-sdk-node';
+
+const client = new SpaceDFSDK({
+    APIKey: 'your-api-key',
+    organization: 'your-org-id',
+});
+
+// Update multiple widgets
+await client.widgets.updateWidgets([
+    {
+        id: 'widget-1',
+        configuration: {
+            title: 'Temperature Monitor',
+            refreshInterval: 5000,
+            chartType: 'line',
+        },
+    },
+    {
+        id: 'widget-2',
+        configuration: {
+            title: 'Device Status',
+            showLegend: true,
+            colorScheme: 'dark',
+        },
+    },
+]);
+```
+
+**Error Handling:**
+
+```typescript
+try {
+    await client.widgets.updateWidgets(widgetUpdates);
+    console.log('Widgets updated successfully');
+} catch (error) {
+    if (error instanceof SpaceDFSDK.BadRequestError) {
+        console.error('Invalid widget configuration:', error.message);
+    } else if (error instanceof SpaceDFSDK.NotFoundError) {
+        console.error('One or more widgets not found:', error.message);
+    } else {
+        console.error('Failed to update widgets:', error.message);
+    }
+}
 ```
 
 </details>
