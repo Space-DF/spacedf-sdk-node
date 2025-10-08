@@ -52,6 +52,13 @@ export class Device extends APIResource {
             headers: { Accept: '*/*', ...options?.headers },
         });
     }
+
+    checkClaimCode(code: string, options?: Core.RequestOptions): Core.APIPromise<void> {
+        return this._client.get(`/devices/${code}/check`, {
+            ...options,
+            headers: { ...options?.headers },
+        });
+    }
 }
 
 export interface DeviceParams {

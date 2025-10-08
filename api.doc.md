@@ -2134,6 +2134,32 @@ console.log('Device deleted successfully.');
 
 </details>
 
+<details>
+  <summary><strong>check claim code</strong></summary>
+
+Check the device by claim code
+
+**Signature:**
+
+```typescript
+    checkClaimCode(claim_code: string, options?: Core.RequestOptions): Core.APIPromise<void>
+```
+
+**Parameters:**
+
+-   `claim_code` _(string)_: The unique code of the device.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<void>`
+
+**Example:**
+
+```typescript
+await client.devices.checkClaimCode('123e4567-e89...');
+```
+
+</details>
+
 ---
 
 # Manufacturers
