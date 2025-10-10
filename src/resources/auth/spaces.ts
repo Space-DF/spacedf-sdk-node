@@ -17,7 +17,7 @@ export class Spaces extends APIResource {
         });
     }
 
-    partialUpdate(params: SpaceUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Space> {
+    partialUpdate(params: Partial<SpaceUpdateParams>, options?: Core.RequestOptions): Core.APIPromise<Space> {
         const { 'X-Space': xspace, ...body } = params;
         return this._client.patch(`/spaces`, {
             body,
@@ -103,11 +103,6 @@ export interface SpaceUpdateParams {
     name: string;
 
     /**
-     * Body param:
-     */
-    slug_name: string;
-
-    /**
      * Header param:
      */
     'X-Space': string;
@@ -127,11 +122,6 @@ export interface SpaceUpdateParams {
      * Body param:
      */
     name: string;
-
-    /**
-     * Body param:
-     */
-    slug_name: string;
 
     /**
      * Body param:
