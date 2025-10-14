@@ -74,6 +74,13 @@ export interface ClientOptions {
      * @default false
      */
     allowMultiOrgs?: boolean;
+
+    /**
+     * By default, use the development environment.
+     *
+     * @default false
+     */
+    development?: boolean;
 }
 
 /**
@@ -104,21 +111,40 @@ export class SpaceDFSDK extends Core.APIClient {
         organization = Core.readEnv('SPACEDF_ORG_ID') ?? null,
         APIKey = Core.readEnv('SPACEDF_API_KEY'),
         allowMultiOrgs = false,
+        development = false,
         ...opts
     }: ClientOptions = {}) {
+        // Determine base URL based on development flag
+        let finalBaseURL = baseURL;
+
+        if (!finalBaseURL) {
+            if (development) {
+                // Development environment URL
+                finalBaseURL = `https://api.myspacedf.net/api`;
+            } else {
+                // Production environment URL
+                finalBaseURL = `https://api.myspacedf.com/api`;
+            }
+        }
+
         if (!allowMultiOrgs) {
-            if (baseURL && organization)
+            if (finalBaseURL && organization)
                 throw new Errors.SpaceDFError('`baseURL` will be overridden by `organization`. You should only configure a single property.');
 
             if (organization) {
-                baseURL = `https://${organization}.api.v0.spacedf.net/api`;
+                if (development) {
+                    finalBaseURL = `https://${organization}.api.myspacedf.net/api`;
+                } else {
+                    finalBaseURL = `https://${organization}.api.myspacedf.com/api`;
+                }
             }
         }
 
         const options: ClientOptions = {
             organization,
             APIKey,
-            baseURL: baseURL || `https://api.v0.spacedf.net/api`,
+            baseURL: finalBaseURL,
+            development,
             ...opts,
         };
 
