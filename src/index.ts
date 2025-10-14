@@ -115,28 +115,14 @@ export class SpaceDFSDK extends Core.APIClient {
         ...opts
     }: ClientOptions = {}) {
         // Determine base URL based on development flag
-        let finalBaseURL = baseURL;
-
-        if (!finalBaseURL) {
-            if (development) {
-                // Development environment URL
-                finalBaseURL = `https://api.myspacedf.net/api`;
-            } else {
-                // Production environment URL
-                finalBaseURL = `https://api.myspacedf.com/api`;
-            }
-        }
+        let finalBaseURL = development ? `https://api.myspacedf.net/api` : `https://api.myspacedf.com/api`;
 
         if (!allowMultiOrgs) {
-            if (finalBaseURL && organization)
+            if (baseURL && organization)
                 throw new Errors.SpaceDFError('`baseURL` will be overridden by `organization`. You should only configure a single property.');
 
             if (organization) {
-                if (development) {
-                    finalBaseURL = `https://${organization}.api.myspacedf.net/api`;
-                } else {
-                    finalBaseURL = `https://${organization}.api.myspacedf.com/api`;
-                }
+                finalBaseURL = development ? `https://${organization}.api.myspacedf.net/api` : (finalBaseURL = `https://${organization}.api.myspacedf.com/api`);
             }
         }
 
