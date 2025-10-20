@@ -2973,3 +2973,39 @@ await client.trip.delete('trip-uuid-456');
 ```
 
 </details>
+
+---
+
+# Organizations
+
+## Overview
+
+The `Organizations` class provides methods for managing organizations within an application.
+
+## Methods
+
+<details>
+  <summary><strong>checkSlugName</strong></summary>
+
+Check organizations by slug name.
+
+**Signature:**
+
+```typescript
+checkSlugName(slugName: string, options?: Core.RequestOptions): Core.APIPromise<void>
+```
+
+**Parameters:**
+
+-   `slugName` _(string)_: A slug name string identifying this organization.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<void>`
+
+**Example:**
+
+```typescript
+await client.organizations.checkSlugName('danang');
+```
+
+</details>
