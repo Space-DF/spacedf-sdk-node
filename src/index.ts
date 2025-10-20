@@ -168,6 +168,7 @@ export class SpaceDFSDK extends Core.APIClient {
     networkServer: API.NetworkServer = new API.NetworkServer(this);
     deviceSpaces: API.DeviceSpaces = new API.DeviceSpaces(this);
     trip: API.Trip = new API.Trip(this);
+    organizations: API.Organizations = new API.Organizations(this);
 
     protected override defaultQuery(): Core.DefaultQuery | undefined {
         return this._options.defaultQuery;
