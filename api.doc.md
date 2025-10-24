@@ -337,6 +337,37 @@ const switchResponse = await client.auth.switchSpaces({
 
 </details>
 
+<details>
+  <summary><strong>changePassword</strong></summary>
+
+Change the current user password.
+
+**Signature:**
+
+```typescript
+changePassword(body: AuthChangePasswordParams, options?: Core.RequestOptions): Core.APIPromise<AuthChangePasswordParams>
+```
+
+**Parameters:**
+
+-   `body` _(AuthChangePasswordParams)_: Object containing the current password and new password.
+    -   `password` _(string)_: Current password.
+    -   `new_password` _(string)_: New password.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<AuthChangePasswordParams>`
+
+**Example:**
+
+```typescript
+const switchResponse = await client.auth.switchSpaces({
+    password: 'current_password',
+    new_password: 'new_password',
+});
+```
+
+</details>
+
 ---
 
 # Space Policies
