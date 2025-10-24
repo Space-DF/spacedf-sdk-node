@@ -41,6 +41,10 @@ export class Auth extends APIResource {
     switchSpaces(body: AuthRefreshTokenParams, options?: Core.RequestOptions): Core.APIPromise<CustomTokenRefresh> {
         return this._client.post(`/auth/spaces/switch`, { body, ...options });
     }
+
+    changePassword(body: AuthChangePasswordParams, options?: Core.RequestOptions): Core.APIPromise<AuthChangePasswordParams> {
+        return this._client.post(`/auth/change-password`, { body, ...options });
+    }
 }
 
 export interface AuthTokenPair {
@@ -103,6 +107,12 @@ export interface ForgetPasswordParams {
     token: string;
 
     password: string;
+}
+
+export interface AuthChangePasswordParams {
+    password: string;
+
+    new_password: string;
 }
 
 export interface AuthRefreshTokenParams {
