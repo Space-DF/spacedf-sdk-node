@@ -43,7 +43,7 @@ export class Auth extends APIResource {
     }
 
     changePassword(body: AuthChangePasswordParams, options?: Core.RequestOptions): Core.APIPromise<AuthChangePasswordParams> {
-        return this._client.post(`/auth/change-password`, { body, ...options });
+        return this._client.put(`/auth/change-password`, { body, ...options });
     }
 }
 
