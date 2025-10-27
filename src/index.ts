@@ -182,10 +182,11 @@ export class SpaceDFSDK extends Core.APIClient {
     }
 
     protected override authHeaders(opts: Core.FinalRequestOptions): Core.Headers {
-        const Authorization = `Bearer ${(this.allowMultiOrgs && opts.accessToken) || this.accessToken || ''}`;
+        const accessToken = (this.allowMultiOrgs && opts.accessToken) || this.accessToken || '';
+        const Authorization = `Bearer ${accessToken}`;
         const APIKey = (this.allowMultiOrgs && opts.APIKey) || this.APIKey;
 
-        return { Authorization, 'x-api-key': APIKey };
+        return accessToken ? { Authorization, 'x-api-key': APIKey } : { 'x-api-key': APIKey };
     }
 
     public setAccessToken(token: string | null): void {
