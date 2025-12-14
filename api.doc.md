@@ -22,6 +22,7 @@
 -   [Device Spaces](#device-spaces)
 -   [Users](#users)
 -   [Trip](#trip)
+-   [Telemetry](#telemetry)
 
 # Auth
 
@@ -3001,6 +3002,70 @@ delete(id: string, options?: Core.RequestOptions): Core.APIPromise<void>
 
 ```typescript
 await client.trip.delete('trip-uuid-456');
+```
+
+</details>
+
+---
+
+# Telemetry
+
+## Overview
+
+The `Telemetry` class provides methods for retrieving telemetry entities. This class allows you to search and filter telemetry entities by display type and search terms.
+
+## Methods
+
+<details>
+  <summary><strong>list</strong></summary>
+
+List telemetry entities with optional filtering, ordering, and pagination.
+
+**Signature:**
+
+```typescript
+list(params: EntitiesListParams, options?: Core.RequestOptions): Core.APIPromise<EntitiesListResponse>
+```
+
+**Parameters:**
+
+-   `params` _(EntitiesListParams)_: Query parameters for filtering, ordering, and pagination:
+    -   `display_type` _(string, optional)_: Display type filter (e.g., "chart").
+    -   `search` _(string, optional)_: A search term to filter results.
+    -   `ordering` _(string, optional)_: Which field to use when ordering the results.
+    -   `limit` _(integer, optional)_: Number of results to return per page.
+    -   `offset` _(integer, optional)_: The initial index from which to return the results.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<EntitiesListResponse>`
+
+**Response shape:**
+
+-   `count` _(integer)_: Total number of entities matching the query.
+-   `next` _(string | null)_: URL to the next page of results, or `null`.
+-   `previous` _(string | null)_: URL to the previous page of results, or `null`.
+-   `results` _(Entity[])_: Array of entity objects.
+
+**Example:**
+
+```typescript
+const entities = await client.telemetry.entities.list({
+    display_type: 'chart',
+    search: 'Water Depth',
+    limit: 10,
+    offset: 0,
+});
+console.log(entities.results);
+```
+
+**Example with minimal parameters:**
+
+```typescript
+const entities = await client.telemetry.entities.list({
+    display_type: 'chart',
+    search: 'Water Depth',
+});
+console.log(entities.count);
 ```
 
 </details>
