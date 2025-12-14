@@ -3012,12 +3012,12 @@ await client.trip.delete('trip-uuid-456');
 
 ## Overview
 
-The `Telemetry` class provides methods for retrieving telemetry entities. This class allows you to search and filter telemetry entities by display type and search terms.
+The `Telemetry` class provides methods for retrieving telemetry entities and alerts. This class allows you to search and filter telemetry entities by display type and search terms, as well as retrieve alerts.
 
 ## Methods
 
 <details>
-  <summary><strong>list</strong></summary>
+  <summary><strong>entities.list</strong></summary>
 
 List telemetry entities with optional filtering, ordering, and pagination.
 
@@ -3066,6 +3066,57 @@ const entities = await client.telemetry.entities.list({
     search: 'Water Depth',
 });
 console.log(entities.count);
+```
+
+</details>
+
+<details>
+  <summary><strong>alerts.list</strong></summary>
+
+List telemetry alerts with optional filtering, ordering, and pagination.
+
+**Signature:**
+
+```typescript
+list(params: AlertsListParams, options?: Core.RequestOptions): Core.APIPromise<AlertsListResponse>
+```
+
+**Parameters:**
+
+-   `params` _(AlertsListParams)_: Query parameters for filtering, ordering, and pagination:
+    -   `search` _(string, optional)_: A search term to filter results.
+    -   `ordering` _(string, optional)_: Which field to use when ordering the results.
+    -   `limit` _(integer, optional)_: Number of results to return per page.
+    -   `offset` _(integer, optional)_: The initial index from which to return the results.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<AlertsListResponse>`
+
+**Response shape:**
+
+-   `count` _(integer)_: Total number of alerts matching the query.
+-   `next` _(string | null)_: URL to the next page of results, or `null`.
+-   `previous` _(string | null)_: URL to the previous page of results, or `null`.
+-   `results` _(Alert[])_: Array of alert objects.
+
+**Example:**
+
+```typescript
+const alerts = await client.telemetry.alerts.list({
+    search: 'critical',
+    limit: 10,
+    offset: 0,
+});
+console.log(alerts.results);
+```
+
+**Example with minimal parameters:**
+
+```typescript
+const alerts = await client.telemetry.alerts.list({
+    search: 'critical',
+});
+console.log(alerts.count);
 ```
 
 </details>
