@@ -6,3 +6,4 @@ export * from './dashboard/index';
 export * from './console/index';
 export * from './device/index';
 export * from './organizations/index';
+export * from './telemetry/index';
