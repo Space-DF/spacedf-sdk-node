@@ -11,7 +11,8 @@ export type AlertsListResponse = ListResponse<Alert>;
 export interface AlertsListParams extends ListParamsResponse {
     device_id?: string;
     category?: string;
-    date?: string;
+    start_date?: string;
+    end_date?: string;
 }
 
 export class Alerts extends APIResource {
