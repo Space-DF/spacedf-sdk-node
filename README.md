@@ -38,7 +38,6 @@ Customize the SDK with a configuration file. Below are common options:
 | ---------------- | ------------------------------------------------------------------ | ------------- |
 | `organization`   | Your organization                                                  | None          |
 | `baseURL`        | baseURL                                                            | None          |
-| `APIKey`         | APIKey                                                             | None          |
 | `timeout`        | The maximum amount of time                                         | 1 minute      |
 | `httpAgent`      | An HTTP agent used to manage HTTP(S) connections                   | None          |
 | `fetch`          | Specify a custom `fetch` function implementation                   | Node fetch    |
@@ -50,7 +49,7 @@ Customize the SDK with a configuration file. Below are common options:
 Example:
 
 ```typescript
-const sdk = new SDK({ organization: 'your-organization', APIKey: 'your-API-key' });
+const sdk = new SDK({ organization: 'your-organization' });
 ```
 
 ## Usage
@@ -60,10 +59,10 @@ Import and initialize a client.
 ```typescript
 import SpaceDFSDK from 'spacedf-sdk';
 
-const client = new SpaceDFSDK({ organization: 'your-organization', APIKey: 'your-API-key' });
+const client = new SpaceDFSDK({ organization: 'your-organization' });
 
 /* or use with your base url */
-// const client = new SpaceDFSDK({ baseURL: 'your-url', APIKey: 'your-API-key' });
+// const client = new SpaceDFSDK({ baseURL: 'your-url' });
 ```
 
 Register new SpaceDF account.
@@ -104,8 +103,7 @@ const registerResponse = await client.auth.register(
         password: 'example',
     },
     {
-        organization: 'your-organization',
-        APIKey: 'your-API-key',
+        organization: 'your-organization'
     },
 );
 
@@ -113,7 +111,6 @@ const registerResponse = await client.auth.register(
 
 const spacePoliciesResponse = await client.spacePolicies.retrieve(1, {
     organization: 'your-organization',
-    APIKey: 'your-API-key',
     accessToken: 'your-access-token',
 });
 ```

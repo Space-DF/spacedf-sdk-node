@@ -128,7 +128,6 @@ export abstract class APIClient {
     timeout: number;
     httpAgent: Agent | undefined;
     allowMultiOrgs: boolean;
-    APIKey: string | undefined;
 
     private fetch: Fetch;
     protected idempotencyHeader?: string;
@@ -139,7 +138,6 @@ export abstract class APIClient {
         timeout = 60 * 1000, // 1 minute
         httpAgent,
         fetch: overriddenFetch,
-        APIKey,
         allowMultiOrgs = false,
     }: {
         baseURL: string;
@@ -147,14 +145,12 @@ export abstract class APIClient {
         timeout: number | undefined;
         httpAgent: Agent | undefined;
         fetch: Fetch | undefined;
-        APIKey: string | undefined;
         allowMultiOrgs: boolean;
     }) {
         this.baseURL = baseURL;
         this.maxRetries = validatePositiveInteger('maxRetries', maxRetries);
         this.timeout = validatePositiveInteger('timeout', timeout);
         this.httpAgent = httpAgent;
-        this.APIKey = APIKey;
         this.allowMultiOrgs = allowMultiOrgs;
 
         this.fetch = overriddenFetch ?? fetch;
@@ -684,7 +680,6 @@ export type RequestOptions<Req = unknown | Record<string, unknown> | Readable | 
     idempotencyKey?: string;
     organization?: string;
     accessToken?: string;
-    APIKey?: string;
 
     __binaryRequest?: boolean | undefined;
     __binaryResponse?: boolean | undefined;
@@ -708,7 +703,6 @@ const requestOptionsKeys: KeysEnum<RequestOptions> = {
     idempotencyKey: true,
     organization: true,
     accessToken: true,
-    APIKey: true,
 
     __binaryRequest: true,
     __binaryResponse: true,
