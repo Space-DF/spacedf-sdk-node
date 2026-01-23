@@ -2590,7 +2590,6 @@ updateWidgets(params: WidgetsUpdateParams[], options?: Core.RequestOptions): Cor
 import { SpaceDFSDK } from 'spacedf-sdk-node';
 
 const client = new SpaceDFSDK({
-    APIKey: 'your-api-key',
     organization: 'your-org-id',
 });
 

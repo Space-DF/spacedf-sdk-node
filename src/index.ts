@@ -9,10 +9,6 @@ export interface ClientOptions {
      */
     organization?: string | null | undefined;
     /**
-     * Defaults to process.env['SPACEDF_API_KEY'].
-     */
-    APIKey?: string | undefined;
-    /**
      * Override the default base URL for the API, e.g., "https://api.example.com/v2/"
      *
      * Defaults to process.env['SPACEDF_SDK_BASE_URL'].
@@ -96,7 +92,6 @@ export class SpaceDFSDK extends Core.APIClient {
      * API Client for interfacing with the Spacedf SDK API.
      *
      * @param {string | null | undefined} [opts.organization=process.env['SPACEDF_ORG_ID'] ?? null]
-     * @param {string | undefined} [opts.APIKey=process.env['SPACEDF_API_KEY']]
      * @param {string} [opts.baseURL=process.env['SPACEDF_SDK_BASE_URL'] ?? https://api.v0.spacedf.net/] - Override the default base URL for the API.
      * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
      * @param {number} [opts.httpAgent] - An HTTP agent used to manage HTTP(s) connections.
@@ -109,19 +104,16 @@ export class SpaceDFSDK extends Core.APIClient {
     constructor({
         baseURL = Core.readEnv('SPACEDF_SDK_BASE_URL'),
         organization = Core.readEnv('SPACEDF_ORG_ID') ?? null,
-        APIKey = Core.readEnv('SPACEDF_API_KEY'),
         allowMultiOrgs = false,
         ...opts
     }: ClientOptions = {}) {
         const options: ClientOptions = {
             organization,
-            APIKey,
             baseURL,
             ...opts,
         };
 
         super({
-            APIKey: options.APIKey,
             baseURL: options.baseURL!,
             timeout: options.timeout ?? 60 * 1000 /* 1 minute */,
             httpAgent: options.httpAgent,
@@ -131,7 +123,6 @@ export class SpaceDFSDK extends Core.APIClient {
         });
 
         this._options = options;
-        this.APIKey = APIKey;
         this.organization = organization;
     }
 
@@ -171,9 +162,8 @@ export class SpaceDFSDK extends Core.APIClient {
     protected override authHeaders(opts: Core.FinalRequestOptions): Core.Headers {
         const accessToken = (this.allowMultiOrgs && opts.accessToken) || this.accessToken || '';
         const Authorization = `Bearer ${accessToken}`;
-        const APIKey = (this.allowMultiOrgs && opts.APIKey) || this.APIKey;
 
-        return accessToken ? { Authorization, 'x-api-key': APIKey } : { 'x-api-key': APIKey };
+        return accessToken ? { Authorization } : {};
     }
 
     public setAccessToken(token: string | null): void {
