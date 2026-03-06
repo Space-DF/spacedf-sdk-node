@@ -3011,7 +3011,7 @@ await client.trip.delete('trip-uuid-456');
 
 ## Overview
 
-The `Telemetry` class provides methods for retrieving telemetry entities and alerts. This class allows you to search and filter telemetry entities by display type and search terms, as well as retrieve alerts.
+The `Telemetry` class provides methods for retrieving telemetry entities, alerts, and geofences. This class allows you to search and filter telemetry entities by display type and search terms, retrieve alerts, and manage geofences (list, create, retrieve, update, delete).
 
 ## Methods
 
@@ -3116,6 +3116,172 @@ const alerts = await client.telemetry.alerts.list({
     search: 'critical',
 });
 console.log(alerts.count);
+```
+
+</details>
+
+<details>
+  <summary><strong>geofences.list</strong></summary>
+
+List geofences with optional filtering by name and pagination.
+
+**Signature:**
+
+```typescript
+list(params: GeofencesListParams, options?: Core.RequestOptions): Core.APIPromise<GeofencesListResponse>
+```
+
+**Parameters:**
+
+-   `params` _(GeofencesListParams)_: Query parameters for filtering and pagination:
+    -   `name` _(string, optional)_: Filter geofences by name.
+    -   `ordering` _(string, optional)_: Which field to use when ordering the results.
+    -   `limit` _(integer, optional)_: Number of results to return per page.
+    -   `offset` _(integer, optional)_: The initial index from which to return the results.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<GeofencesListResponse>`
+
+**Response shape:**
+
+-   `count` _(integer)_: Total number of geofences matching the query.
+-   `next` _(string | null)_: URL to the next page of results, or `null`.
+-   `previous` _(string | null)_: URL to the previous page of results, or `null`.
+-   `results` _(Geofence[])_: Array of geofence objects.
+
+**Example:**
+
+```typescript
+const geofences = await client.telemetry.geofences.list({
+    name: 'Warehouse',
+    limit: 10,
+    offset: 0,
+});
+console.log(geofences.results);
+```
+
+</details>
+
+<details>
+  <summary><strong>geofences.create</strong></summary>
+
+Create a new geofence.
+
+**Signature:**
+
+```typescript
+create(params: Omit<Geofence, 'id'>, options?: Core.RequestOptions): Core.APIPromise<Geofence>
+```
+
+**Parameters:**
+
+-   `params` _(Omit<Geofence, 'id'>)_: Geofence data (all fields except `id`):
+    -   `name` _(string)_: The name of the geofence.
+    -   `color` _(string)_: Display color for the geofence.
+    -   `type_zone` _('safe' | 'danger')_: Zone type.
+    -   `definition` _(object)_: Conditions (e.g. `conditions.and`).
+    -   `geometry` _(Feature[])_: GeoJSON-style features (polygon geometry).
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<Geofence>`
+
+**Example:**
+
+```typescript
+const newGeofence = await client.telemetry.geofences.create({
+    name: 'Safe Zone A',
+    color: '#00ff00',
+    type_zone: 'safe',
+    definition: { conditions: { and: [] } },
+    geometry: [/* GeoJSON Feature[] */],
+});
+console.log(newGeofence.id);
+```
+
+</details>
+
+<details>
+  <summary><strong>geofences.retrieve</strong></summary>
+
+Retrieve a geofence by its ID.
+
+**Signature:**
+
+```typescript
+retrieve(id: string, options?: Core.RequestOptions): Core.APIPromise<Geofence>
+```
+
+**Parameters:**
+
+-   `id` _(string)_: The unique identifier of the geofence to retrieve.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<Geofence>`
+
+**Example:**
+
+```typescript
+const geofence = await client.telemetry.geofences.retrieve('123e4567-e89b-12d3-a456-426614174000');
+console.log(geofence.name);
+```
+
+</details>
+
+<details>
+  <summary><strong>geofences.update</strong></summary>
+
+Update an existing geofence by its ID (full update).
+
+**Signature:**
+
+```typescript
+update(id: string, params: Omit<Geofence, 'id'>, options?: Core.RequestOptions): Core.APIPromise<Geofence>
+```
+
+**Parameters:**
+
+-   `id` _(string)_: The unique identifier of the geofence to update.
+-   `params` _(Omit<Geofence, 'id'>)_: Updated geofence data (same shape as create).
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<Geofence>`
+
+**Example:**
+
+```typescript
+const updatedGeofence = await client.telemetry.geofences.update('123e4567-e89b-12d3-a456-426614174000', {
+    name: 'Safe Zone A Updated',
+    color: '#00ff00',
+    type_zone: 'safe',
+    definition: { conditions: { and: [] } },
+    geometry: [/* GeoJSON Feature[] */],
+});
+```
+
+</details>
+
+<details>
+  <summary><strong>geofences.delete</strong></summary>
+
+Delete a geofence by its ID.
+
+**Signature:**
+
+```typescript
+delete(id: string, options?: Core.RequestOptions): Core.APIPromise<void>
+```
+
+**Parameters:**
+
+-   `id` _(string)_: The unique identifier of the geofence to delete.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<void>`
+
+**Example:**
+
+```typescript
+await client.telemetry.geofences.delete('123e4567-e89b-12d3-a456-426614174000');
 ```
 
 </details>
