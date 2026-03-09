@@ -3011,7 +3011,7 @@ await client.trip.delete('trip-uuid-456');
 
 ## Overview
 
-The `Telemetry` class provides methods for retrieving telemetry entities, alerts, and geofences. This class allows you to search and filter telemetry entities by display type and search terms, retrieve alerts, and manage geofences (list, create, retrieve, update, delete).
+The `Telemetry` class provides methods for retrieving telemetry entities, alerts, and geofences. This class allows you to search and filter telemetry entities by display type and search terms, retrieve alerts, and manage geofences (list, create, retrieve, update, delete, test).
 
 ## Methods
 
@@ -3180,7 +3180,7 @@ create(params: Omit<Geofence, 'id'>, options?: Core.RequestOptions): Core.APIPro
     -   `color` _(string)_: Display color for the geofence.
     -   `type_zone` _('safe' | 'danger')_: Zone type.
     -   `definition` _(object)_: Conditions (e.g. `conditions.and`).
-    -   `geometry` _(Feature[])_: GeoJSON-style features (polygon geometry).
+    -   `geometry` _(PolygonGeometry[])_: Polygon geometry for the geofence.
 -   `options` _(Core.RequestOptions)_: Additional request options.
 
 **Returns:** `Promise<Geofence>`
@@ -3193,7 +3193,7 @@ const newGeofence = await client.telemetry.geofences.create({
     color: '#00ff00',
     type_zone: 'safe',
     definition: { conditions: { and: [] } },
-    geometry: [/* GeoJSON Feature[] */],
+    geometry: [/* PolygonGeometry[] */],
 });
 console.log(newGeofence.id);
 ```
@@ -3254,7 +3254,40 @@ const updatedGeofence = await client.telemetry.geofences.update('123e4567-e89b-1
     color: '#00ff00',
     type_zone: 'safe',
     definition: { conditions: { and: [] } },
-    geometry: [/* GeoJSON Feature[] */],
+    geometry: [/* PolygonGeometry[] */],
+});
+```
+
+</details>
+
+<details>
+  <summary><strong>geofences.test</strong></summary>
+
+Validate a geofence payload (conditions/geometry) without creating or updating a saved geofence.
+
+**Signature:**
+
+```typescript
+test(params: Omit<Geofence, 'id' | 'name' | 'color'>, options?: Core.RequestOptions): Core.APIPromise<void>
+```
+
+**Parameters:**
+
+-   `params` _(Omit<Geofence, 'id' | 'name' | 'color'>)_: Geofence data to test:
+    -   `type_zone` _('safe' | 'danger')_: Zone type.
+    -   `definition` _(object)_: Conditions (e.g. `conditions.and`).
+    -   `geometry` _(PolygonGeometry[])_: Polygon geometry for the geofence.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<void>`
+
+**Example:**
+
+```typescript
+await client.telemetry.geofences.test({
+    type_zone: 'safe',
+    definition: { conditions: { and: [] } },
+    geometry: [/* PolygonGeometry[] */],
 });
 ```
 
