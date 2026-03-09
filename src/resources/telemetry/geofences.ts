@@ -14,20 +14,9 @@ type Coordinate = [number, number];
 
 type PolygonGeometry = {
     type: 'Polygon';
-    coordinates: Coordinate[][][];
-};
-
-type FeatureProperties = {
+    coordinates: Coordinate[][];
     mode: 'rectangle' | 'angled-rectangle' | string;
-    color: string;
 };
-
-interface Feature {
-    type: 'Feature';
-    geometry: PolygonGeometry;
-    properties: FeatureProperties;
-    id: string;
-}
 
 export interface Geofence {
     id: string;
@@ -39,7 +28,7 @@ export interface Geofence {
             and: Condition[];
         };
     };
-    geometry: Feature[];
+    geometry: PolygonGeometry[];
 }
 
 export type GeofencesListResponse = ListResponse<Geofence>;
@@ -47,7 +36,6 @@ export type GeofencesListResponse = ListResponse<Geofence>;
 export interface GeofencesListParams extends ListParamsResponse {
     name?: string;
 }
-
 export class Geofences extends APIResource {
     list(params: GeofencesListParams, options?: Core.RequestOptions): Core.APIPromise<GeofencesListResponse> {
         const { ...query } = params;
@@ -84,6 +72,15 @@ export class Geofences extends APIResource {
 
     delete(id: string, options?: Core.RequestOptions): Core.APIPromise<void> {
         return this._client.delete(`/telemetry/v1/geofences/${id}`, {
+            ...options,
+            headers: { ...options?.headers },
+        });
+    }
+
+    test(params: Omit<Geofence, 'id' | 'name' | 'color'>, options?: Core.RequestOptions): Core.APIPromise<void> {
+        const { ...body } = params;
+        return this._client.post(`/telemetry/v1/geofences/test`, {
+            body,
             ...options,
             headers: { ...options?.headers },
         });
