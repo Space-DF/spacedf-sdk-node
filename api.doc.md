@@ -3123,7 +3123,7 @@ console.log(alerts.count);
 <details>
   <summary><strong>geofences.list</strong></summary>
 
-List geofences with optional filtering by name and pagination.
+List geofences with optional filtering and pagination.
 
 **Signature:**
 
@@ -3135,6 +3135,7 @@ list(params: GeofencesListParams, options?: Core.RequestOptions): Core.APIPromis
 
 -   `params` _(GeofencesListParams)_: Query parameters for filtering and pagination:
     -   `name` _(string, optional)_: Filter geofences by name.
+    -   `bbox` _(string, optional)_: Filter geofences by bounding box (format: `minLon,minLat,maxLon,maxLat`).
     -   `ordering` _(string, optional)_: Which field to use when ordering the results.
     -   `limit` _(integer, optional)_: Number of results to return per page.
     -   `offset` _(integer, optional)_: The initial index from which to return the results.
@@ -3180,7 +3181,7 @@ create(params: Omit<Geofence, 'id'>, options?: Core.RequestOptions): Core.APIPro
     -   `color` _(string)_: Display color for the geofence.
     -   `type_zone` _('safe' | 'danger')_: Zone type.
     -   `definition` _(object)_: Conditions (e.g. `conditions.and`).
-    -   `geometry` _(PolygonGeometry[])_: Polygon geometry for the geofence.
+    -   `features` _(PolygonGeometry[])_: Polygon features for the geofence.
 -   `options` _(Core.RequestOptions)_: Additional request options.
 
 **Returns:** `Promise<Geofence>`
@@ -3193,7 +3194,7 @@ const newGeofence = await client.telemetry.geofences.create({
     color: '#00ff00',
     type_zone: 'safe',
     definition: { conditions: { and: [] } },
-    geometry: [/* PolygonGeometry[] */],
+    features: [/* PolygonGeometry[] */],
 });
 console.log(newGeofence.id);
 ```
@@ -3254,7 +3255,7 @@ const updatedGeofence = await client.telemetry.geofences.update('123e4567-e89b-1
     color: '#00ff00',
     type_zone: 'safe',
     definition: { conditions: { and: [] } },
-    geometry: [/* PolygonGeometry[] */],
+    features: [/* PolygonGeometry[] */],
 });
 ```
 
@@ -3263,7 +3264,7 @@ const updatedGeofence = await client.telemetry.geofences.update('123e4567-e89b-1
 <details>
   <summary><strong>geofences.test</strong></summary>
 
-Validate a geofence payload (conditions/geometry) without creating or updating a saved geofence.
+Validate a geofence payload (conditions/features) without creating or updating a saved geofence.
 
 **Signature:**
 
@@ -3276,7 +3277,7 @@ test(params: Omit<Geofence, 'id' | 'name' | 'color'>, options?: Core.RequestOpti
 -   `params` _(Omit<Geofence, 'id' | 'name' | 'color'>)_: Geofence data to test:
     -   `type_zone` _('safe' | 'danger')_: Zone type.
     -   `definition` _(object)_: Conditions (e.g. `conditions.and`).
-    -   `geometry` _(PolygonGeometry[])_: Polygon geometry for the geofence.
+    -   `features` _(PolygonGeometry[])_: Polygon features for the geofence.
 -   `options` _(Core.RequestOptions)_: Additional request options.
 
 **Returns:** `Promise<void>`
@@ -3287,7 +3288,7 @@ test(params: Omit<Geofence, 'id' | 'name' | 'color'>, options?: Core.RequestOpti
 await client.telemetry.geofences.test({
     type_zone: 'safe',
     definition: { conditions: { and: [] } },
-    geometry: [/* PolygonGeometry[] */],
+    features: [/* PolygonGeometry[] */],
 });
 ```
 
