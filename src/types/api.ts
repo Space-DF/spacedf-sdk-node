@@ -28,4 +28,9 @@ export interface ListParamsResponse {
      * A search term.
      */
     search?: string;
+
+    /**
+     * A bounding box.
+     */
+    bbox?: string;
 }
