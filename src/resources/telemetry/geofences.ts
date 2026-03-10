@@ -30,13 +30,14 @@ export interface Geofence {
             and: Condition[];
         };
     };
-    geometry: PolygonGeometry[];
+    features: PolygonGeometry[];
 }
 
 export type GeofencesListResponse = ListResponse<Geofence>;
 
 export interface GeofencesListParams extends ListParamsResponse {
     name?: string;
+    bbox?: string;
 }
 export class Geofences extends APIResource {
     list(params: GeofencesListParams, options?: Core.RequestOptions): Core.APIPromise<GeofencesListResponse> {
