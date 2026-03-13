@@ -2126,6 +2126,7 @@ List devices with optional pagination.
 -   `params` _(ListParamsResponse)_: Query parameters for listing devices:
     -   `limit` _(integer, optional)_: Number of results to return per page.
     -   `offset` _(integer, optional)_: The initial index from which to return the results.
+    -   `bbox` _(string, optional)_: A bounding box filter (for example: `minLon,minLat,maxLon,maxLat`).
 -   `options` _(Core.RequestOptions)_: Additional request options.
 
 **Returns:** `Promise<DeviceListResponse>`
