@@ -48,6 +48,7 @@ export class Geofences extends APIResource {
             headers: { ...options?.headers },
         });
     }
+
     create(params: Omit<Geofence, 'id'>, options?: Core.RequestOptions): Core.APIPromise<Geofence> {
         const { ...body } = params;
         return this._client.post(`/telemetry/v1/geofences`, {
