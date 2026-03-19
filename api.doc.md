@@ -3122,6 +3122,67 @@ console.log(alerts.count);
 </details>
 
 <details>
+  <summary><strong>events.list</strong></summary>
+
+List telemetry events for a device with optional filtering and pagination.
+
+**Signature:**
+
+```typescript
+list(device_id: string, params: EventsListParams, options?: Core.RequestOptions): Core.APIPromise<ListResponse<TelemetryEvent>>
+```
+
+**Parameters:**
+
+-   `device_id` _(string)_: The unique identifier of the device to fetch events for.
+-   `params` _(EventsListParams)_: Query parameters for filtering and pagination:
+    -   `limit` _(integer, optional)_: Number of results to return per page.
+    -   `offset` _(integer, optional)_: The initial index from which to return the results.
+    -   `search` _(string, optional)_: A search term to filter results.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<ListResponse<TelemetryEvent>>`
+
+**Response shape:**
+
+-   `count` _(integer)_: Total number of events matching the query.
+-   `next` _(string | null)_: URL to the next page of results, or `null`.
+-   `previous` _(string | null)_: URL to the previous page of results, or `null`.
+-   `results` _(TelemetryEvent[])_: Array of telemetry event objects.
+
+**TelemetryEvent shape:**
+
+-   `id` _(integer)_: Event ID.
+-   `event_type` _(string)_: Event type (e.g., `"device_event"`).
+-   `event_level` _(string)_: Event level/category (e.g., `"automation"`).
+-   `title` _(string)_: Human-readable event title.
+-   `entity_id` _(string)_: Entity UUID associated with the event.
+-   `time_fired` _(string)_: ISO timestamp when the event fired.
+-   `geofence` _(object, optional)_: Geofence metadata, when applicable:
+    -   `id` _(string)_: Geofence UUID.
+    -   `name` _(string)_: Geofence name.
+    -   `type_zone` _(string)_: Zone type (e.g., `"danger"`).
+-   `automation` _(object, optional)_: Automation metadata, when applicable:
+    -   `id` _(string)_: Automation UUID.
+    -   `name` _(string)_: Automation name.
+-   `location` _(object, optional)_: Location, when applicable:
+    -   `latitude` _(number)_: Latitude.
+    -   `longitude` _(number)_: Longitude.
+
+**Example:**
+
+```typescript
+const events = await client.telemetry.events.list('device-uuid-123', {
+    search: 'Danger Zone',
+    limit: 10,
+    offset: 0,
+});
+console.log(events.results);
+```
+
+</details>
+
+<details>
   <summary><strong>geofences.list</strong></summary>
 
 List geofences with optional filtering and pagination.
