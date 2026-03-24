@@ -3012,7 +3012,7 @@ await client.trip.delete('trip-uuid-456');
 
 ## Overview
 
-The `Telemetry` class provides methods for retrieving telemetry entities, alerts, and geofences. This class allows you to search and filter telemetry entities by display type and search terms, retrieve alerts, and manage geofences (list, create, retrieve, update, delete, test).
+The `Telemetry` class provides methods for retrieving telemetry entities, alerts, events, automations, and geofences. This class allows you to search and filter telemetry entities by display type and search terms, retrieve alerts, query events by device, manage automations (list, create, retrieve, update, delete), and manage geofences (list, create, retrieve, update, delete, test).
 
 ## Methods
 
@@ -3117,6 +3117,198 @@ const alerts = await client.telemetry.alerts.list({
     search: 'critical',
 });
 console.log(alerts.count);
+```
+
+</details>
+
+<details>
+  <summary><strong>automations.list</strong></summary>
+
+List telemetry automations with optional filtering and pagination.
+
+**Signature:**
+
+```typescript
+list(params: AutomationsListParams, options?: Core.RequestOptions): Core.APIPromise<AutomationsListResponse>
+```
+
+**Parameters:**
+
+-   `params` _(AutomationsListParams)_: Query parameters for filtering and pagination:
+    -   `search` _(string, optional)_: A search term to filter results.
+    -   `ordering` _(string, optional)_: Which field to use when ordering the results.
+    -   `limit` _(integer, optional)_: Number of results to return per page.
+    -   `offset` _(integer, optional)_: The initial index from which to return the results.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<AutomationsListResponse>`
+
+**Response shape:**
+
+-   `count` _(integer)_: Total number of automations matching the query.
+-   `next` _(string | null)_: URL to the next page of results, or `null`.
+-   `previous` _(string | null)_: URL to the previous page of results, or `null`.
+-   `results` _(Automation[])_: Array of automation objects.
+
+**Example:**
+
+```typescript
+const automations = await client.telemetry.automations.list({
+    search: 'Low Battery',
+    limit: 10,
+    offset: 0,
+});
+console.log(automations.results);
+```
+
+</details>
+
+<details>
+  <summary><strong>automations.create</strong></summary>
+
+Create a new telemetry automation.
+
+**Signature:**
+
+```typescript
+create(params: AutomationParams, options?: Core.RequestOptions): Core.APIPromise<Automation>
+```
+
+**Parameters:**
+
+-   `params` _(AutomationParams)_: Automation payload:
+    -   `name` _(string)_: The automation name.
+    -   `device_id` _(string)_: Device UUID that this automation applies to.
+    -   `action_ids` _(string[])_: Action IDs to execute when the rule is triggered.
+    -   `event_rule` _(AutomationEventRule)_: Event rule definition:
+        -   `rule_key` _(string)_: Rule key identifier.
+        -   `definition.conditions.and` _(AutomationRuleCondition[])_: Rule conditions.
+        -   `is_active` _(boolean)_: Whether the rule is currently active.
+        -   `repeat_able` _(boolean)_: Whether the rule can repeat.
+        -   `cooldown_sec` _(number)_: Cooldown time in seconds.
+        -   `description` _(string)_: Human-readable rule description.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<Automation>`
+
+**Example:**
+
+```typescript
+const automation = await client.telemetry.automations.create({
+    name: 'Low Battery Alert',
+    device_id: 'device-uuid-123',
+    action_ids: ['action-uuid-1'],
+    event_rule: {
+        rule_key: 'battery_low',
+        definition: {
+            conditions: {
+                and: [{ battery: { lte: 20 } }],
+            },
+        },
+        is_active: true,
+        repeat_able: true,
+        cooldown_sec: 300,
+        description: 'Trigger when battery is less than or equal to 20%',
+    },
+});
+console.log(automation.id);
+```
+
+</details>
+
+<details>
+  <summary><strong>automations.retrieve</strong></summary>
+
+Retrieve an automation by its ID.
+
+**Signature:**
+
+```typescript
+retrieve(id: string, options?: Core.RequestOptions): Core.APIPromise<Automation>
+```
+
+**Parameters:**
+
+-   `id` _(string)_: The unique identifier of the automation to retrieve.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<Automation>`
+
+**Example:**
+
+```typescript
+const automation = await client.telemetry.automations.retrieve('automation-uuid-123');
+console.log(automation.name);
+```
+
+</details>
+
+<details>
+  <summary><strong>automations.update</strong></summary>
+
+Update an existing automation by its ID (full update).
+
+**Signature:**
+
+```typescript
+update(id: string, params: AutomationParams, options?: Core.RequestOptions): Core.APIPromise<Automation>
+```
+
+**Parameters:**
+
+-   `id` _(string)_: The unique identifier of the automation to update.
+-   `params` _(AutomationParams)_: Updated automation payload.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<Automation>`
+
+**Example:**
+
+```typescript
+const updated = await client.telemetry.automations.update('automation-uuid-123', {
+    name: 'Low Battery Alert Updated',
+    device_id: 'device-uuid-123',
+    action_ids: ['action-uuid-1', 'action-uuid-2'],
+    event_rule: {
+        rule_key: 'battery_low',
+        definition: {
+            conditions: {
+                and: [{ battery: { lte: 15 } }],
+            },
+        },
+        is_active: true,
+        repeat_able: true,
+        cooldown_sec: 180,
+        description: 'Trigger when battery is less than or equal to 15%',
+    },
+});
+console.log(updated.updated_at);
+```
+
+</details>
+
+<details>
+  <summary><strong>automations.delete</strong></summary>
+
+Delete an automation by its ID.
+
+**Signature:**
+
+```typescript
+delete(id: string, options?: Core.RequestOptions): Core.APIPromise<void>
+```
+
+**Parameters:**
+
+-   `id` _(string)_: The unique identifier of the automation to delete.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<void>`
+
+**Example:**
+
+```typescript
+await client.telemetry.automations.delete('automation-uuid-123');
 ```
 
 </details>
