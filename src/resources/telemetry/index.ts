@@ -4,6 +4,7 @@ import { Alerts } from './alerts';
 import { Geofences } from './geofences';
 import { Automations } from './automations';
 import { Events } from './events';
+import { Actions } from './actions';
 
 export class Telemetry extends APIResource {
     entities: Entities = new Entities(this._client);
@@ -11,4 +12,5 @@ export class Telemetry extends APIResource {
     geofences: Geofences = new Geofences(this._client);
     automations: Automations = new Automations(this._client);
     events: Events = new Events(this._client);
+    actions: Actions = new Actions(this._client);
 }

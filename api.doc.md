@@ -3012,7 +3012,7 @@ await client.trip.delete('trip-uuid-456');
 
 ## Overview
 
-The `Telemetry` class provides methods for retrieving telemetry entities, alerts, events, automations, and geofences. This class allows you to search and filter telemetry entities by display type and search terms, retrieve alerts, query events by device, manage automations (list, create, retrieve, update, delete), and manage geofences (list, create, retrieve, update, delete, test).
+The `Telemetry` class provides methods for retrieving telemetry entities, alerts, events, automations, actions, and geofences. This class allows you to search and filter telemetry entities by display type and search terms, retrieve alerts, query events by device, list telemetry actions, manage automations (list, create, retrieve, update, delete), and manage geofences (list, create, retrieve, update, delete, test).
 
 ## Methods
 
@@ -3309,6 +3309,57 @@ delete(id: string, options?: Core.RequestOptions): Core.APIPromise<void>
 
 ```typescript
 await client.telemetry.automations.delete('automation-uuid-123');
+```
+
+</details>
+
+<details>
+  <summary><strong>actions.list</strong></summary>
+
+List telemetry actions with optional filtering and pagination.
+
+**Signature:**
+
+```typescript
+list(params: ActionsListParams, options?: Core.RequestOptions): Core.APIPromise<ActionsListResponse>
+```
+
+**Parameters:**
+
+-   `params` _(ActionsListParams)_: Query parameters for filtering and pagination:
+    -   `search` _(string, optional)_: A search term to filter results.
+    -   `ordering` _(string, optional)_: Which field to use when ordering the results.
+    -   `limit` _(integer, optional)_: Number of results to return per page.
+    -   `offset` _(integer, optional)_: The initial index from which to return the results.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<ActionsListResponse>`
+
+**Response shape:**
+
+-   `count` _(integer)_: Total number of actions matching the query.
+-   `next` _(string | null)_: URL to the next page of results, or `null`.
+-   `previous` _(string | null)_: URL to the previous page of results, or `null`.
+-   `results` _(Action[])_: Array of action objects.
+
+**Action shape:**
+
+-   `id` _(string)_: Action UUID.
+-   `name` _(string)_: Action name.
+-   `created_at` _(string, optional)_: Creation timestamp.
+-   `data` _(object)_: Action payload:
+    -   `channel` _(string)_: Channel identifier.
+    -   `message` _(string)_: Message content.
+
+**Example:**
+
+```typescript
+const actions = await client.telemetry.actions.list({
+    search: 'battery',
+    limit: 10,
+    offset: 0,
+});
+console.log(actions.results);
 ```
 
 </details>
