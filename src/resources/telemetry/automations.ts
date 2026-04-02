@@ -96,4 +96,12 @@ export class Automations extends APIResource {
             headers: { ...options?.headers },
         });
     }
+
+    summary(options?: Core.RequestOptions): Core.APIPromise<{
+        total: number;
+        active: number;
+        disabled: number;
+    }> {
+        return this._client.get(`/telemetry/v1/automations/summary`, options);
+    }
 }
