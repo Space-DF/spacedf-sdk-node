@@ -22,6 +22,12 @@ export interface AutomationEventRule {
     description: string;
 }
 
+interface AutomationSummary {
+    total: number;
+    active: number;
+    disabled: number;
+}
+
 /** Expanded action as returned on automation resources (e.g. list/retrieve). */
 export interface AutomationAction {
     id: string;
@@ -61,7 +67,6 @@ export class Automations extends APIResource {
         return this._client.get(`/telemetry/v1/automations`, {
             query,
             ...options,
-            headers: { ...options?.headers },
         });
     }
 
@@ -75,10 +80,7 @@ export class Automations extends APIResource {
     }
 
     retrieve(id: string, options?: Core.RequestOptions): Core.APIPromise<Automation> {
-        return this._client.get(`/telemetry/v1/automations/${id}`, {
-            ...options,
-            headers: { ...options?.headers },
-        });
+        return this._client.get(`/telemetry/v1/automations/${id}`, options);
     }
 
     update(id: string, params: AutomationParams, options?: Core.RequestOptions): Core.APIPromise<Automation> {
@@ -86,22 +88,14 @@ export class Automations extends APIResource {
         return this._client.put(`/telemetry/v1/automations/${id}`, {
             body,
             ...options,
-            headers: { ...options?.headers },
         });
     }
 
     delete(id: string, options?: Core.RequestOptions): Core.APIPromise<void> {
-        return this._client.delete(`/telemetry/v1/automations/${id}`, {
-            ...options,
-            headers: { ...options?.headers },
-        });
+        return this._client.delete(`/telemetry/v1/automations/${id}`, options);
     }
 
-    summary(options?: Core.RequestOptions): Core.APIPromise<{
-        total: number;
-        active: number;
-        disabled: number;
-    }> {
+    summary(options?: Core.RequestOptions): Core.APIPromise<AutomationSummary> {
         return this._client.get(`/telemetry/v1/automations/summary`, options);
     }
 }

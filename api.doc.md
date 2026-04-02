@@ -3385,9 +3385,7 @@ summary(options?: Core.RequestOptions): Core.APIPromise<{
 
 -   `options` _(Core.RequestOptions)_: Additional request options.
 
-**Returns:**
-
--   `Promise<{ total: number; active: number; disabled: number }>`
+**Returns:** `Promise<{ total: number; active: number; disabled: number }>`
 
 **Example:**
 
