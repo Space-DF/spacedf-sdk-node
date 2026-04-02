@@ -3321,16 +3321,17 @@ List telemetry actions with optional filtering and pagination.
 **Signature:**
 
 ```typescript
-list(params: ActionsListParams, options?: Core.RequestOptions): Core.APIPromise<ActionsListResponse>
+list(params: ListParamsResponse, options?: Core.RequestOptions): Core.APIPromise<ActionsListResponse>
 ```
 
 **Parameters:**
 
--   `params` _(ActionsListParams)_: Query parameters for filtering and pagination:
+-   `params` _(ListParamsResponse)_: Query parameters for filtering and pagination:
     -   `search` _(string, optional)_: A search term to filter results.
     -   `ordering` _(string, optional)_: Which field to use when ordering the results.
     -   `limit` _(integer, optional)_: Number of results to return per page.
     -   `offset` _(integer, optional)_: The initial index from which to return the results.
+    -   `bbox` _(string, optional)_: A bounding box filter.
 -   `options` _(Core.RequestOptions)_: Additional request options.
 
 **Returns:** `Promise<ActionsListResponse>`
@@ -3346,6 +3347,7 @@ list(params: ActionsListParams, options?: Core.RequestOptions): Core.APIPromise<
 
 -   `id` _(string)_: Action UUID.
 -   `name` _(string)_: Action name.
+-   `key` _(string)_: Action key.
 -   `created_at` _(string, optional)_: Creation timestamp.
 -   `data` _(object)_: Action payload:
     -   `channel` _(string)_: Channel identifier.
@@ -3360,6 +3362,38 @@ const actions = await client.telemetry.actions.list({
     offset: 0,
 });
 console.log(actions.results);
+```
+
+</details>
+
+<details>
+  <summary><strong>automations.summary</strong></summary>
+
+Get a summary of automations counts.
+
+**Signature:**
+
+```typescript
+summary(options?: Core.RequestOptions): Core.APIPromise<{
+    total: number;
+    active: number;
+    disabled: number;
+}>
+```
+
+**Parameters:**
+
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<{ total: number; active: number; disabled: number }>`
+
+**Example:**
+
+```typescript
+const summary = await client.telemetry.automations.summary();
+console.log(summary.total);
+console.log(summary.active);
+console.log(summary.disabled);
 ```
 
 </details>

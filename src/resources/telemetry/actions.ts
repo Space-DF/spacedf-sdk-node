@@ -15,14 +15,8 @@ export interface Action {
 
 export type ActionsListResponse = ListResponse<Action>;
 
-export interface ActionsListParams extends ListParamsResponse {
-    limit?: number;
-    offset?: number;
-    search?: string;
-}
-
 export class Actions extends APIResource {
-    list(params: ActionsListParams, options?: Core.RequestOptions): Core.APIPromise<ActionsListResponse> {
+    list(params: ListParamsResponse, options?: Core.RequestOptions): Core.APIPromise<ListResponse<Action>> {
         const { ...query } = params;
         return this._client.get(`/telemetry/v1/actions`, {
             query,
