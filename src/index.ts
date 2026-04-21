@@ -133,6 +133,9 @@ export class SpaceDFSDK extends Core.APIClient {
     spaces: API.Spaces = new API.Spaces(this);
     dashboards: API.Dashboards = new API.Dashboards(this);
     widgets: API.Widgets = new API.Widgets(this);
+    buildings: API.Buildings = new API.Buildings(this);
+    floors: API.Floors = new API.Floors(this);
+    facilities: API.Facilities = new API.Facilities(this);
     deviceStates: API.DeviceStates = new API.DeviceStates(this);
     oauth2: API.OAuth2 = new API.OAuth2(this);
     credentials: API.Credentials = new API.Credentials(this);

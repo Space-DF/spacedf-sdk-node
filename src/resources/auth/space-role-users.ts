@@ -3,7 +3,7 @@ import { ListParamsResponse, ListResponse } from '../../types/api';
 import * as Core from '../../core';
 
 export class SpaceRoleUsers extends APIResource {
-    retrieve(id: number, params: SpaceRoleUsersParams, options?: Core.RequestOptions): Core.APIPromise<SpaceRoleUser> {
+    retrieve(id: string, params: SpaceRoleUsersParams, options?: Core.RequestOptions): Core.APIPromise<SpaceRoleUser> {
         const { 'X-Space': xspace } = params;
         return this._client.get(`/space-role-users/${id}`, {
             ...options,
@@ -20,7 +20,7 @@ export class SpaceRoleUsers extends APIResource {
         });
     }
 
-    update(id: number, params: SpaceRoleUserUpdateParams, options?: Core.RequestOptions): Core.APIPromise<SpaceRoleUserUpdateParams> {
+    update(id: string, params: SpaceRoleUserUpdateParams, options?: Core.RequestOptions): Core.APIPromise<SpaceRoleUserUpdateParams> {
         const { 'X-Space': xspace, ...body } = params;
         return this._client.put(`/space-role-users/${id}`, {
             body,
@@ -38,7 +38,7 @@ export class SpaceRoleUsers extends APIResource {
         });
     }
 
-    setSpaceDefault(id: String, params: SpaceRoleUsersParams, options?: Core.RequestOptions): Core.APIPromise<void> {
+    setSpaceDefault(id: string, params: SpaceRoleUsersParams, options?: Core.RequestOptions): Core.APIPromise<void> {
         const { 'X-Space': xspace } = params;
         return this._client.post(`/space-role-users/${id}/default`, {
             ...options,

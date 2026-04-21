@@ -12,14 +12,14 @@ export class Dashboards extends APIResource {
         });
     }
 
-    retrieve(id: number, options?: Core.RequestOptions): Core.APIPromise<Dashboard> {
+    retrieve(id: string, options?: Core.RequestOptions): Core.APIPromise<Dashboard> {
         return this._client.get(`/dashboards/${id}`, {
             ...options,
             headers: { ...options?.headers },
         });
     }
 
-    update(id: number, params: DashboardUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Dashboard> {
+    update(id: string, params: DashboardUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Dashboard> {
         const { ...body } = params;
         return this._client.put(`/dashboards/${id}`, {
             body,
@@ -28,7 +28,7 @@ export class Dashboards extends APIResource {
         });
     }
 
-    partialUpdate(id: number, params: DashboardUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Dashboard> {
+    partialUpdate(id: string, params: DashboardUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Dashboard> {
         const { ...body } = params;
         return this._client.patch(`/dashboards/${id}`, {
             body,

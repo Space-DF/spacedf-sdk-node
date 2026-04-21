@@ -4,7 +4,7 @@ import { ListParamsResponse, ListResponse } from '../../types/api';
 import * as Core from '../../core';
 
 export class SpacePolicies extends APIResource {
-    retrieve(id: number, params: SpacePolicyParams, options?: Core.RequestOptions): Core.APIPromise<SpacePolicy> {
+    retrieve(id: string, params: SpacePolicyParams, options?: Core.RequestOptions): Core.APIPromise<SpacePolicy> {
         const { 'X-Space': xspace } = params;
         return this._client.get(`/space-policies/${id}`, {
             ...options,
