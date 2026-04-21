@@ -1481,7 +1481,7 @@ retrieve(id: string, options?: Core.RequestOptions): Core.APIPromise<Building>
 **Example:**
 
 ```typescript
-const building = await client.buildings.retrieve(1);
+const building = await client.buildings.retrieve('1');
 ```
 
 </details>
