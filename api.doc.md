@@ -17,6 +17,9 @@
 -   [Spaces](#spaces)
 -   [Oauth2](#oauth2)
 -   [Dashboards](#dashboards)
+-   [Buildings](#buildings)
+-   [Floors](#floors)
+-   [Facilities](#facilities)
 -   [Device States](#deviceStates)
 -   [Widgets](#widgets)
 -   [Device Spaces](#device-spaces)
@@ -387,12 +390,12 @@ Retrieve a specific space policy by its ID.
 **Signature:**
 
 ```typescript
-retrieve(id: number, options?: Core.RequestOptions): Core.APIPromise<SpacePolicy>
+retrieve(id: string, options?: Core.RequestOptions): Core.APIPromise<SpacePolicy>
 ```
 
 **Parameters:**
 
--   `id` _(number)_: The ID of the space policy to retrieve.
+-   `id` _(string)_: The ID of the space policy to retrieve.
 -   `options` _(Core.RequestOptions)_: Additional request options.
 
 **Returns:** `Promise<SpacePolicy>`
@@ -452,12 +455,12 @@ Retrieve a specific space role user by their ID.
 **Signature:**
 
 ```typescript
-retrieve(id: number, params: SpaceRoleUsersParams, options?: Core.RequestOptions): Core.APIPromise<SpaceRoleUser>
+retrieve(id: string, params: SpaceRoleUsersParams, options?: Core.RequestOptions): Core.APIPromise<SpaceRoleUser>
 ```
 
 **Parameters:**
 
--   `id` _(number)_: The ID of the space role user to retrieve.
+-   `id` _(string)_: The ID of the space role user to retrieve.
 -   `params` _(SpaceRoleUsersParams)_: Parameters containing the space slug.
     -   `X-Space`: _(string)_: Space slug name.
 -   `options` _(Core.RequestOptions)_: Additional request options.
@@ -704,12 +707,12 @@ Retrieve a specific space role by its ID.
 **Signature:**
 
 ```typescript
-retrieve(id: number, params: SpaceRolesParams, options?: Core.RequestOptions): Core.APIPromise<SpaceRole>
+retrieve(id: string, params: SpaceRolesParams, options?: Core.RequestOptions): Core.APIPromise<SpaceRole>
 ```
 
 **Parameters:**
 
--   `id` _(number)_: The ID of the space role to retrieve.
+-   `id` _(string)_: The ID of the space role to retrieve.
 -   `params` _(SpaceRolesParams)_: Parameters containing the space slug.
     -   `X-Space`: _(string)_: Space slug name.
 -   `options` _(Core.RequestOptions)_: Additional request options.
@@ -1162,12 +1165,12 @@ Retrieves a specific dashboard by its ID.
 **Signature:**
 
 ```typescript
-retrieve(id: number, params: DashboardRetrieveParams, options?: Core.RequestOptions): Core.APIPromise<Dashboard>
+retrieve(id: string, params: DashboardRetrieveParams, options?: Core.RequestOptions): Core.APIPromise<Dashboard>
 ```
 
 **Parameters:**
 
--   `id` _(number)_: The ID of the dashboard to retrieve.
+-   `id` _(string)_: The ID of the dashboard to retrieve.
 -   `params` _(DashboardRetrieveParams)_: Parameters required for retrieving a dashboard.
     -   `X-Space`: _(string)_: The space slug name.
 
@@ -1412,6 +1415,643 @@ deleteWidget(dashboardId: string, id: number, params: WidgetDeleteParams, option
 
 ```typescript
 await client.dashboards.deleteWidget(dashboardId, widgetId, { 'X-Space': 'your-space-slug' });
+```
+
+</details>
+
+# Buildings
+
+## Overview
+
+The `Buildings` class provides methods to manage buildings and to create/list floors within a building.
+
+## Methods
+
+<details>
+  <summary><strong>create</strong></summary>
+
+Creates a new building.
+
+**Signature:**
+
+```typescript
+create(params: BuildingCreateParams, options?: Core.RequestOptions): Core.APIPromise<Building>
+```
+
+**Parameters:**
+
+-   `params` _(BuildingCreateParams)_: Parameters for creating a building.
+    -   `name` _(string)_: Building name.
+    -   `description` _(string)_: Building description.
+    -   `location` _({ latitude?: number; longitude?: number })_: Building location.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<Building>`
+
+**Example:**
+
+```typescript
+const newBuilding = await client.buildings.create({
+    name: 'HQ',
+    description: 'Main office',
+    location: { latitude: 37.7749, longitude: -122.4194 },
+});
+```
+
+</details>
+
+<details>
+  <summary><strong>retrieve</strong></summary>
+
+Retrieves a building by ID.
+
+**Signature:**
+
+```typescript
+retrieve(id: string, options?: Core.RequestOptions): Core.APIPromise<Building>
+```
+
+**Parameters:**
+
+-   `id` _(string)_: Building ID.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<Building>`
+
+**Example:**
+
+```typescript
+const building = await client.buildings.retrieve(1);
+```
+
+</details>
+
+<details>
+  <summary><strong>update</strong></summary>
+
+Updates a building by replacing fields.
+
+**Signature:**
+
+```typescript
+update(id: number, params: Partial<BuildingCreateParams>, options?: Core.RequestOptions): Core.APIPromise<Building>
+```
+
+**Parameters:**
+
+-   `id` _(number)_: Building ID.
+-   `params` _(Partial<BuildingCreateParams>)_: Building fields to update.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<Building>`
+
+**Example:**
+
+```typescript
+const updatedBuilding = await client.buildings.update(1, {
+    description: 'Updated description',
+});
+```
+
+</details>
+
+<details>
+  <summary><strong>partialUpdate</strong></summary>
+
+Partially updates a building.
+
+**Signature:**
+
+```typescript
+partialUpdate(id: number, params: Partial<BuildingCreateParams>, options?: Core.RequestOptions): Core.APIPromise<Building>
+```
+
+**Parameters:**
+
+-   `id` _(number)_: Building ID.
+-   `params` _(Partial<BuildingCreateParams>)_: Building fields to update.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<Building>`
+
+**Example:**
+
+```typescript
+const patchedBuilding = await client.buildings.partialUpdate(1, {
+    name: 'HQ - North',
+});
+```
+
+</details>
+
+<details>
+  <summary><strong>list</strong></summary>
+
+Lists buildings.
+
+**Signature:**
+
+```typescript
+list(params: ListParamsResponse, options?: Core.RequestOptions): Core.APIPromise<BuildingListResponse>
+```
+
+**Parameters:**
+
+-   `params` _(ListParamsResponse)_: List/pagination parameters.
+    -   `limit` _(number)_: (Optional) Number of results per page.
+    -   `offset` _(number)_: (Optional) Starting index for results.
+    -   `ordering` _(string)_: (Optional) Field to order results by.
+    -   `search` _(string)_: (Optional) Search term.
+    -   `bbox` _(string)_: (Optional) Bounding box.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<BuildingListResponse>`
+
+**Example:**
+
+```typescript
+const buildings = await client.buildings.list({ limit: 20, offset: 0 });
+```
+
+</details>
+
+<details>
+  <summary><strong>delete</strong></summary>
+
+Deletes a building by ID.
+
+**Signature:**
+
+```typescript
+delete(id: number, options?: Core.RequestOptions): Core.APIPromise<void>
+```
+
+**Parameters:**
+
+-   `id` _(number)_: Building ID.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<void>`
+
+**Example:**
+
+```typescript
+await client.buildings.delete(1);
+```
+
+</details>
+
+<details>
+  <summary><strong>createFloor</strong></summary>
+
+Creates a floor within a building.
+
+**Signature:**
+
+```typescript
+createFloor(buildingId: string, params: FloorCreateParams, options?: Core.RequestOptions): Core.APIPromise<Floor>
+```
+
+**Parameters:**
+
+-   `buildingId` _(string)_: Building ID.
+-   `params` _(FloorCreateParams)_: Parameters for creating a floor.
+    -   `name` _(string)_: Floor name.
+    -   `description` _(string)_: Floor description.
+    -   `level` _(number)_: Floor level.
+    -   `scene_asset` _(string)_: Scene asset reference.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<Floor>`
+
+**Example:**
+
+```typescript
+const newFloor = await client.buildings.createFloor(1, {
+    name: 'Floor 1',
+    description: 'First floor',
+    level: 1,
+    scene_asset: 's3://bucket/floor-1.glb',
+});
+```
+
+</details>
+
+<details>
+  <summary><strong>listFloors</strong></summary>
+
+Lists floors within a building.
+
+**Signature:**
+
+```typescript
+listFloors(buildingId: number, params: ListParamsResponse, options?: Core.RequestOptions): Core.APIPromise<FloorListResponse>
+```
+
+**Parameters:**
+
+-   `buildingId` _(number)_: Building ID.
+-   `params` _(ListParamsResponse)_: List/pagination parameters.
+    -   `limit` _(number)_: (Optional) Number of results per page.
+    -   `offset` _(number)_: (Optional) Starting index for results.
+    -   `ordering` _(string)_: (Optional) Field to order results by.
+    -   `search` _(string)_: (Optional) Search term.
+    -   `bbox` _(string)_: (Optional) Bounding box.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<FloorListResponse>`
+
+**Example:**
+
+```typescript
+const floors = await client.buildings.listFloors(1, { limit: 50 });
+```
+
+</details>
+
+# Floors
+
+## Overview
+
+The `Floors` class provides methods to manage individual floors, and to create/list rooms (areas) within a floor.
+
+## Methods
+
+<details>
+  <summary><strong>retrieve</strong></summary>
+
+Retrieves a floor by ID.
+
+**Signature:**
+
+```typescript
+retrieve(id: string, options?: Core.RequestOptions): Core.APIPromise<Floor>
+```
+
+**Parameters:**
+
+-   `id` _(string)_: Floor ID.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<Floor>`
+
+**Example:**
+
+```typescript
+const floor = await client.floors.retrieve(10);
+```
+
+</details>
+
+<details>
+  <summary><strong>update</strong></summary>
+
+Updates a floor.
+
+**Signature:**
+
+```typescript
+update(id: number, params: FloorUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Floor>
+```
+
+**Parameters:**
+
+-   `id` _(number)_: Floor ID.
+-   `params` _(FloorUpdateParams)_: Floor fields to update.
+    -   `name` _(string)_: Floor name.
+    -   `description` _(string)_: Floor description.
+    -   `level` _(number)_: Floor level.
+    -   `scene_asset` _(string)_: Scene asset reference.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<Floor>`
+
+**Example:**
+
+```typescript
+const updated = await client.floors.update(10, {
+    name: 'Floor 1 (Renovated)',
+    description: 'Updated plan',
+    level: 1,
+    scene_asset: 's3://bucket/floor-1-v2.glb',
+});
+```
+
+</details>
+
+<details>
+  <summary><strong>partialUpdate</strong></summary>
+
+Partially updates a floor.
+
+**Signature:**
+
+```typescript
+partialUpdate(id: number, params: FloorUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Floor>
+```
+
+**Parameters:**
+
+-   `id` _(number)_: Floor ID.
+-   `params` _(FloorUpdateParams)_: Floor fields to update.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<Floor>`
+
+**Example:**
+
+```typescript
+const patched = await client.floors.partialUpdate(10, {
+    scene_asset: 's3://bucket/floor-1-hotfix.glb',
+});
+```
+
+</details>
+
+<details>
+  <summary><strong>delete</strong></summary>
+
+Deletes a floor by ID.
+
+**Signature:**
+
+```typescript
+delete(id: number, options?: Core.RequestOptions): Core.APIPromise<void>
+```
+
+**Parameters:**
+
+-   `id` _(number)_: Floor ID.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<void>`
+
+**Example:**
+
+```typescript
+await client.floors.delete(10);
+```
+
+</details>
+
+<details>
+  <summary><strong>listRooms</strong></summary>
+
+Lists rooms (areas) within a floor.
+
+**Signature:**
+
+```typescript
+listRooms(floorId: number, params: ListParamsResponse, options?: Core.RequestOptions): Core.APIPromise<RoomListResponse>
+```
+
+**Parameters:**
+
+-   `floorId` _(number)_: Floor ID.
+-   `params` _(ListParamsResponse)_: List/pagination parameters.
+    -   `limit` _(number)_: (Optional) Number of results per page.
+    -   `offset` _(number)_: (Optional) Starting index for results.
+    -   `ordering` _(string)_: (Optional) Field to order results by.
+    -   `search` _(string)_: (Optional) Search term.
+    -   `bbox` _(string)_: (Optional) Bounding box.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<RoomListResponse>`
+
+**Example:**
+
+```typescript
+const rooms = await client.floors.listRooms(10, { limit: 100 });
+```
+
+</details>
+
+<details>
+  <summary><strong>createRoom</strong></summary>
+
+Creates a room (area) within a floor.
+
+**Signature:**
+
+```typescript
+createRoom(floorId: number, params: RoomCreateParams, options?: Core.RequestOptions): Core.APIPromise<Room>
+```
+
+**Parameters:**
+
+-   `floorId` _(number)_: Floor ID.
+-   `params` _(RoomCreateParams)_: Parameters for creating a room.
+    -   `name` _(string)_: Room name.
+    -   `description` _(string)_: (Optional) Room description.
+    -   `area_type` _(string)_: Area type.
+    -   `scene_asset` _(string)_: Scene asset reference.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<Room>`
+
+**Example:**
+
+```typescript
+const room = await client.floors.createRoom(10, {
+    name: 'Conference Room A',
+    description: 'Large meeting room',
+    area_type: 'room',
+    scene_asset: 's3://bucket/room-a.glb',
+});
+```
+
+</details>
+
+# Facilities
+
+## Overview
+
+The `Facilities` class provides methods to manage facilities.
+
+## Methods
+
+<details>
+  <summary><strong>create</strong></summary>
+
+Creates a new facility.
+
+**Signature:**
+
+```typescript
+create(params: FacilityCreateParams, options?: Core.RequestOptions): Core.APIPromise<Facility>
+```
+
+**Parameters:**
+
+-   `params` _(FacilityCreateParams)_: Parameters for creating a facility.
+    -   `name` _(string)_: Facility name.
+    -   `description` _(string)_: Facility description.
+    -   `location` _({ latitude: number; longitude: number })_: Facility location.
+    -   `scene_asset` _(string)_: Scene asset reference.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<Facility>`
+
+**Example:**
+
+```typescript
+const facility = await client.facilities.create({
+    name: 'Warehouse',
+    description: 'Primary distribution center',
+    location: { latitude: 37.7749, longitude: -122.4194 },
+    scene_asset: 's3://bucket/warehouse.glb',
+});
+```
+
+</details>
+
+<details>
+  <summary><strong>retrieve</strong></summary>
+
+Retrieves a facility by ID.
+
+**Signature:**
+
+```typescript
+retrieve(id: string, options?: Core.RequestOptions): Core.APIPromise<Facility>
+```
+
+**Parameters:**
+
+-   `id` _(string)_: Facility ID.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<Facility>`
+
+**Example:**
+
+```typescript
+const facility = await client.facilities.retrieve(1);
+```
+
+</details>
+
+<details>
+  <summary><strong>update</strong></summary>
+
+Updates a facility.
+
+**Signature:**
+
+```typescript
+update(id: number, params: FacilityUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Facility>
+```
+
+**Parameters:**
+
+-   `id` _(number)_: Facility ID.
+-   `params` _(FacilityUpdateParams)_: Facility fields to update.
+    -   `name` _(string)_: Facility name.
+    -   `description` _(string)_: Facility description.
+    -   `location` _({ latitude: number; longitude: number })_: Facility location.
+    -   `scene_asset` _(string)_: Scene asset reference.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<Facility>`
+
+**Example:**
+
+```typescript
+const updated = await client.facilities.update(1, {
+    name: 'Warehouse (East)',
+    description: 'Updated description',
+    location: { latitude: 37.7749, longitude: -122.4194 },
+    scene_asset: 's3://bucket/warehouse-v2.glb',
+});
+```
+
+</details>
+
+<details>
+  <summary><strong>partialUpdate</strong></summary>
+
+Partially updates a facility.
+
+**Signature:**
+
+```typescript
+partialUpdate(id: number, params: FacilityUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Facility>
+```
+
+**Parameters:**
+
+-   `id` _(number)_: Facility ID.
+-   `params` _(FacilityUpdateParams)_: Facility fields to update.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<Facility>`
+
+**Example:**
+
+```typescript
+const patched = await client.facilities.partialUpdate(1, {
+    description: 'Patched description',
+    location: { latitude: 37.7749, longitude: -122.4194 },
+    scene_asset: 's3://bucket/warehouse-hotfix.glb',
+    name: 'Warehouse',
+});
+```
+
+</details>
+
+<details>
+  <summary><strong>list</strong></summary>
+
+Lists facilities.
+
+**Signature:**
+
+```typescript
+list(params: ListParamsResponse, options?: Core.RequestOptions): Core.APIPromise<FacilityListResponse>
+```
+
+**Parameters:**
+
+-   `params` _(ListParamsResponse)_: List/pagination parameters.
+    -   `limit` _(number)_: (Optional) Number of results per page.
+    -   `offset` _(number)_: (Optional) Starting index for results.
+    -   `ordering` _(string)_: (Optional) Field to order results by.
+    -   `search` _(string)_: (Optional) Search term.
+    -   `bbox` _(string)_: (Optional) Bounding box.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<FacilityListResponse>`
+
+**Example:**
+
+```typescript
+const facilities = await client.facilities.list({ limit: 25 });
+```
+
+</details>
+
+<details>
+  <summary><strong>delete</strong></summary>
+
+Deletes a facility by ID.
+
+**Signature:**
+
+```typescript
+delete(id: number, options?: Core.RequestOptions): Core.APIPromise<void>
+```
+
+**Parameters:**
+
+-   `id` _(number)_: Facility ID.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<void>`
+
+**Example:**
+
+```typescript
+await client.facilities.delete(1);
 ```
 
 </details>
@@ -3533,7 +4173,9 @@ const newGeofence = await client.telemetry.geofences.create({
     color: '#00ff00',
     type_zone: 'safe',
     definition: { conditions: { and: [] } },
-    features: [/* PolygonGeometry[] */],
+    features: [
+        /* PolygonGeometry[] */
+    ],
 });
 console.log(newGeofence.id);
 ```
@@ -3594,7 +4236,9 @@ const updatedGeofence = await client.telemetry.geofences.update('123e4567-e89b-1
     color: '#00ff00',
     type_zone: 'safe',
     definition: { conditions: { and: [] } },
-    features: [/* PolygonGeometry[] */],
+    features: [
+        /* PolygonGeometry[] */
+    ],
 });
 ```
 
@@ -3627,7 +4271,9 @@ test(params: Omit<Geofence, 'id' | 'name' | 'color'>, options?: Core.RequestOpti
 await client.telemetry.geofences.test({
     type_zone: 'safe',
     definition: { conditions: { and: [] } },
-    features: [/* PolygonGeometry[] */],
+    features: [
+        /* PolygonGeometry[] */
+    ],
 });
 ```
 

@@ -12,7 +12,7 @@ export class SpaceRoles extends APIResource {
         });
     }
 
-    retrieve(id: number, params: SpaceRoleParams, options?: Core.RequestOptions): Core.APIPromise<SpaceRole> {
+    retrieve(id: string, params: SpaceRoleParams, options?: Core.RequestOptions): Core.APIPromise<SpaceRole> {
         const { 'X-Space': xspace } = params;
         return this._client.get(`/space-roles/${id}`, {
             ...options,

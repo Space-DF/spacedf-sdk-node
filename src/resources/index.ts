@@ -3,6 +3,9 @@
  */
 export * from './auth/index';
 export * from './dashboard/index';
+export * from './building/index';
+export * from './floor/index';
+export * from './facility/index';
 export * from './console/index';
 export * from './device/index';
 export * from './organizations/index';
