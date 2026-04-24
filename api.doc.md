@@ -3652,7 +3652,7 @@ await client.trip.delete('trip-uuid-456');
 
 ## Overview
 
-The `Telemetry` class provides methods for retrieving telemetry entities, alerts, events, automations, actions, and geofences. This class allows you to search and filter telemetry entities by display type and search terms, retrieve alerts, query events by device, list telemetry actions, manage automations (list, create, retrieve, update, delete), and manage geofences (list, create, retrieve, update, delete, test).
+The `Telemetry` class provides methods for retrieving telemetry entities, alerts, events, automations, actions, notifications, and geofences. This class allows you to search and filter telemetry entities by display type and search terms, retrieve alerts, query events by device, list telemetry actions, manage notification subscriptions, manage automations (list, create, retrieve, update, delete), and manage geofences (list, create, retrieve, update, delete, test).
 
 ## Methods
 
@@ -4002,6 +4002,39 @@ const actions = await client.telemetry.actions.list({
     offset: 0,
 });
 console.log(actions.results);
+```
+
+</details>
+
+<details>
+  <summary><strong>notifications.subscribe</strong></summary>
+
+Subscribe a push notification endpoint for telemetry notifications.
+
+**Signature:**
+
+```typescript
+subscribe(params: NotificationsSubscribeParams, options?: Core.RequestOptions): Core.APIPromise<unknown>
+```
+
+**Parameters:**
+
+-   `params` _(NotificationsSubscribeParams)_: Subscription payload:
+    -   `auth` _(string)_: Push subscription auth secret.
+    -   `endpoint` _(string)_: Push service endpoint URL.
+    -   `p256dh` _(string)_: Push subscription \(p256dh\) public key.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<unknown>`
+
+**Example:**
+
+```typescript
+await client.telemetry.notifications.subscribe({
+    auth: 'string1',
+    endpoint: 'string3',
+    p256dh: 'string5',
+});
 ```
 
 </details>
