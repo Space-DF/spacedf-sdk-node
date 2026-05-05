@@ -25,6 +25,10 @@ export class DeviceSpaces extends APIResource {
         });
     }
 
+    retrieveByDeviceId(deviceId: string, options?: Core.RequestOptions): Core.APIPromise<DeviceSpacesParams> {
+        return this._client.get(`/device-spaces/device/${deviceId}`, options);
+    }
+
     delete(id: string, options?: Core.RequestOptions): Core.APIPromise<void> {
         return this._client.delete(`/device-spaces/${id}`, {
             ...options,

@@ -3367,6 +3367,33 @@ console.log(listResponse.results);
 </details>
 
 <details>
+  <summary><strong>retrieveByDeviceId</strong></summary>
+
+Retrieve the device space associated with a device.
+
+**Signature:**
+
+```typescript
+retrieveByDeviceId(deviceId: string, options?: Core.RequestOptions): Core.APIPromise<DeviceSpacesParams>
+```
+
+**Parameters:**
+
+-   `deviceId` _(string)_: Identifier of the device whose device space should be retrieved.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<DeviceSpacesParams>`
+
+**Example:**
+
+```typescript
+const deviceSpace = await client.deviceSpaces.retrieveByDeviceId('8437687685476895');
+console.log(deviceSpace.name, deviceSpace.dev_eui);
+```
+
+</details>
+
+<details>
   <summary><strong>delete</strong></summary>
 
 Delete a device space by its ID.
