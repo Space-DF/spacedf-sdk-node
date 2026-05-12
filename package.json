@@ -1,6 +1,6 @@
 {
   "name": "@space-df/sdk",
-  "version": "0.0.1-dev.49",
+  "version": "0.0.1-dev.50",
   "description": "The official TypeScript library for the Spacedf SDK API",
   "author": "Spacedf SDK <support@digitalfortress.dev>",
   "types": "dist/index.d.ts",
