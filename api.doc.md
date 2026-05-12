@@ -3394,6 +3394,41 @@ console.log(deviceSpace.name, deviceSpace.dev_eui);
 </details>
 
 <details>
+  <summary><strong>partialUpdate</strong></summary>
+
+Partially update a device space by its ID.
+
+**Signature:**
+
+```typescript
+partialUpdate(id: string, params: DeviceSpacesParams, options?: Core.RequestOptions): Core.APIPromise<DeviceSpacesParams>
+```
+
+**Parameters:**
+
+-   `id` _(string)_: A UUID string identifying this device space.
+-   `params` _(DeviceSpacesParams)_: Fields to update on the device space.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<DeviceSpacesParams>`
+
+**Example:**
+
+```typescript
+const updated = await client.deviceSpaces.partialUpdate(
+    '789e0123-e89b-12d3-a456-426614174002',
+    {
+        name: 'Sensor Network A (West Wing)',
+        description: 'Updated description',
+        dev_eui: '8437687685476895',
+    },
+);
+console.log(updated.name);
+```
+
+</details>
+
+<details>
   <summary><strong>delete</strong></summary>
 
 Delete a device space by its ID.
