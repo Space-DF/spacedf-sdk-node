@@ -35,12 +35,25 @@ export class DeviceSpaces extends APIResource {
             headers: { Accept: '*/*', ...options?.headers },
         });
     }
+
+    partialUpdate(id: string, params: DeviceSpacesParams, options?: Core.RequestOptions): Core.APIPromise<DeviceSpacesParams> {
+        return this._client.patch(`/device-spaces/${id}`, {
+            body: params,
+            ...options,
+        });
+    }
 }
 
 export interface DeviceSpacesParams {
     name: string;
     dev_eui: string;
     description: string;
+    building?: string;
+    position?: {
+        x: number;
+        y: number;
+        z: number;
+    };
 }
 
 export type DeviceSpacesListResponse = ListResponse<DeviceSpacesParams>;
