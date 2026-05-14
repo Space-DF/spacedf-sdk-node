@@ -3714,7 +3714,7 @@ await client.trip.delete('trip-uuid-456');
 
 ## Overview
 
-The `Telemetry` class provides methods for retrieving telemetry entities, alerts, events, automations, actions, notifications, and geofences. This class allows you to search and filter telemetry entities by display type and search terms, retrieve alerts, query events by device, list telemetry actions, manage notification subscriptions, manage automations (list, create, retrieve, update, delete), and manage geofences (list, create, retrieve, update, delete, test).
+The `Telemetry` class provides methods for retrieving telemetry entities, alerts, events, automations, actions, notifications, and geofences. This class allows you to search and filter telemetry entities by display type and search terms, bulk-update entity visibility (visible and hidden IDs), retrieve alerts, query events by device, list telemetry actions, manage notification subscriptions, manage automations (list, create, retrieve, update, delete), and manage geofences (list, create, retrieve, update, delete, test).
 
 ## Methods
 
@@ -3768,6 +3768,37 @@ const entities = await client.telemetry.entities.list({
     search: 'Water Depth',
 });
 console.log(entities.count);
+```
+
+</details>
+
+<details>
+  <summary><strong>entities.bulkUpdate</strong></summary>
+
+Bulk-update telemetry entity visibility by sending arrays of entity IDs to mark as visible or hidden. This issues a `POST` to `/telemetry/v1/entities/bulk-update` with a JSON body.
+
+**Signature:**
+
+```typescript
+bulkUpdate(params: BulkUpdateEntitiesParams, options?: Core.RequestOptions): Core.APIPromise<void>
+```
+
+**Parameters:**
+
+-   `params` _(BulkUpdateEntitiesParams)_: JSON body parameters:
+    -   `visible_entity_ids` _(string[])_: Entity IDs to set as visible.
+    -   `hidden_entity_ids` _(string[])_: Entity IDs to set as hidden.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<void>`
+
+**Example:**
+
+```typescript
+await client.telemetry.entities.bulkUpdate({
+    visible_entity_ids: ['entity-id-1', 'entity-id-2'],
+    hidden_entity_ids: ['entity-id-3'],
+});
 ```
 
 </details>

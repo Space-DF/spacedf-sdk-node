@@ -8,7 +8,14 @@ export class Entities extends APIResource {
         return this._client.get(`/telemetry/v1/entities`, {
             query,
             ...options,
-            headers: { ...options?.headers },
+        });
+    }
+
+    bulkUpdate(params: BulkUpdateEntitiesParams, options?: Core.RequestOptions): Core.APIPromise<void> {
+        const { ...body } = params;
+        return this._client.put(`/telemetry/v1/entities/bulk-update`, {
+            body,
+            ...options,
         });
     }
 }
@@ -48,4 +55,16 @@ export interface EntitiesListParams extends ListParamsResponse {
      * Query param: A search term.
      */
     search?: string;
+}
+
+export interface BulkUpdateEntitiesParams {
+    /**
+     * Body param: Array of visible entity IDs to update.
+     */
+    visible_entity_ids: string[];
+
+    /**
+     * Body param: Array of hidden entity IDs to update.
+     */
+    hidden_entity_ids: string[];
 }
