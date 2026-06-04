@@ -3455,6 +3455,57 @@ await client.deviceSpaces.delete('789e0123-e89b-12d3-a456-426614174002');
 
 </details>
 
+<details>
+  <summary><strong>bulkUpdatePosition</strong></summary>
+
+Updates the position of multiple device spaces in a single bulk operation.
+
+**Signature:**
+
+```typescript
+bulkUpdatePosition(params: DeviceSpacesBulkUpdatePositionParams[], options?: Core.RequestOptions): Core.APIPromise<void>
+```
+
+**Parameters:**
+
+-   `params` _(DeviceSpacesBulkUpdatePositionParams[])_: Array of device space position update parameters.
+    -   `id` _(string)_: The unique identifier of the device space.
+    -   `position` _(object)_: The new position of the device space.
+        -   `x` _(number)_: The X coordinate.
+        -   `y` _(number)_: The Y coordinate.
+        -   `z` _(number)_: The Z coordinate.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:**
+
+-   `Core.APIPromise<void>`: A promise that resolves when the bulk update is complete.
+
+**Example Usage:**
+
+```typescript
+// Update positions for multiple device spaces
+await client.deviceSpaces.bulkUpdatePosition([
+    {
+        id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+        position: {
+            x: 10.5,
+            y: 20.0,
+            z: 0.0,
+        },
+    },
+    {
+        id: '789e0123-e89b-12d3-a456-426614174002',
+        position: {
+            x: -5.0,
+            y: 12.3,
+            z: 1.5,
+        },
+    },
+]);
+```
+
+</details>
+
 ---
 
 # Trip

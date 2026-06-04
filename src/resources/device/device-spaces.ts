@@ -42,6 +42,22 @@ export class DeviceSpaces extends APIResource {
             ...options,
         });
     }
+
+    bulkUpdatePosition(params: DeviceSpacesBulkUpdatePositionParams[], options?: Core.RequestOptions): Core.APIPromise<void> {
+        return this._client.put(`/device-spaces/bulk-update`, {
+            body: params,
+            ...options,
+        });
+    }
+}
+
+export interface DeviceSpacesBulkUpdatePositionParams {
+    id: string;
+    position: {
+        x: number;
+        y: number;
+        z: number;
+    };
 }
 
 export interface DeviceSpacesParams {
