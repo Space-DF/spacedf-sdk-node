@@ -26,6 +26,7 @@
 -   [Users](#users)
 -   [Trip](#trip)
 -   [Telemetry](#telemetry)
+-   [Custom Domains](#custom-domains)
 
 # Auth
 
@@ -4463,6 +4464,44 @@ checkSlugName(slugName: string, options?: Core.RequestOptions): Core.APIPromise<
 
 ```typescript
 await client.organizations.checkSlugName('danang');
+```
+
+</details>
+
+---
+
+# Custom Domains
+
+## Overview
+
+The `CustomDomain` class provides methods for managing and resolving custom domains.
+
+## Methods
+
+<details>
+  <summary><strong>resolve</strong></summary>
+
+Resolve a custom domain to obtain organization details.
+
+**Signature:**
+
+```typescript
+resolve(host: string, options?: Core.RequestOptions): Core.APIPromise<ResolveResponse>
+```
+
+**Parameters:**
+
+-   `host` _(string)_: The host name of the custom domain to resolve.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<ResolveResponse>`
+
+**Example:**
+
+```typescript
+const response = await client.customDomains.resolve('custom.example.com');
+console.log(response.org_slug);
+console.log(response.org_name);
 ```
 
 </details>
