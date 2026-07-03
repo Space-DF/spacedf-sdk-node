@@ -3368,6 +3368,48 @@ console.log(listResponse.results);
 </details>
 
 <details>
+  <summary><strong>listPublic</strong></summary>
+
+List public device spaces with optional filtering, ordering, and pagination.
+
+**Signature:**
+
+```typescript
+listPublic(params?: ListParamsResponse, options?: Core.RequestOptions): Core.APIPromise<DeviceSpacesListResponse>
+```
+
+**Parameters:**
+
+-   `params` _(ListParamsResponse, optional)_: Query parameters for filtering, ordering, and pagination:
+    -   `ordering` _(string, optional)_: Which field to use when ordering the results.
+    -   `search` _(string, optional)_: A search term to filter results.
+    -   `limit` _(integer, optional)_: Number of results to return per page.
+    -   `offset` _(integer, optional)_: The initial index from which to return the results.
+-   `options` _(Core.RequestOptions, optional)_: Additional request options.
+
+**Returns:** `Promise<DeviceSpacesListResponse>`
+
+**Response shape:**
+
+-   `count` _(integer)_: Total number of device spaces matching the query.
+-   `next` _(string | null)_: URL to the next page of results, or `null`.
+-   `previous` _(string | null)_: URL to the previous page of results, or `null`.
+-   `results` _(DeviceSpacesParams[])_: Array of device space objects.
+
+**Example:**
+
+```typescript
+const publicDeviceSpaces = await client.deviceSpaces.listPublic({
+    ordering: 'name',
+    limit: 10,
+    offset: 0,
+});
+console.log(publicDeviceSpaces.results);
+```
+
+</details>
+
+<details>
   <summary><strong>retrieveByDeviceId</strong></summary>
 
 Retrieve the device space associated with a device.
