@@ -3410,6 +3410,33 @@ console.log(publicDeviceSpaces.results);
 </details>
 
 <details>
+  <summary><strong>retrievePublic</strong></summary>
+
+Retrieve a public device space by its ID.
+
+**Signature:**
+
+```typescript
+retrievePublic(id: string, options?: Core.RequestOptions): Core.APIPromise<DeviceSpacesParams>
+```
+
+**Parameters:**
+
+-   `id` _(string)_: A UUID string identifying this device space.
+-   `options` _(Core.RequestOptions, optional)_: Additional request options.
+
+**Returns:** `Promise<DeviceSpacesParams>`
+
+**Example:**
+
+```typescript
+const publicDeviceSpace = await client.deviceSpaces.retrievePublic('3fa85f64-5717-4562-b3fc-2c963f66afa6');
+console.log(publicDeviceSpace.name);
+```
+
+</details>
+
+<details>
   <summary><strong>retrieveByDeviceId</strong></summary>
 
 Retrieve the device space associated with a device.

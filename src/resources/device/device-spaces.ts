@@ -32,6 +32,10 @@ export class DeviceSpaces extends APIResource {
         });
     }
 
+    retrievePublic(id: string, options?: Core.RequestOptions): Core.APIPromise<DeviceSpacesParams> {
+        return this._client.get(`/public/device-spaces/${id}`, options);
+    }
+
     retrieveByDeviceId(deviceId: string, options?: Core.RequestOptions): Core.APIPromise<DeviceSpacesParams> {
         return this._client.get(`/device-spaces/device/${deviceId}`, options);
     }
