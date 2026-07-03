@@ -3368,6 +3368,75 @@ console.log(listResponse.results);
 </details>
 
 <details>
+  <summary><strong>listPublic</strong></summary>
+
+List public device spaces with optional filtering, ordering, and pagination.
+
+**Signature:**
+
+```typescript
+listPublic(params?: ListParamsResponse, options?: Core.RequestOptions): Core.APIPromise<DeviceSpacesListResponse>
+```
+
+**Parameters:**
+
+-   `params` _(ListParamsResponse, optional)_: Query parameters for filtering, ordering, and pagination:
+    -   `ordering` _(string, optional)_: Which field to use when ordering the results.
+    -   `search` _(string, optional)_: A search term to filter results.
+    -   `limit` _(integer, optional)_: Number of results to return per page.
+    -   `offset` _(integer, optional)_: The initial index from which to return the results.
+-   `options` _(Core.RequestOptions, optional)_: Additional request options.
+
+**Returns:** `Promise<DeviceSpacesListResponse>`
+
+**Response shape:**
+
+-   `count` _(integer)_: Total number of device spaces matching the query.
+-   `next` _(string | null)_: URL to the next page of results, or `null`.
+-   `previous` _(string | null)_: URL to the previous page of results, or `null`.
+-   `results` _(DeviceSpacesParams[])_: Array of device space objects.
+
+**Example:**
+
+```typescript
+const publicDeviceSpaces = await client.deviceSpaces.listPublic({
+    ordering: 'name',
+    limit: 10,
+    offset: 0,
+});
+console.log(publicDeviceSpaces.results);
+```
+
+</details>
+
+<details>
+  <summary><strong>retrievePublic</strong></summary>
+
+Retrieve a public device space by its ID.
+
+**Signature:**
+
+```typescript
+retrievePublic(id: string, options?: Core.RequestOptions): Core.APIPromise<DeviceSpacesParams>
+```
+
+**Parameters:**
+
+-   `id` _(string)_: A UUID string identifying this device space.
+-   `options` _(Core.RequestOptions, optional)_: Additional request options.
+
+**Returns:** `Promise<DeviceSpacesParams>`
+
+**Example:**
+
+```typescript
+const publicDeviceSpace = await client.deviceSpaces.retrievePublic('3fa85f64-5717-4562-b3fc-2c963f66afa6');
+console.log(publicDeviceSpace.name);
+```
+
+</details>
+
+<details>
   <summary><strong>retrieveByDeviceId</strong></summary>
 
 Retrieve the device space associated with a device.
