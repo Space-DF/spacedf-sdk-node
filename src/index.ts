@@ -151,6 +151,7 @@ export class SpaceDFSDK extends Core.APIClient {
     organizations: API.Organizations = new API.Organizations(this);
     telemetry: API.Telemetry = new API.Telemetry(this);
     customDomains: API.CustomDomain = new API.CustomDomain(this);
+    plans: API.Plans = new API.Plans(this);
 
     protected override defaultQuery(): Core.DefaultQuery | undefined {
         return this._options.defaultQuery;
