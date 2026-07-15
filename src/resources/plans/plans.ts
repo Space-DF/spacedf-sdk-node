@@ -3,6 +3,7 @@ import { APIResource } from '../../resource';
 
 export class Plans extends APIResource {
     retrieve(plan: PlanCode, options?: Core.RequestOptions): Core.APIPromise<Plan> {
+        Core.ensurePresent(plan);
         return this._client.get(`/plans/${plan}`, options);
     }
 }
