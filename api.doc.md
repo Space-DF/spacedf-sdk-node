@@ -27,6 +27,7 @@
 -   [Trip](#trip)
 -   [Telemetry](#telemetry)
 -   [Custom Domains](#custom-domains)
+-   [Plans](#plans)
 
 # Auth
 
@@ -4622,6 +4623,122 @@ resolve(host: string, options?: Core.RequestOptions): Core.APIPromise<ResolveRes
 const response = await client.customDomains.resolve('custom.example.com');
 console.log(response.org_slug);
 console.log(response.org_name);
+```
+
+</details>
+
+---
+
+# Plans
+
+## Overview
+
+The `Plans` class provides methods for retrieving subscription plans, including their pricing items, features, and support entitlements.
+
+## Types
+
+### PlanCode
+
+```typescript
+type PlanCode = 'free' | 'pro';
+```
+
+### BillingCycle
+
+```typescript
+type BillingCycle = 'monthly' | 'yearly';
+```
+
+### FeatureValueType
+
+```typescript
+type FeatureValueType = 'limit' | 'boolean' | 'quota';
+```
+
+### Plan
+
+```typescript
+interface Plan {
+    id: string; // Unique identifier of the plan
+    name: string; // Human-readable plan name (e.g. "Free")
+    code: PlanCode; // Machine-readable plan code (e.g. "free")
+    description: string; // Description of the plan
+    plan_items: PlanItem[]; // Pricing options for each billing cycle
+    is_current_plan: boolean; // Whether this is the caller's current plan
+    created_at: string; // Creation timestamp (ISO 8601 format)
+    updated_at: string; // Last update timestamp (ISO 8601 format)
+    features: PlanFeature[]; // Feature entitlements for the plan
+    support: PlanFeature[]; // Support entitlements for the plan
+}
+```
+
+### PlanItem
+
+```typescript
+interface PlanItem {
+    id: string; // Unique identifier of the plan item
+    price: string; // Price as a decimal string (e.g. "0.00")
+    icon: string; // Icon reference for the plan item
+    currency: string; // Currency code (e.g. "USD")
+    discount: number; // Discount applied to the price
+    billing_cycle: BillingCycle; // Billing cycle for this item
+    is_active: boolean; // Whether this item is currently active
+    created_at: string; // Creation timestamp (ISO 8601 format)
+    updated_at: string; // Last update timestamp (ISO 8601 format)
+}
+```
+
+### PlanFeature
+
+```typescript
+interface PlanFeature {
+    id: string; // Unique identifier of the plan feature
+    feature: Feature; // The underlying feature definition
+    enabled: boolean; // Whether the feature is enabled for the plan
+    limit_value: number | null; // Numeric limit/quota, or null for boolean features
+    metadata: Record<string, unknown>; // Additional feature metadata
+}
+```
+
+### Feature
+
+```typescript
+interface Feature {
+    id: string; // Unique identifier of the feature
+    code: string; // Machine-readable feature code (e.g. "device.max_count")
+    name: string; // Human-readable feature name
+    description: string; // Description of the feature
+    value_type: FeatureValueType; // How the feature's value is interpreted
+}
+```
+
+## Methods
+
+<details>
+  <summary><strong>retrieve</strong></summary>
+
+Retrieve a plan by its code.
+
+**Signature:**
+
+```typescript
+retrieve(plan: PlanCode, options?: Core.RequestOptions): Core.APIPromise<Plan>
+```
+
+**Parameters:**
+
+-   `plan` _(PlanCode)_: The plan code identifying the plan (`'free'` or `'pro'`).
+-   `options` _(Core.RequestOptions, optional)_: Additional request options.
+
+**Returns:** `Promise<Plan>`
+
+**Example:**
+
+```typescript
+const plan = await client.plans.retrieve('free');
+console.log(plan.name);
+console.log(plan.is_current_plan);
+console.log(plan.features.map((f) => f.feature.code));
 ```
 
 </details>

@@ -11,3 +11,4 @@ export * from './device/index';
 export * from './organizations/index';
 export * from './telemetry/index';
 export * from './custom-domains/index';
+export * from './plans/index';
