@@ -1037,6 +1037,43 @@ if (joinResponse.error) {
 
 </details>
 
+<details>
+  <summary><strong>checkOrgByslugName</strong></summary>
+
+Check organization / space by slug name.
+
+**Signature:**
+
+```typescript
+checkOrgByslugName(slugName: string, options?: Core.RequestOptions): Core.APIPromise<CheckOrgByslugNameResponse>
+```
+
+**Parameters:**
+
+-   `slugName` _(string)_: A slug name string identifying the space.
+-   `options` _(Core.RequestOptions)_: Additional request options.
+
+**Returns:** `Promise<CheckOrgByslugNameResponse>`
+
+Where `CheckOrgByslugNameResponse` is:
+
+```typescript
+export interface CheckOrgByslugNameResponse {
+    result?: string;
+}
+```
+
+**Example:**
+
+```typescript
+const checkResponse = await client.spaces.checkOrgByslugName('default-8e4ee506-5937-4afb-9939-38fc8304a058');
+
+console.log(checkResponse.result);
+// Output: "Space with slug 'default-8e4ee506-5937-4afb-9939-38fc8304a058' not found."
+```
+
+</details>
+
 ---
 
 # Oauth2
@@ -3486,14 +3523,11 @@ partialUpdate(id: string, params: DeviceSpacesParams, options?: Core.RequestOpti
 **Example:**
 
 ```typescript
-const updated = await client.deviceSpaces.partialUpdate(
-    '789e0123-e89b-12d3-a456-426614174002',
-    {
-        name: 'Sensor Network A (West Wing)',
-        description: 'Updated description',
-        dev_eui: '8437687685476895',
-    },
-);
+const updated = await client.deviceSpaces.partialUpdate('789e0123-e89b-12d3-a456-426614174002', {
+    name: 'Sensor Network A (West Wing)',
+    description: 'Updated description',
+    dev_eui: '8437687685476895',
+});
 console.log(updated.name);
 ```
 
