@@ -59,6 +59,10 @@ export class Spaces extends APIResource {
     joinSpace(token: string, options?: Core.RequestOptions): Core.APIPromise<JoinSpaceResponse> {
         return this._client.get(`/spaces/join-space/${token}`, options);
     }
+
+    checkOrgByslugName(slugName: string, options?: Core.RequestOptions): Core.APIPromise<CheckOrgByslugNameResponse> {
+        return this._client.get(`/spaces/check/${slugName}`, options);
+    }
 }
 
 export interface Space {
@@ -141,5 +145,9 @@ export interface Receiver {
 
 export interface JoinSpaceResponse {
     error?: string;
+    result?: string;
+}
+
+export interface CheckOrgByslugNameResponse {
     result?: string;
 }

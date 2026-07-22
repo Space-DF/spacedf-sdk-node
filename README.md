@@ -103,7 +103,7 @@ const registerResponse = await client.auth.register(
         password: 'example',
     },
     {
-        organization: 'your-organization'
+        organization: 'your-organization',
     },
 );
 
