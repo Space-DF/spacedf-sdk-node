@@ -4595,6 +4595,66 @@ await client.telemetry.geofences.delete('123e4567-e89b-12d3-a456-426614174000');
 
 The `Organizations` class provides methods for managing organizations within an application.
 
+## Types
+
+### MonitoringType
+
+```typescript
+type MonitoringType = 'water_level';
+```
+
+### MonitoringThresholds
+
+```typescript
+interface MonitoringThresholds {
+    safe: number; // Upper bound of the safe range
+    caution: number; // Upper bound of the caution range
+    warning: number; // Upper bound of the warning range
+}
+```
+
+### MonitoringColors
+
+```typescript
+interface MonitoringColors {
+    safe: string; // Color used for the safe level
+    caution: string; // Color used for the caution level
+    warning: string; // Color used for the warning level
+    danger: string; // Color used for the danger level
+}
+```
+
+### MonitoringDisplaySettings
+
+```typescript
+interface MonitoringDisplaySettings {
+    coverage: boolean; // Whether the coverage layer is displayed
+    device_icons: boolean; // Whether device icons are displayed
+    water_column: boolean; // Whether the water column is displayed
+}
+```
+
+### MonitoringSetting
+
+```typescript
+interface MonitoringSetting {
+    id: string; // Unique identifier of the monitoring setting
+    cell_size: number; // Size of a monitoring grid cell
+    type: MonitoringType; // Monitoring type (e.g. "water_level")
+    thresholds: MonitoringThresholds; // Threshold values per level
+    colors: MonitoringColors; // Colors used to render each level
+    display_settings: MonitoringDisplaySettings; // Layer visibility settings
+    created_at: string; // Creation timestamp (ISO 8601 format)
+    updated_at: string; // Last update timestamp (ISO 8601 format)
+}
+```
+
+### UpdateMonitoringPayload
+
+```typescript
+type UpdateMonitoringPayload = Pick<MonitoringSetting, 'cell_size' | 'type' | 'thresholds' | 'colors' | 'display_settings'>;
+```
+
 ## Methods
 
 <details>
@@ -4619,6 +4679,37 @@ checkSlugName(slugName: string, options?: Core.RequestOptions): Core.APIPromise<
 
 ```typescript
 await client.organizations.checkSlugName('danang');
+```
+
+</details>
+
+<details>
+  <summary><strong>getMonitoringSetting</strong></summary>
+
+Retrieve the monitoring setting of the current organization.
+
+**Signature:**
+
+```typescript
+getMonitoringSetting(options?: Core.RequestOptions): Core.APIPromise<MonitoringSetting>
+```
+
+**Parameters:**
+
+-   `options` _(Core.RequestOptions, optional)_: Additional request options.
+
+**Returns:** `Promise<MonitoringSetting>`
+
+**Example:**
+
+```typescript
+const monitoring = await client.organizations.getMonitoringSetting();
+
+console.log(monitoring.type); // "water_level"
+console.log(monitoring.cell_size);
+console.log(monitoring.thresholds.warning);
+console.log(monitoring.colors.danger);
+console.log(monitoring.display_settings.water_column);
 ```
 
 </details>
